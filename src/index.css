@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors used in your design */
+  --color-background: #f8f9ff;
+  --color-on-background: #121c28;
+  --color-surface: #f8f9ff;
+  --color-on-surface: #121c28;
+  --color-surface-variant: #d9e3f4;
+  --color-on-surface-variant: #434655;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eef4ff;
+  --color-surface-container-high: #dfe9fa;
+  --color-primary: #004ac6;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-on-primary-fixed-variant: #003ea8;
+  --color-outline-variant: #c3c6d7;
+  --color-error: #ba1a1a;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 32px;
+  --spacing-gutter: 24px;
+
+  /* Secondary */
+  --color-secondary: #006c49;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #6cf8bb;
+  --color-on-secondary-container: #00714d;
+
+  /* Tertiary */
+  --color-tertiary: #943700;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #bc4800;
+  --color-on-tertiary-container: #ffede6;
+
+  /* Surface & Misc */
+  --color-surface-container: #e5eeff;
+  --color-surface-bright: #f8f9ff;
+  --color-outline: #737686;
+  --color-surface-tint: #0053db;
+  --color-error-container: #ffdad6;
+
+  /* Typography Fonts */
+  --font-button-text: "Hanken Grotesk", sans-serif;
+  --font-headline-lg-mobile: "Hanken Grotesk", sans-serif;
+  --font-body-md: "Hanken Grotesk", sans-serif;
+  --font-headline-md: "Hanken Grotesk", sans-serif;
+  --font-headline-lg: "Hanken Grotesk", sans-serif;
+  --font-body-lg: "Hanken Grotesk", sans-serif;
+  --font-label-md: "Hanken Grotesk", sans-serif;
+
+  /* Typography Sizes (Size + Line Height + Font Weight) */
+  --text-button-text: 14px;
+  --text-button-text--line-height: 20px;
+  --text-button-text--font-weight: 600;
+
+  --text-headline-lg-mobile: 24px;
+  --text-headline-lg-mobile--line-height: 32px;
+  --text-headline-lg-mobile--font-weight: 700;
+
+  --text-body-md: 14px;
+  --text-body-md--line-height: 20px;
+  --text-body-md--font-weight: 400;
+
+  --text-headline-md: 20px;
+  --text-headline-md--line-height: 28px;
+  --text-headline-md--font-weight: 600;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: -0.02em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 24px;
+  --text-body-lg--font-weight: 400;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.05em;
+  --text-label-md--font-weight: 600;
+}
