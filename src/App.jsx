@@ -14,7 +14,7 @@ import HelpLayout from "./layouts/HelpLayout";
 
 // Shared pages
 import LoginPage from "./pages/Login/LoginPage";
-import NotFound from "./pages/notFound/NotFound";
+import NotFound from "./pages/NotFound/NotFound"; //fix deploy error here
 
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
