@@ -1,12 +1,14 @@
 import React from "react";
 import { MdMoreVert } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersRow({ user }) {
+  const navigate = useNavigate();
   return (
     <tr className="hover:bg-surface-container-low transition-colors duration-150 group">
       
       {/* ── User Details (Avatar + Name + Email) ── */}
-      <td className="py-md px-md">
+      <td onClick={()=> navigate(`/admin/users/${user.id}`)} className="py-md px-md cursor-pointer hover:bg-surface-container-low">
         <div className="flex items-center gap-sm">
           {/* Render image if avatar exists, else render initials */}
           {user.avatar ? (

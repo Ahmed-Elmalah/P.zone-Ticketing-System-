@@ -8,11 +8,17 @@
 //   onChange  - Formik's setFieldValue
 // ============================================================
 
-export default function AccountStatusToggle({ isActive, onChange }) {
+export default function AccountStatusToggle({
+  isActive,
+  onChange,
+  disabled = false,
+}) {
   return (
-    <div className="flex items-center justify-between bg-surface p-md
-      rounded-lg border border-outline-variant">
-
+    <div
+      className={`flex items-center justify-between bg-surface p-md
+      rounded-lg border border-outline-variant
+      ${disabled ? "opacity-60" : ""}`}
+    >
       {/* Label + description */}
       <div>
         <h4 className="font-button-text text-button-text text-on-surface mb-xs">
@@ -26,12 +32,13 @@ export default function AccountStatusToggle({ isActive, onChange }) {
       {/* Toggle switch */}
       <label className="flex items-center gap-sm cursor-pointer shrink-0 ml-lg">
         <div
-          onClick={() => onChange("isActive", !isActive)}
+          onClick={() => !disabled && onChange("isActive", !isActive)}
           className={`relative w-11 h-6 rounded-full transition-colors duration-200
             ${isActive ? "bg-primary" : "bg-outline-variant"}`}
         >
           {/* Sliding thumb */}
-          <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full
+          <div
+            className={`absolute top-0.5 w-5 h-5 bg-white rounded-full
             border border-outline-variant shadow-sm transition-all duration-200
             ${isActive ? "left-5.5" : "left-0.5"}`}
           />
@@ -40,7 +47,6 @@ export default function AccountStatusToggle({ isActive, onChange }) {
           {isActive ? "Active" : "Inactive"}
         </span>
       </label>
-
     </div>
   );
 }

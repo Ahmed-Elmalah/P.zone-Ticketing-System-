@@ -17,26 +17,33 @@ import RoleCard from "./RoleCard";
 // value must match the Strapi role name exactly
 const ROLES = [
   {
-    value:       "authenticated",
-    icon:        MdPerson,
-    label:       "Standard User",
-    description: "Can create tickets, view own history, and access the public knowledge base.",
+    value: "authenticated",
+    icon: MdPerson,
+    label: "Standard User",
+    description:
+      "Can create tickets, view own history, and access the public knowledge base.",
   },
   {
-    value:       "help",
-    icon:        MdSupportAgent,
-    label:       "HelpDesk Agent",
-    description: "Can manage assigned tickets, communicate with users, and edit internal knowledge base articles.",
+    value: "help",
+    icon: MdSupportAgent,
+    label: "HelpDesk Agent",
+    description:
+      "Can manage assigned tickets, communicate with users, and edit internal knowledge base articles.",
   },
   {
-    value:       "admin",
-    icon:        MdAdminPanelSettings,
-    label:       "Administrator",
-    description: "Full system access, including user management, system settings, and advanced reporting.",
+    value: "admin",
+    icon: MdAdminPanelSettings,
+    label: "Administrator",
+    description:
+      "Full system access, including user management, system settings, and advanced reporting.",
   },
 ];
 
-export default function RoleAssignment({ selectedRole, onChange }) {
+export default function RoleAssignment({
+  selectedRole,
+  onChange,
+  disabled = false,
+}) {
   return (
     <div>
       <h3 className="font-headline-md text-headline-md text-on-surface mb-sm">
@@ -53,6 +60,7 @@ export default function RoleAssignment({ selectedRole, onChange }) {
             {...role}
             isSelected={selectedRole === role.value}
             onChange={onChange}
+            disabled={disabled}
           />
         ))}
       </div>

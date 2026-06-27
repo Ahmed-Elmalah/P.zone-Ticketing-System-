@@ -63,7 +63,10 @@ function PasswordField({ name, placeholder }) {
   );
 }
 
-export default function PersonalInfoFields() {
+export default function PersonalInfoFields({ disabled = false }) {
+  const disabledClass = disabled
+    ? "opacity-60 cursor-not-allowed bg-surface-container-low"
+    : "";
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
       {/* ── Left column ── */}
@@ -73,7 +76,8 @@ export default function PersonalInfoFields() {
             name="fullName"
             type="text"
             placeholder="Jane Doe"
-            className={inputClass}
+            disabled={disabled}
+            className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
 
@@ -82,7 +86,8 @@ export default function PersonalInfoFields() {
             name="email"
             type="email"
             placeholder="jane.doe@company.com"
-            className={inputClass}
+            disabled={disabled}
+            className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
       </div>
@@ -94,7 +99,8 @@ export default function PersonalInfoFields() {
             <Field
               as="select"
               name="department"
-              className={`${inputClass} appearance-none cursor-pointer`}
+              disabled={disabled}
+              className={`${inputClass} appearance-none cursor-pointer ${disabledClass}`}
             >
               <option value="">Select Department...</option>
               {DEPARTMENTS.map(({ value, label }) => (
@@ -115,7 +121,8 @@ export default function PersonalInfoFields() {
             name="jobTitle"
             type="text"
             placeholder="e.g. Support Technician"
-            className={inputClass}
+            disabled={disabled}
+            className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
       </div>

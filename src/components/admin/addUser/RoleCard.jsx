@@ -19,15 +19,17 @@ export default function RoleCard({
   icon: Icon,
   isSelected,
   onChange,
+  disabled = false,
 }) {
   return (
     <label
-      onClick={() => onChange("role", value)}
-      className={`flex items-start gap-md p-md rounded-lg border cursor-pointer
-        transition-colors
-        ${isSelected
-          ? "border-primary bg-surface-container-low"
-          : "border-outline-variant hover:bg-surface-container-low"
+      onClick={() => !disabled && onChange("role", value)}
+      className={`flex items-start gap-md p-md rounded-lg border transition-colors
+        ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}
+        ${
+          isSelected
+            ? "border-primary bg-surface-container-low"
+            : `border-outline-variant ${!disabled ? "hover:bg-surface-container-low" : ""}`
         }`}
     >
       {/* Hidden radio input — Formik tracks value, not the input */}
@@ -36,7 +38,8 @@ export default function RoleCard({
         name="role"
         value={value}
         checked={isSelected}
-        onChange={() => onChange("role", value)}
+        disabled={disabled}
+        onChange={() => !disabled && onChange("role", value)}
         className="w-4 h-4 text-primary bg-surface border-outline-variant
           focus:ring-primary focus:ring-2 mt-1 shrink-0"
       />

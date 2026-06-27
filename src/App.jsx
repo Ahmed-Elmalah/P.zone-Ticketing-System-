@@ -42,6 +42,7 @@ import NewTicket from "./pages/user/NewTicket";
 import TicketDetail from "./pages/user/TicketDetail";
 import ProfilePage from "./pages/profile/ProfilePage";
 import { Toaster } from "react-hot-toast";
+import UserDetails from "./pages/admin/UserDetails";
 
 // ── Root redirect ─────────────────────────────────────────────
 // If there's a saved token → go to /admin (useLogin's checkToken
@@ -88,6 +89,7 @@ export default function App() {
             <Route path="tickets/:id" element={<AdminTicketDetail />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="users/new" element={<AddUser />} />
+            <Route path="users/:id"       element={<UserDetails />} />
             <Route path="settings" element={<AdminSettings />} />
             <Route path="profile" element={<ProfilePage />} />
           </Route>
