@@ -4,62 +4,56 @@
 // Data is static for now — replace with API calls later.
 // ============================================================
 
+import React, { useEffect } from "react";
 import WelcomeHeader from "../../components/user/dashboard/WelcomeHeader";
 import SummaryCard from "../../components/user/dashboard/SummaryCard";
 import RecentTickets from "../../components/user/dashboard/RecentTickets";
 import QuickActions from "../../components/user/dashboard/QuickActions";
 import HelpfulLinks from "../../components/user/dashboard/HelpfulLinks";
 import { MdInbox, MdTaskAlt } from "react-icons/md";
-
-// ── Static data (replace with useFetch / API call later) ────
-const summaryStats = [
-  {
-    label: "My Open Tickets",
-    count: 3,
-    icon: MdInbox,
-    accentColor: "primary",
-    trend: "+3 since yesterday",
-    trendUp: false,
-  },
-  {
-    label: "My Resolved Tickets",
-    count: 15,
-    icon: MdTaskAlt,
-    accentColor: "secondary",
-    trend: "+12 this week",
-    trendUp: true,
-  },
-];
-
-const recentTickets = [
-  {
-    id: 1,
-    title: "Cannot access internal dashboard",
-    date: "Oct 24, 2023",
-    status: "open",
-  },
-  {
-    id: 2,
-    title: "Billing issue with latest invoice",
-    date: "Oct 23, 2023",
-    status: "pending",
-  },
-  {
-    id: 3,
-    title: "Update user permissions for marketing team",
-    date: "Oct 22, 2023",
-    status: "closed",
-  },
-  {
-    id: 4,
-    title: "API Rate limit exceeded on production",
-    date: "Oct 22, 2023",
-    status: "open",
-  },
-];
+// Import store
+import useTicketStore from "../../store/useTicketStore";
 
 // ── Page ─────────────────────────────────────────────────────
 export default function Dashboard() {
+  const { tickets, fetchTickets, isLoading } = useTicketStore();
+
+  useEffect(() => {
+    fetchTickets();
+  }, [fetchTickets]);
+
+  // Calculate dynamic stats
+  const openTickets = tickets.filter((t) => t.status?.toLowerCase() !== "closed" && t.status?.toLowerCase() !== "resolved").length;
+  const resolvedTickets = tickets.filter((t) => t.status?.toLowerCase() === "resolved" || t.status?.toLowerCase() === "closed").length;
+
+  const summaryStats = [
+    {
+      label: "My Open Tickets",
+      count: openTickets,
+      icon: MdInbox,
+      accentColor: "primary",
+      trend: "Based on current data",
+      trendUp: false,
+    },
+    {
+      label: "My Resolved Tickets",
+      count: resolvedTickets,
+      icon: MdTaskAlt,
+      accentColor: "secondary",
+      trend: "Based on current data",
+      trendUp: true,
+    },
+  ];
+
+  // Map to format RecentTickets expects
+  const recentTickets = tickets.slice(0, 4).map((t) => ({
+    id: t.documentId || t.id,
+    title: t.subject,
+    date: new Date(t.createdAt).toLocaleDateString(),
+    status: t.status?.toLowerCase() || 'open',
+  }));
+
+
   return (
     <main className="max-w-360 mx-auto flex flex-col gap-xl">
       {/* Welcome greeting */}

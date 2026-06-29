@@ -16,7 +16,7 @@ const LoginRepo = {
   // POST /api/auth/local
   // Login with email + password, returns { jwt, user }
   auth_login: (values) => {
-    return axios.post(`${domain}/api/auth/local`, {
+    return axios.post(`${domain}/auth/local`, {
       identifier: values.email,
       password: values.password,
     });
@@ -25,7 +25,7 @@ const LoginRepo = {
   // POST /api/auth/local/register
   // Register a new user, returns { jwt, user }
   auth_signup: (values) => {
-    return axios.post(`${domain}/api/auth/local/register`, {
+    return axios.post(`${domain}/auth/local/register`, {
       username: values.username,
       email: values.email,
       password: values.password,
@@ -35,7 +35,7 @@ const LoginRepo = {
   // GET /api/users/me?populate=role
   // Validate JWT and return the current user's data + role
   check_token: (jwt) => {
-    return axios.get(`${domain}/api/users/me?populate=role`, {
+    return axios.get(`${domain}/users/me?populate=role`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },
@@ -43,7 +43,7 @@ const LoginRepo = {
   // PUT /api/users/:id
   // Update any user fields (profile data, role, branch…)
   update_user: (id, data, jwt) => {
-    return axios.put(`${domain}/api/users/${id}`, data, {
+    return axios.put(`${domain}/users/${id}`, data, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },
@@ -51,7 +51,7 @@ const LoginRepo = {
   // POST /api/auth/change-password
   // Change password for the currently logged-in user
   change_password: (data, jwt) => {
-    return axios.post(`${domain}/api/auth/change-password`, data, {
+    return axios.post(`${domain}/auth/change-password`, data, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },
@@ -59,7 +59,7 @@ const LoginRepo = {
   // GET /api/users?populate=role
   // Fetch all users — admin only
   getAllUsers: (jwt) => {
-    return axios.get(`${domain}/api/users?populate=role`, {
+    return axios.get(`${domain}/users?populate=role`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },
@@ -67,7 +67,7 @@ const LoginRepo = {
   // GET /api/users/:id?populate=role
   // Fetch a single user by ID
   getUserById: (id, jwt) => {
-    return axios.get(`${domain}/api/users/${id}?populate=role`, {
+    return axios.get(`${domain}/users/${id}?populate=role`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },
@@ -75,7 +75,7 @@ const LoginRepo = {
   // DELETE /api/users/:id
   // Delete a user by ID — admin only
   deleteUser: (id, jwt) => {
-    return axios.delete(`${domain}/api/users/${id}`, {
+    return axios.delete(`${domain}/users/${id}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
   },

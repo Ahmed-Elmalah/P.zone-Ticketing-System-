@@ -6,16 +6,16 @@
 
 import { Field, ErrorMessage } from "formik";
 import { MdExpandMore } from "react-icons/md";
-
-// ── Add new categories here ──────────────────────────────────
-const CATEGORIES = [
-  { value: "billing", label: "Billing & Subscriptions" },
-  { value: "technical", label: "Technical Support" },
-  { value: "access", label: "Account Access" },
-  { value: "other", label: "Other Inquiry" },
-];
+import { useEffect } from "react";
+import useAdminStore from "../../../store/useAdminStore";
 
 export default function CategoryField() {
+  const { categories, fetchCategories, isLoadingCategories } = useAdminStore();
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
   return (
     <div className="flex flex-col gap-sm">
       {/* Label */}
@@ -36,16 +36,17 @@ export default function CategoryField() {
             border border-transparent focus:border-primary
             rounded-lg px-md py-3 font-body-md text-body-md text-on-surface
             transition-all outline-none appearance-none cursor-pointer"
+          disabled={isLoadingCategories}
         >
           {/* Default placeholder option */}
           <option value="" disabled>
-            Select a category
+            {isLoadingCategories ? "Loading categories..." : "Select a category"}
           </option>
 
           {/* Dynamic options */}
-          {CATEGORIES.map(({ value, label }) => (
-            <option key={value} value={value}>
-              {label}
+          {categories.map((cat) => (
+            <option key={ cat.documentId} value={ cat.documentId}>
+              {cat.name}
             </option>
           ))}
         </Field>

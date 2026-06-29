@@ -1,18 +1,22 @@
 import React from "react";
 
-// Status color mapping for dynamic styling
+// Status color mapping — matches Strapi enum values exactly
 const statusStyles = {
   Open: {
     badge: "bg-secondary-container text-on-secondary-container",
     dot: "bg-secondary",
   },
+  InProgress: {
+    badge: "bg-[#e3f2fd] text-[#1565c0]",
+    dot: "bg-[#1976d2]",
+  },
+  Resolved: {
+    badge: "bg-[#e8f5e9] text-[#2e7d32]",
+    dot: "bg-[#43a047]",
+  },
   Closed: {
     badge: "bg-surface-container-high text-on-surface-variant",
     dot: "bg-outline",
-  },
-  Pending: {
-    badge: "bg-[#fff3e0] text-[#e65100]",
-    dot: "bg-[#ff9800]",
   },
 };
 
