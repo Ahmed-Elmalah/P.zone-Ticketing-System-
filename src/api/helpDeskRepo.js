@@ -23,7 +23,9 @@ export const helpDeskRepo = {
       params.filters.state = { $notIn: ['Resolved', 'Closed'] };
     } else if (filterType === 'resolved') {
       params.filters.state = { $in: ['Resolved', 'Closed'] };
-      // Optional: limit to resolved by me or all? I will leave it as all resolved/closed for the help desk to see history.
+    } else if (filterType === 'resolved_mine') {
+      params.filters.state = { $in: ['Resolved', 'Closed'] };
+      params.filters.assignee = { documentId: { $eq: currentUserId } };
     }
 
     const response = await axiosInstance.get('/tickets', { params });
