@@ -6,7 +6,10 @@ import 'nprogress/nprogress.css';
 // Configure NProgress (no spinner, just the top bar)
 NProgress.configure({ showSpinner: false, minimum: 0.2 });
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337/api';
+// Use relative path '/api' in production so Vercel's rewrite rules catch it
+// Otherwise use localhost for local development if VITE_API_URL isn't set
+const isProd = import.meta.env.PROD;
+const BASE_URL = import.meta.env.VITE_API_URL || (isProd ? '/api' : 'http://localhost:1337/api');
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
