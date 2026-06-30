@@ -2,60 +2,14 @@ import React from "react";
 import TicketsTableRow from "./TicketsTableRow";
 import TicketsTablePagination from "./TicketsTablePagination";
 
-// Mock data
-const ticketsData = [
-  {
-    id: "#IT-402",
-    subject: "Laptop won't boot, showing blue screen",
-    requester: "Sarah Jenkins",
-    status: "Open",
-    statusBadge: "bg-surface-variant text-on-surface-variant",
-    priority: "High",
-    priorityBadge: "bg-error-container text-on-error-container",
-    sideIndicator: "bg-error",
-    lastUpdated: "2 mins ago",
-  },
-  {
-    id: "#IT-405",
-    subject: "Cannot connect to office VPN from home",
-    requester: "David Chen",
-    status: "In Progress",
-    statusBadge: "bg-primary-fixed text-on-primary-fixed",
-    priority: "Medium",
-    priorityBadge: "bg-tertiary-fixed text-on-tertiary-fixed",
-    sideIndicator: "bg-tertiary",
-    lastUpdated: "45 mins ago",
-  },
-  {
-    id: "#IT-412",
-    subject: "Requesting Adobe Creative Cloud license",
-    requester: "Maria Garcia",
-    status: "Pending",
-    statusBadge: "bg-surface-variant text-on-surface-variant",
-    priority: "Low",
-    priorityBadge: "bg-surface-container-high text-on-surface",
-    sideIndicator: "bg-outline",
-    lastUpdated: "2 hours ago",
-  },
-  {
-    id: "#IT-415",
-    subject: "Database server unresponsive in production",
-    requester: "Alex Mercer",
-    status: "In Progress",
-    statusBadge: "bg-primary-fixed text-on-primary-fixed",
-    priority: "High",
-    priorityBadge: "bg-error-container text-on-error-container",
-    sideIndicator: "bg-error",
-    lastUpdated: "1 day ago",
-  },
-];
+export default function TicketsTable({ tickets, isLoading, activeTab, onAssignMe, pagination }) {
+  const showAssignButton = activeTab === "unassigned";
 
-export default function TicketsTable() {
   return (
-    <div className="bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant overflow-hidden">
+    <div className="bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant overflow-hidden flex flex-col">
       {/* ── Data Grid Table ── */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-collapse min-w-200">
           <thead className="bg-surface-container-low border-b border-outline-variant">
             <tr>
               <th className="w-1"></th>
@@ -77,19 +31,40 @@ export default function TicketsTable() {
               <th className="p-md font-label-md text-label-md text-on-surface-variant font-semibold uppercase tracking-wider whitespace-nowrap text-right">
                 Last Updated
               </th>
-              <th className="w-12 p-md"></th>
+              <th className="w-32 p-md"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant">
-            {ticketsData.map((ticket, idx) => (
-              <TicketsTableRow key={idx} ticket={ticket} />
-            ))}
+            {isLoading ? (
+              <tr>
+                <td colSpan={8} className="p-xl text-center text-on-surface-variant">
+                  Loading tickets...
+                </td>
+              </tr>
+            ) : tickets.length === 0 ? (
+              <tr>
+                <td colSpan={8} className="p-xl text-center text-on-surface-variant">
+                  No tickets found in this queue.
+                </td>
+              </tr>
+            ) : (
+              tickets.map((ticket, idx) => (
+                <TicketsTableRow 
+                  key={ticket.documentId || ticket.id || idx} 
+                  ticket={ticket} 
+                  showAssignButton={showAssignButton}
+                  onAssign={onAssignMe}
+                />
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
       {/* ── Table Pagination Footer ── */}
-      <TicketsTablePagination totalItems={124} />
+      {pagination && pagination.pageCount > 1 && (
+        <TicketsTablePagination totalItems={pagination.total} />
+      )}
     </div>
   );
 }

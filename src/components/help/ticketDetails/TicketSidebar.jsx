@@ -1,6 +1,9 @@
 import React from "react";
 
-export default function TicketSidebar() {
+export default function TicketSidebar({ ticket, usersList, onUpdate }) {
+  // Extract lists for dropdowns (Assuming help desk agents are those with help or admin roles)
+  const agentUsers = usersList.filter(u => u.role?.type === 'help' || u.role?.type === 'admin' || u.role?.name?.toLowerCase().includes('help'));
+
   return (
     <aside className="flex-3 min-w-75 border-l border-outline-variant bg-surface-container-lowest overflow-y-auto p-margin-desktop flex flex-col gap-lg shadow-sm z-10">
       <h2 className="font-headline-md text-headline-md text-on-surface">
@@ -12,11 +15,15 @@ export default function TicketSidebar() {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Status
         </label>
-        <select className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm">
-          <option value="open">Open</option>
-          <option value="pending">Pending</option>
-          <option value="resolved">Resolved</option>
-          <option value="closed">Closed</option>
+        <select 
+          value={ticket.state || "Open"} 
+          onChange={(e) => onUpdate({ state: e.target.value })}
+          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
+        >
+          <option value="Open">Open</option>
+          <option value="InProgress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Closed">Closed</option>
         </select>
       </div>
 
@@ -25,24 +32,15 @@ export default function TicketSidebar() {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Priority
         </label>
-        <select className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm">
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-          <option value="urgent">Urgent</option>
-        </select>
-      </div>
-
-      {/* Category Dropdown */}
-      <div className="flex flex-col gap-sm">
-        <label className="font-label-md text-label-md text-on-surface-variant">
-          Category
-        </label>
-        <select className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm">
-          <option value="access">Access/Authentication</option>
-          <option value="billing">Billing</option>
-          <option value="bug">Bug Report</option>
-          <option value="feature">Feature Request</option>
+        <select 
+          value={ticket.priority || "Low"}
+          onChange={(e) => onUpdate({ priority: e.target.value })}
+          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
+        >
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+          <option value="Critical">Critical</option>
         </select>
       </div>
 
@@ -51,19 +49,24 @@ export default function TicketSidebar() {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Assignee
         </label>
-        <select className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm">
-          <option value="david">David Chen (Tier 2)</option>
+        <select 
+          value={ticket.assignee?.documentId || ticket.assignee?.id || "unassigned"}
+          onChange={(e) => {
+            const val = e.target.value;
+            onUpdate({ assignee: val === "unassigned" ? null : val });
+          }}
+          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
+        >
           <option value="unassigned">Unassigned</option>
-          <option value="sarah">Sarah Jenkins (Tier 1)</option>
+          {agentUsers.map(agent => (
+            <option key={agent.id} value={agent.documentId || agent.id}>
+              {agent.username} ({agent.role?.name})
+            </option>
+          ))}
         </select>
       </div>
 
-      {/* Save Button fixed at the bottom of sidebar */}
-      <div className="mt-auto pt-lg border-t border-outline-variant">
-        <button className="bg-primary text-on-primary font-button-text text-button-text py-2 px-md rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-all w-full flex justify-center items-center gap-xs">
-          Save Changes
-        </button>
-      </div>
+      {/* Save Button is no longer needed since we auto-save on select, but we can keep it as a visual feedback or remove it. We'll remove it for instant UI feel. */}
     </aside>
   );
 }

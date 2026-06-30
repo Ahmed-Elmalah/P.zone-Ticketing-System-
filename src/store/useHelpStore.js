@@ -8,9 +8,21 @@ const useHelpStore = create((set, get) => ({
   isLoading: false,
   error: null,
   usersList: [],
+  urgentCount: 0,
 
   // Set the active tab
   setActiveTab: (tab) => set({ activeTab: tab }),
+
+  // Load just the count of urgent tickets for the badge
+  loadUrgentCount: async () => {
+    try {
+      // Fetch only 1 item just to get the total from meta.pagination.total
+      const data = await helpDeskRepo.fetchQueue('urgent', null, 1, 1);
+      set({ urgentCount: data.meta?.pagination?.total || 0 });
+    } catch (error) {
+      console.error('Failed to load urgent count', error);
+    }
+  },
 
   // Load the queue based on the active tab
   loadQueue: async (currentUserId, page = 1) => {

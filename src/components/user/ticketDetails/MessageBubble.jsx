@@ -41,12 +41,14 @@ export default function MessageBubble({
   avatar = "",
   lines = [],
   attachments = [],
+  isInternal = false,
+  isOwnMessage = false,
 }) {
-  const isAgent = type === "agent";
+  const isRightAligned = isOwnMessage;
 
   return (
     <div
-      className={`flex gap-md max-w-3xl ${isAgent ? "ml-auto flex-row-reverse" : ""}`}
+      className={`flex gap-md max-w-3xl ${isRightAligned ? "ml-auto flex-row-reverse" : ""}`}
     >
       {/* Avatar */}
       {avatar ? (
@@ -60,13 +62,18 @@ export default function MessageBubble({
       )}
 
       {/* Message content */}
-      <div className={`flex-1 flex flex-col ${isAgent ? "items-end" : ""}`}>
+      <div className={`flex-1 flex flex-col ${isRightAligned ? "items-end" : "items-start"}`}>
         {/* Name + time */}
         <div
-          className={`flex items-baseline gap-sm mb-1 ${isAgent ? "flex-row-reverse" : ""}`}
+          className={`flex items-baseline gap-sm mb-1 ${isRightAligned ? "flex-row-reverse" : ""}`}
         >
-          <span className="font-label-md text-label-md text-on-surface">
+          <span className="font-label-md text-label-md text-on-surface flex items-center gap-2">
             {senderName}
+            {isInternal && (
+              <span className="bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">
+                Internal Note
+              </span>
+            )}
           </span>
           <span className="font-body-md text-body-md text-on-surface-variant text-xs">
             {time}
@@ -77,8 +84,10 @@ export default function MessageBubble({
         <div
           className={`p-md shadow-sm
           ${
-            isAgent
-              ? "bg-primary-container text-on-primary-container rounded-lg rounded-tr-none"
+            isInternal
+              ? "bg-secondary-container text-on-secondary-container border border-secondary/30 rounded-lg rounded-tr-none"
+              : isOwnMessage
+              ? "bg-primary text-on-primary rounded-lg rounded-tr-none"
               : "bg-surface-container-lowest border border-outline-variant rounded-lg rounded-tl-none"
           }`}
         >
@@ -95,8 +104,8 @@ export default function MessageBubble({
           {/* Attachments row */}
           {attachments.length > 0 && (
             <div className="mt-md pt-sm border-t border-outline-variant flex gap-sm flex-wrap">
-              {attachments.map((file) => (
-                <AttachmentChip key={file} fileName={file} />
+              {attachments.map((file, idx) => (
+                <AttachmentChip key={file.id || idx} fileName={file} />
               ))}
             </div>
           )}

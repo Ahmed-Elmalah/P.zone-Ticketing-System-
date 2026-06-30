@@ -104,6 +104,7 @@ export default function TicketDetail() {
                   avatar={msg.sender?.avatar?.url}
                   lines={[msg.content]}
                   attachments={msg.attachments || []}
+                  isOwnMessage={msg.sender?.documentId === user?.documentId || msg.sender?.id === user?.id}
                 />
               );
             })
