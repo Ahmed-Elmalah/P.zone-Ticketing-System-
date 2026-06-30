@@ -58,15 +58,15 @@ export default function TicketDetail() {
     };
   }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket, fetchUsers]);
 
-  const handleSend = async (text, isInternal) => {
-    if (!text.trim()) return;
+  const handleSend = async (text, activeTab, files) => {
+    if (!text.trim() && (!files || files.length === 0)) return;
     try {
       await sendMessage({
         content: text,
         ticket: id,
         sender: user?.id,
-        isInternalNote: isInternal,
-      });
+        isInternalNote: activeTab === "internal",
+      }, files);
       await fetchMessages(id);
     } catch (err) {
       console.error("Failed to send reply", err);
@@ -157,7 +157,7 @@ export default function TicketDetail() {
       <div className="flex-1 p-margin-desktop flex flex-col lg:flex-row gap-lg">
         <ConversationPanel messages={formattedMessages} onSend={handleSend} />
         
-        <div className="flex flex-col gap-lg w-full lg:w-[350px] shrink-0">
+        <div className="flex flex-col gap-lg w-full lg:w-87.5 shrink-0">
           <PropertiesPanel
             status={selectedTicket.state || "Open"}
             onStatusChange={handleUpdateStatus}

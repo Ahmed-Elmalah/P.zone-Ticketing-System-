@@ -9,7 +9,7 @@
 // ============================================================
 
 import AdminMessageBubble from "./AdminMessageBubble";
-import AdminComposer from "./AdminComposer";
+import StaffComposer from "../../shared/StaffComposer";
 
 export default function ConversationPanel({ messages = [], onSend }) {
   return (
@@ -25,28 +25,13 @@ export default function ConversationPanel({ messages = [], onSend }) {
         <h3 className="font-headline-md text-headline-md text-on-surface">
           Conversation
         </h3>
-
-        {/* Filter tabs: All Messages / Internal Only */}
-        <div className="flex bg-surface-container-low p-xs rounded-lg">
-          <button
-            className="px-sm py-xs bg-surface-container-lowest text-primary rounded-md
-            font-label-md text-[10px] uppercase tracking-wide shadow-sm"
-          >
-            All Messages
-          </button>
-          <button
-            className="px-sm py-xs text-on-surface-variant hover:text-on-surface
-            rounded-md font-label-md text-[10px] uppercase tracking-wide transition-colors"
-          >
-            Internal Only
-          </button>
-        </div>
+       
       </div>
 
       {/* ── Message list — scrollable ── */}
       <div
         className="flex-1 overflow-y-auto p-md flex flex-col gap-lg bg-surface-container-lowest
-        min-h-75 max-h-[600px]"
+        min-h-75 max-h-150"
       >
         {messages.map((msg, i) => (
           <AdminMessageBubble key={i} {...msg} />
@@ -54,7 +39,7 @@ export default function ConversationPanel({ messages = [], onSend }) {
       </div>
 
       {/* ── Composer — always at bottom ── */}
-      <AdminComposer onSend={onSend} />
+      <StaffComposer onSend={onSend} />
     </div>
   );
 }

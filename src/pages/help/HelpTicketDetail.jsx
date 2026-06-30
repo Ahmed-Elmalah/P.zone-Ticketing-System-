@@ -7,7 +7,7 @@ import TicketDetailHeader from "../../components/user/ticketDetails/TicketDetail
 import MessageBubble from "../../components/user/ticketDetails/MessageBubble";
 import SystemNote from "../../components/user/ticketDetails/SystemNote";
 import TicketSidebar from "../../components/help/ticketDetails/TicketSidebar";
-import HelpReplyBox from "../../components/help/ticketDetails/HelpReplyBox";
+import StaffComposer from "../../components/shared/StaffComposer";
 
 import useTicketStore from "../../store/useTicketStore";
 import useChatStore from "../../store/useChatStore";
@@ -33,14 +33,14 @@ export default function HelpTicketDetail() {
     };
   }, [id, fetchTicketById, fetchMessages, loadUsersList, clearMessages, clearSelectedTicket]);
 
-  const handleSendReply = async (text, type) => {
+  const handleSendReply = async (text, type, files) => {
     try {
       await sendMessage({
         content: text,
         ticket: id,
         sender: user?.id,
         isInternalNote: type === "internal",
-      });
+      }, files);
       await fetchMessages(id);
       toast.success(type === "internal" ? "Internal note added" : "Reply sent");
     } catch (err) {
@@ -124,7 +124,7 @@ export default function HelpTicketDetail() {
           </div>
 
           {/* Help Desk Reply Box */}
-          <HelpReplyBox onSend={handleSendReply} />
+          <StaffComposer onSend={handleSendReply} />
         </div>
 
         {/* Right Column: Ticket Properties Sidebar */}

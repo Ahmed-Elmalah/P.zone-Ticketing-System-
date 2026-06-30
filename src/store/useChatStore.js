@@ -17,10 +17,10 @@ const useChatStore = create((set, get) => ({
     }
   },
 
-  sendMessage: async (messageData) => {
+  sendMessage: async (messageData, files = []) => {
     set({ isLoading: true, error: null });
     try {
-      const newMsg = await messageRepo.sendMessage(messageData);
+      const newMsg = await messageRepo.sendMessage(messageData, files);
       // We don't push to state immediately if we rely on socket event, 
       // but for optimistic UI, we can add it here.
       set((state) => ({ 

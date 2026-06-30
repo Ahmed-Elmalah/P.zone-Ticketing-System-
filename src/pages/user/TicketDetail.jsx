@@ -30,15 +30,15 @@ export default function TicketDetail() {
     };
   }, [id]);
 
-  const handleSendReply = async (replyText) => {
-    if (!replyText.trim()) return;
+  const handleSendReply = async (replyText, files) => {
+    if (!replyText.trim() && (!files || files.length === 0)) return;
     try {
       // Save message to Strapi
       await sendMessage({
         content: replyText,
         ticket: id,
         sender: user?.id, // links the message to the current logged-in user
-      });
+      }, files);
       // Re-fetch messages to get fully populated sender data and show latest state
       await fetchMessages(id);
     } catch (err) {
