@@ -9,6 +9,15 @@ const useHelpStore = create((set, get) => ({
   error: null,
   usersList: [],
   urgentCount: 0,
+  
+  // Dashboard Specific State
+  dashboardStats: {
+    unassigned: 0,
+    mine: 0,
+    urgent: 0,
+  },
+  recentTickets: [],
+  dashboardPagination: null,
 
   // Set the active tab
   setActiveTab: (tab) => set({ activeTab: tab }),
@@ -16,11 +25,39 @@ const useHelpStore = create((set, get) => ({
   // Load just the count of urgent tickets for the badge
   loadUrgentCount: async () => {
     try {
-      // Fetch only 1 item just to get the total from meta.pagination.total
       const data = await helpDeskRepo.fetchQueue('urgent', null, 1, 1);
       set({ urgentCount: data.meta?.pagination?.total || 0 });
     } catch (error) {
       console.error('Failed to load urgent count', error);
+    }
+  },
+
+  // Load Dashboard Stats and Recent Activity
+  loadDashboardData: async (currentUserId, page = 1) => {
+    set({ isLoading: true });
+    try {
+      // Parallel requests for stats (pageSize=1 for speed)
+      const [unassignedRes, mineRes, urgentRes, recentRes] = await Promise.all([
+        helpDeskRepo.fetchQueue('unassigned', null, 1, 1),
+        helpDeskRepo.fetchQueue('mine', currentUserId, 1, 1),
+        helpDeskRepo.fetchQueue('urgent', null, 1, 1),
+        // Fetch recent activity (unassigned or mine) for the queue list
+        helpDeskRepo.fetchQueue('unassigned', null, page, 10), 
+      ]);
+
+      set({
+        dashboardStats: {
+          unassigned: unassignedRes.meta?.pagination?.total || 0,
+          mine: mineRes.meta?.pagination?.total || 0,
+          urgent: urgentRes.meta?.pagination?.total || 0,
+        },
+        recentTickets: recentRes.data || [],
+        dashboardPagination: recentRes.meta?.pagination || null,
+        isLoading: false,
+      });
+    } catch (error) {
+      console.error('Failed to load dashboard data', error);
+      set({ isLoading: false });
     }
   },
 

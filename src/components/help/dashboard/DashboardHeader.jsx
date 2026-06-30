@@ -1,23 +1,25 @@
 import React from "react";
-import { MdAdd } from "react-icons/md";
+import { useAuthStore } from "../../../auth/authStore";
 
 export default function DashboardHeader() {
+  const { user } = useAuthStore();
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
-    <div className="mb-xl flex justify-between items-end">
-      {/* Title and Description */}
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-md">
       <div>
-        <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">
-          Ticket Queue
+        <h1 className="font-display-sm text-display-sm md:font-display-md md:text-display-md text-on-surface font-bold">
+          Welcome back, {user?.username}!
         </h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">
-          Manage and prioritize IT support requests.
+        <p className="font-body-lg text-body-lg text-on-surface-variant mt-xs">
+          Here is your queue overview for {currentDate}.
         </p>
       </div>
-
-      {/* Mobile Add Button - Only visible on small screens */}
-      <button className="md:hidden bg-primary text-on-primary p-sm rounded-full shadow-sm active:scale-95">
-        <MdAdd size={24} />
-      </button>
     </div>
   );
 }

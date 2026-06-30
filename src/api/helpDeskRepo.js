@@ -14,11 +14,16 @@ export const helpDeskRepo = {
 
     if (filterType === 'unassigned') {
       params.filters.assignee = { $null: true };
+      params.filters.state = { $notIn: ['Resolved', 'Closed'] };
     } else if (filterType === 'mine') {
-      // Use documentId for relation filtering in Strapi v5
       params.filters.assignee = { documentId: { $eq: currentUserId } };
+      params.filters.state = { $notIn: ['Resolved', 'Closed'] };
     } else if (filterType === 'urgent') {
       params.filters.priority = { $in: ['High', 'Critical'] };
+      params.filters.state = { $notIn: ['Resolved', 'Closed'] };
+    } else if (filterType === 'resolved') {
+      params.filters.state = { $in: ['Resolved', 'Closed'] };
+      // Optional: limit to resolved by me or all? I will leave it as all resolved/closed for the help desk to see history.
     }
 
     const response = await axiosInstance.get('/tickets', { params });

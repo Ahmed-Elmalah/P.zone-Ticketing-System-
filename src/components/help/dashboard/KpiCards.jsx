@@ -1,57 +1,51 @@
 import React from "react";
-import { MdInbox, MdWarning, MdTaskAlt } from "react-icons/md";
+import { MdInbox, MdAssignmentInd, MdWarning } from "react-icons/md";
 
-// Dummy data for KPIs to keep the JSX clean
-const kpiData = [
-  {
-    id: 1,
-    title: "My Open Tickets",
-    value: "12",
-    icon: MdInbox,
-    iconBg: "bg-primary-fixed",
-    iconColor: "text-primary",
-  },
-  {
-    id: 2,
-    title: "Unassigned IT Tickets",
-    value: "34",
-    icon: MdWarning,
-    iconBg: "bg-error-container",
-    iconColor: "text-on-error-container",
-  },
-  {
-    id: 3,
-    title: "Resolved Today",
-    value: "45",
-    icon: MdTaskAlt,
-    iconBg: "bg-secondary-container",
-    iconColor: "text-on-secondary-container",
-  },
-];
+export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 } }) {
+  const cards = [
+    {
+      id: "unassigned",
+      label: "Unassigned Queue",
+      value: stats.unassigned,
+      icon: MdInbox,
+      colorClass: "bg-surface-container-low text-on-surface",
+      iconColor: "text-primary",
+    },
+    {
+      id: "mine",
+      label: "My Active Tickets",
+      value: stats.mine,
+      icon: MdAssignmentInd,
+      colorClass: "bg-primary-container text-on-primary-container",
+      iconColor: "text-primary",
+    },
+    {
+      id: "urgent",
+      label: "Urgent & Critical",
+      value: stats.urgent,
+      icon: MdWarning,
+      colorClass: stats.urgent > 0 ? "bg-error-container text-on-error-container" : "bg-surface-container-low text-on-surface-variant",
+      iconColor: stats.urgent > 0 ? "text-error" : "text-on-surface-variant",
+    },
+  ];
 
-export default function KpiCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
-      {kpiData.map((kpi) => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
+      {cards.map((card) => (
         <div
-          key={kpi.id}
-          className="bg-surface-container-lowest rounded-xl p-lg shadow-sm border border-surface-container-high flex items-center justify-between"
+          key={card.id}
+          className={`p-lg rounded-2xl flex items-center justify-between shadow-sm border border-outline-variant/30 transition-transform hover:-translate-y-1 ${card.colorClass}`}
         >
-          {/* Text Info */}
-          <div>
-            <p className="font-label-md text-label-md text-on-surface-variant mb-xs">
-              {kpi.title}
-            </p>
-            <p className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
-              {kpi.value}
-            </p>
+          <div className="flex flex-col gap-1">
+            <span className="font-label-lg text-label-lg uppercase tracking-wide opacity-80">
+              {card.label}
+            </span>
+            <span className="font-display-lg text-display-lg font-bold">
+              {card.value}
+            </span>
           </div>
-
-          {/* Icon */}
-          <div
-            className={`w-12 h-12 rounded-full ${kpi.iconBg} flex items-center justify-center ${kpi.iconColor}`}
-          >
-            <kpi.icon size={24} />
+          <div className={`p-md rounded-full bg-surface/50 ${card.iconColor}`}>
+            <card.icon size={32} />
           </div>
         </div>
       ))}

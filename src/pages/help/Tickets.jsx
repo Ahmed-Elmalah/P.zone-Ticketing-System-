@@ -44,6 +44,7 @@ export default function Tickets() {
     { id: "unassigned", label: "Unassigned Queue" },
     { id: "mine", label: "My Assigned Tickets" },
     { id: "urgent", label: "Urgent & Critical" },
+    { id: "resolved", label: "Resolved / Closed" },
   ];
 
   return (
