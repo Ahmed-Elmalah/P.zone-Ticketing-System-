@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../../../components/user/Tickets/Pagination";
 
-export default function RecentActivity({ tickets = [], isLoading, pagination, onPageChange }) {
+export default function RecentActivity({ tickets = [], isLoading, pagination, onPageChange, onAssignMe }) {
   if (isLoading) {
     return (
       <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
@@ -72,6 +72,20 @@ export default function RecentActivity({ tickets = [], isLoading, pagination, on
               </div>
 
               <div className="flex items-center gap-sm md:gap-md">
+                {/* Assign to me button */}
+                {onAssignMe && !ticket.assignee && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onAssignMe(ticket.documentId || ticket.id);
+                    }}
+                    className="hidden md:block px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-wider bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-colors"
+                  >
+                    Assign to Me
+                  </button>
+                )}
+                
                 <span
                   className={`px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-wider ${
                     ticket.priority === "Critical"

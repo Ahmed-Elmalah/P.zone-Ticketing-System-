@@ -25,9 +25,9 @@ export default function ProfileHero() {
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-lowest shadow-md bg-surface-container-high flex items-center justify-center">
             {user?.avatar?.url ? (
               <img 
+                src={import.meta.env.PROD ? user.avatar.url : `${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:1337'}${user.avatar.url}`} 
                 alt="User Profile" 
                 className="w-full h-full object-cover" 
-                src={`http://localhost:1337${user.avatar.url}`} 
               />
             ) : (
               <MdPerson className="text-6xl text-outline" />
