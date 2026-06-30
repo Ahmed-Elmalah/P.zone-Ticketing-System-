@@ -36,11 +36,18 @@ export default function TicketsTable({ tickets, isLoading, activeTab, onAssignMe
           </thead>
           <tbody className="divide-y divide-outline-variant">
             {isLoading ? (
-              <tr>
-                <td colSpan={8} className="p-xl text-center text-on-surface-variant">
-                  Loading tickets...
-                </td>
-              </tr>
+              Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i} className="animate-pulse">
+                  <td className="w-1"></td>
+                  <td className="p-md"><div className="h-4 bg-surface-container-high rounded w-16"></div></td>
+                  <td className="p-md"><div className="h-4 bg-surface-container-high rounded w-48"></div></td>
+                  <td className="p-md"><div className="h-4 bg-surface-container-high rounded w-24"></div></td>
+                  <td className="p-md"><div className="h-6 bg-surface-container-high rounded-full w-20"></div></td>
+                  <td className="p-md"><div className="h-6 bg-surface-container-high rounded-full w-20"></div></td>
+                  <td className="p-md flex justify-end"><div className="h-4 bg-surface-container-high rounded w-24"></div></td>
+                  <td className="p-md"></td>
+                </tr>
+              ))
             ) : tickets.length === 0 ? (
               <tr>
                 <td colSpan={8} className="p-xl text-center text-on-surface-variant">

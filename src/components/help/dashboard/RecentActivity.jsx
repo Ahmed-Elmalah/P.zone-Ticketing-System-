@@ -5,10 +5,27 @@ import Pagination from "../../../components/user/Tickets/Pagination";
 export default function RecentActivity({ tickets = [], isLoading, pagination, onPageChange }) {
   if (isLoading) {
     return (
-      <div className="flex justify-center py-2xl">
-        <div className="animate-pulse flex gap-2 items-center text-on-surface-variant">
-          <div className="h-4 w-4 bg-primary/40 rounded-full"></div>
-          Loading recent activity...
+      <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
+        <div className="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50">
+          <div className="h-6 w-48 bg-surface-container-high rounded animate-pulse"></div>
+          <div className="h-4 w-24 bg-surface-container-high rounded animate-pulse"></div>
+        </div>
+        <div className="flex flex-col">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="p-md md:p-lg flex flex-col md:flex-row md:items-center justify-between gap-md border-b border-outline-variant animate-pulse">
+              <div className="flex flex-col gap-2 flex-1">
+                <div className="flex items-center gap-sm">
+                  <div className="h-4 w-16 bg-surface-container-high rounded"></div>
+                  <div className="h-5 w-48 bg-surface-container-high rounded"></div>
+                </div>
+                <div className="flex gap-md mt-1">
+                  <div className="h-3 w-24 bg-surface-container-high rounded"></div>
+                  <div className="h-3 w-32 bg-surface-container-high rounded"></div>
+                </div>
+              </div>
+              <div className="h-6 w-16 bg-surface-container-high rounded-full"></div>
+            </div>
+          ))}
         </div>
       </div>
     );

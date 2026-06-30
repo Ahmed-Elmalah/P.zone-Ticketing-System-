@@ -1,12 +1,10 @@
 import axios from 'axios';
-import qs from 'qs'; // Import qs library for nesting params
-// ------------------------------------------------------------------
-// axiosConfig.js
-// ------------------------------------------------------------------
-// This file sets up the base Axios instance for our application.
-// It automatically attaches the JWT token to every request and 
-// handles unauthorized (401) errors globally.
-// ------------------------------------------------------------------
+import qs from 'qs';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+// Configure NProgress (no spinner, just the top bar)
+NProgress.configure({ showSpinner: false, minimum: 0.2 });
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337/api';
 
@@ -20,9 +18,17 @@ const axiosInstance = axios.create({
   },
 });
 
-// Request Interceptor: Attach Token
+// Counter to handle concurrent requests
+let activeRequests = 0;
+
+// Request Interceptor: Attach Token & Start Progress
 axiosInstance.interceptors.request.use(
   (config) => {
+    if (activeRequests === 0) {
+      NProgress.start();
+    }
+    activeRequests++;
+
     const token = sessionStorage.getItem('jwt-token') || localStorage.getItem('jwt-token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -30,20 +36,31 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    activeRequests--;
+    if (activeRequests === 0) {
+      NProgress.done();
+    }
     return Promise.reject(error);
   }
 );
 
-// Response Interceptor: Handle Global Errors (like 401 Unauthorized)
+// Response Interceptor: Handle Global Errors & Stop Progress
 axiosInstance.interceptors.response.use(
   (response) => {
+    activeRequests--;
+    if (activeRequests === 0) {
+      NProgress.done();
+    }
     return response;
   },
   (error) => {
+    activeRequests--;
+    if (activeRequests === 0) {
+      NProgress.done();
+    }
+    
     if (error.response && error.response.status === 401) {
-      // Token expired or unauthorized
       console.error("Unauthorized! Token might be expired.");
-      // Optional: you can trigger a logout function here, e.g., redirect to /login
     }
     return Promise.reject(error);
   }

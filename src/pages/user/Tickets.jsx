@@ -95,7 +95,15 @@ const Tickets = () => {
           {/* Rows */}
           <div className="flex flex-col">
             {isLoading ? (
-              <div className="p-lg text-center text-on-surface-variant">Loading tickets...</div>
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-md px-lg py-md border-b border-outline-variant animate-pulse items-center">
+                  <div className="md:col-span-2 h-4 bg-surface-container-high rounded w-16"></div>
+                  <div className="md:col-span-4 h-4 bg-surface-container-high rounded w-48"></div>
+                  <div className="md:col-span-2 h-4 bg-surface-container-high rounded w-24"></div>
+                  <div className="md:col-span-2 h-4 bg-surface-container-high rounded w-24"></div>
+                  <div className="md:col-span-2 h-6 bg-surface-container-high rounded-full w-20"></div>
+                </div>
+              ))
             ) : tickets.length === 0 ? (
               <div className="p-lg text-center text-on-surface-variant">No tickets found.</div>
             ) : (

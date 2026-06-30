@@ -23,7 +23,7 @@ export default function HelpDashboard() {
   return (
     <main className="max-w-360 mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-xl">
       <DashboardHeader />
-      <KpiCards stats={dashboardStats} />
+      <KpiCards stats={dashboardStats} isLoading={isLoading} />
       <RecentActivity 
         tickets={recentTickets} 
         isLoading={isLoading} 
