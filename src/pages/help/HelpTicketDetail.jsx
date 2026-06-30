@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { MdAssignmentInd } from "react-icons/md";
 import { toast } from "react-hot-toast";
@@ -20,6 +20,8 @@ export default function HelpTicketDetail() {
   const { selectedTicket, fetchTicketById, updateTicket, clearSelectedTicket } = useTicketStore();
   const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
   const { usersList, loadUsersList, optimisticUpdateTicket } = useHelpStore();
+  
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     if (id) {
@@ -32,6 +34,11 @@ export default function HelpTicketDetail() {
       clearSelectedTicket();
     };
   }, [id, fetchTicketById, fetchMessages, loadUsersList, clearMessages, clearSelectedTicket]);
+
+  // Auto-scroll to bottom when messages update
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSendReply = async (text, type, files) => {
     try {
@@ -121,6 +128,7 @@ export default function HelpTicketDetail() {
                 />
               );
             })}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Help Desk Reply Box */}

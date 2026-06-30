@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { MdAssignmentInd } from "react-icons/md";
 
@@ -16,6 +16,8 @@ export default function TicketDetail() {
   const { selectedTicket, fetchTicketById, clearSelectedTicket } = useTicketStore();
   const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
   const { user } = useAuthStore();
+  
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     if (id) {
@@ -28,7 +30,12 @@ export default function TicketDetail() {
       clearMessages();
       clearSelectedTicket();
     };
-  }, [id]);
+  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket]);
+
+  // Auto-scroll to bottom when messages update
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSendReply = async (replyText, files) => {
     if (!replyText.trim() && (!files || files.length === 0)) return;
@@ -109,6 +116,7 @@ export default function TicketDetail() {
               );
             })
           )}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

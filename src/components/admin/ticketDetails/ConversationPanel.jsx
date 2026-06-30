@@ -8,10 +8,17 @@
 //   onSend   - callback(text, isInternal) for the composer
 // ============================================================
 
+import React, { useRef, useEffect } from "react";
 import AdminMessageBubble from "./AdminMessageBubble";
 import StaffComposer from "../../shared/StaffComposer";
 
 export default function ConversationPanel({ messages = [], onSend }) {
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div
       className="flex-1 w-full flex flex-col bg-surface border border-outline-variant
@@ -36,6 +43,7 @@ export default function ConversationPanel({ messages = [], onSend }) {
         {messages.map((msg, i) => (
           <AdminMessageBubble key={i} {...msg} />
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* ── Composer — always at bottom ── */}
