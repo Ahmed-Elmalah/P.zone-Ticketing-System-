@@ -144,7 +144,7 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
             md:flex-col md:gap-sm lg:flex-row lg:justify-between"
           >
             {/* Avatar + username */}
-            <div className="flex items-center gap-sm">
+            <div onClick={()=> navigate('profile')} className="flex cursor-pointer items-center gap-sm">
               <div
                 className="w-8 h-8 rounded-full bg-primary-container border border-outline-variant
                 flex items-center justify-center overflow-hidden shrink-0"

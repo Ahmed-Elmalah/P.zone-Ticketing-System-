@@ -5,7 +5,7 @@ export default function TicketSidebar({ ticket, usersList, onUpdate }) {
   const agentUsers = usersList.filter(u => u.role?.type === 'help' || u.role?.type === 'admin' || u.role?.name?.toLowerCase().includes('help'));
 
   return (
-    <aside className="flex-3 min-w-75 border-l border-outline-variant bg-surface-container-lowest overflow-y-auto p-margin-desktop flex flex-col gap-lg shadow-sm z-10">
+    <aside className="w-full h-full overflow-y-auto p-margin-desktop flex flex-col gap-lg z-10">
       <h2 className="font-headline-md text-headline-md text-on-surface">
         Ticket Properties
       </h2>
@@ -66,7 +66,18 @@ export default function TicketSidebar({ ticket, usersList, onUpdate }) {
         </select>
       </div>
 
-      {/* Save Button is no longer needed since we auto-save on select, but we can keep it as a visual feedback or remove it. We'll remove it for instant UI feel. */}
+      {/* Requester Info */}
+      <div className="flex flex-col gap-sm mt-md pt-md border-t border-outline-variant">
+        <h3 className="font-title-md text-title-md text-on-surface">
+          Requester Info
+        </h3>
+        <div className="flex flex-col gap-xs font-body-sm text-body-sm text-on-surface-variant">
+          <p><strong className="text-on-surface font-label-md">Name:</strong> {ticket.creator?.fullName || ticket.creator?.username || "N/A"}</p>
+          <p><strong className="text-on-surface font-label-md">Email:</strong> {ticket.creator?.email || "N/A"}</p>
+          <p><strong className="text-on-surface font-label-md">Phone:</strong> {ticket.creator?.phoneNumber || "N/A"}</p>
+          <p><strong className="text-on-surface font-label-md">Device/Laptop:</strong> {ticket.creator?.deviceNumber || ticket.creator?.laptopNumber || "N/A"}</p>
+        </div>
+      </div>
     </aside>
   );
 }

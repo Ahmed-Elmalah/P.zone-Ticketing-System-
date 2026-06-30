@@ -134,7 +134,9 @@ export default function TicketDetail() {
   });
 
   const requesterData = {
+    Name: selectedTicket.creator?.fullName || selectedTicket.creator?.username || "N/A",
     Email: selectedTicket.creator?.email || "N/A",
+    Phone: selectedTicket.creator?.phoneNumber || "N/A",
     Device: selectedTicket.creator?.deviceNumber || selectedTicket.creator?.laptopNumber || "N/A",
   };
 

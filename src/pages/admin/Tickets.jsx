@@ -33,7 +33,10 @@ export default function AdminTickets() {
     if (search) {
       params.filters = {
         ...params.filters,
-        subject: { $containsi: search },
+        $or: [
+          { subject: { $containsi: search } },
+          { documentId: { $containsi: search } }
+        ]
       };
     }
 
@@ -95,7 +98,7 @@ export default function AdminTickets() {
     <div className="flex flex-col min-h-screen w-full">
       {/* 1. Reusable Top Header with page-specific button */}
       <TopHeader
-        placeholder="Search tickets by subject..."
+        placeholder="Search tickets by subject or ID..."
         value={search}
         onSearch={(v) => { setSearch(v); setPage(1); }}
         actionButton={addNewTicketBtn}
