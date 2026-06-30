@@ -1,8 +1,11 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL.replace('/api', '')
-  : 'http://localhost:1337';
+const isProd = import.meta.env.PROD;
+const SOCKET_URL = isProd 
+  ? '/' 
+  : (import.meta.env.VITE_API_URL 
+      ? import.meta.env.VITE_API_URL.replace('/api', '') 
+      : 'http://localhost:1337');
 
 let socket = null;
 

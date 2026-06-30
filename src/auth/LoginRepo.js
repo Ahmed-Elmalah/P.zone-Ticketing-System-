@@ -9,7 +9,8 @@ import axios from "axios";
 
 // Base URL comes from .env file:
 // REACT_APP_API_URL=http://YOUR-SERVER-IP:1337
-const domain = import.meta.env.VITE_API_URL || "";
+const isProd = import.meta.env.PROD;
+const domain = isProd ? '/api' : (import.meta.env.VITE_API_URL || 'http://localhost:1337/api');
 
 const LoginRepo = {
 
