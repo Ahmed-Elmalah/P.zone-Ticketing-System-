@@ -1,52 +1,21 @@
-import React, { useState } from "react";
-import { 
-  MdEdit, 
-  MdPerson, 
-  MdEmail, 
-  MdPhone, 
-  MdBusiness, 
-  MdCheck, 
-  MdClose 
-} from "react-icons/md";
+import React from "react";
+import { MdPerson, MdEmail, MdComputer, MdPhone } from "react-icons/md";
+import { useAuthStore } from "../../auth/authStore";
 
 export default function ProfileDetailsForm() {
-  // State to toggle between view and edit modes
-  const [isEditing, setIsEditing] = useState(false);
+  const { user } = useAuthStore();
 
   return (
     <section className="bg-surface-container-lowest rounded-xl p-xl shadow-sm border border-outline-variant/30 relative">
       
-      {/* ── Header & Action Buttons ── */}
+      {/* ── Header ── */}
       <div className="flex justify-between items-center mb-lg">
         <h2 className="font-headline-md text-headline-md text-on-surface">
           Personal Information
         </h2>
-        
-        {/* Toggle Edit / Save State */}
-        {!isEditing ? (
-          <button 
-            onClick={() => setIsEditing(true)}
-            className="bg-primary text-on-primary font-button-text text-button-text py-2 px-md rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center gap-2"
-          >
-            <MdEdit size={18} /> Edit Profile
-          </button>
-        ) : (
-          <div className="flex items-center gap-sm">
-            <button 
-              onClick={() => setIsEditing(false)}
-              className="text-on-surface-variant hover:text-error transition-colors p-2 rounded-full hover:bg-error-container"
-              title="Cancel"
-            >
-              <MdClose size={20} />
-            </button>
-            <button 
-              onClick={() => setIsEditing(false)}
-              className="bg-secondary text-on-secondary font-button-text text-button-text py-2 px-md rounded-lg hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm flex items-center gap-2"
-            >
-              <MdCheck size={18} /> Save Changes
-            </button>
-          </div>
-        )}
+        <span className="font-label-md text-label-md text-on-surface-variant italic">
+          (Read Only)
+        </span>
       </div>
 
       {/* ── Form Inputs Grid ── */}
@@ -55,13 +24,13 @@ export default function ProfileDetailsForm() {
         {/* Full Name */}
         <div className="flex flex-col gap-xs">
           <label className="font-label-md text-label-md text-on-surface-variant flex items-center gap-xs">
-            <MdPerson size={16} /> Full Name
+            <MdPerson size={16} /> Username
           </label>
           <input 
-            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary disabled:opacity-70 disabled:bg-surface-container-lowest outline-none transition-colors" 
-            disabled={!isEditing} 
+            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface-variant cursor-not-allowed outline-none" 
+            readOnly 
             type="text" 
-            defaultValue="Sarah Jenkins" 
+            value={user?.username || "—"} 
           />
         </div>
 
@@ -71,10 +40,10 @@ export default function ProfileDetailsForm() {
             <MdEmail size={16} /> Email Address
           </label>
           <input 
-            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary disabled:opacity-70 disabled:bg-surface-container-lowest outline-none transition-colors" 
-            disabled={!isEditing} 
+            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface-variant cursor-not-allowed outline-none" 
+            readOnly 
             type="email" 
-            defaultValue="sarah.j@omnisupport.com" 
+            value={user?.email || "—"} 
           />
         </div>
 
@@ -84,23 +53,23 @@ export default function ProfileDetailsForm() {
             <MdPhone size={16} /> Phone Number
           </label>
           <input 
-            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary disabled:opacity-70 disabled:bg-surface-container-lowest outline-none transition-colors" 
-            disabled={!isEditing} 
+            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface-variant cursor-not-allowed outline-none" 
+            readOnly 
             type="tel" 
-            defaultValue="+1 (555) 019-2834" 
+            value={user?.phoneNumber || "—"} 
           />
         </div>
 
-        {/* Department */}
+        {/* Device Number */}
         <div className="flex flex-col gap-xs">
           <label className="font-label-md text-label-md text-on-surface-variant flex items-center gap-xs">
-            <MdBusiness size={16} /> Department
+            <MdComputer size={16} /> Device Number
           </label>
           <input 
-            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary disabled:opacity-70 disabled:bg-surface-container-lowest outline-none transition-colors" 
-            disabled={!isEditing} 
+            className="bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-on-surface-variant cursor-not-allowed outline-none" 
+            readOnly 
             type="text" 
-            defaultValue="Tier 3 Infrastructure Support" 
+            value={user?.deviceNumber || "—"} 
           />
         </div>
 

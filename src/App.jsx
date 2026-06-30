@@ -23,7 +23,6 @@ import AdminTicketDetail from "./pages/admin/TicketDetail";
 import AdminUsers from "./pages/admin/Users";
 import AddUser from "./pages/admin/AddUser";
 import AdminSettings from "./pages/admin/Settings";
-import AdminProfile from "./pages/admin/Profile";
 import AdminNewTicket from "./pages/admin/NewTicket";
 
 // Help pages
@@ -31,13 +30,11 @@ import HelpDashboard from "./pages/help/HelpDashboard";
 import UserLayout from "./layouts/Userlayout";
 import HelpTickets from "./pages/help/Tickets";
 import HelpTicketDetail from "./pages/help/HelpTicketDetail";
-import HelpProfile from "./pages/help/Profile";
 import HelpNewTicket from "./pages/help/HelpNewTicket";
 
 // User pages
 import UserDashboard from "./pages/user/Dashboard";
 import UserTickets from "./pages/user/Tickets";
-import UserProfile from "./pages/user/Profile";
 import NewTicket from "./pages/user/NewTicket";
 import TicketDetail from "./pages/user/TicketDetail";
 import ProfilePage from "./pages/profile/ProfilePage";

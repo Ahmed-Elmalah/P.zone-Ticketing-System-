@@ -9,7 +9,7 @@ import WelcomeHeader from "../../components/user/dashboard/WelcomeHeader";
 import SummaryCard from "../../components/user/dashboard/SummaryCard";
 import RecentTickets from "../../components/user/dashboard/RecentTickets";
 import QuickActions from "../../components/user/dashboard/QuickActions";
-import HelpfulLinks from "../../components/user/dashboard/HelpfulLinks";
+import SystemAlert from "../../components/user/dashboard/SystemAlert";
 import { MdInbox, MdTaskAlt } from "react-icons/md";
 // Import store
 import useTicketStore from "../../store/useTicketStore";
@@ -73,8 +73,8 @@ export default function Dashboard() {
 
         {/* Right column — 4 cols */}
         <div className="lg:col-span-4 flex flex-col gap-gutter">
+          <SystemAlert />
           <QuickActions />
-          <HelpfulLinks />
         </div>
       </div>
     </main>
