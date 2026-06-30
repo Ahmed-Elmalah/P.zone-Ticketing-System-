@@ -1,7 +1,6 @@
 import React from "react";
 import NewTicketHeader from "../../components/help/newTicket/NewTicketHeader";
-import RequesterSearch from "../../components/help/newTicket/RequesterSearch";
-import TicketDetailsForm from "../../components/help/newTicket/TicketDetailsForm";
+import HelpNewTicketForm from "../../components/help/newTicket/HelpNewTicketForm";
 
 export default function HelpNewTicket() {
   return (
@@ -12,14 +11,8 @@ export default function HelpNewTicket() {
         {/* 1. Header Section */}
         <NewTicketHeader />
 
-        {/* 2. Form Body Wrapper containing the internal components */}
-        <div className="p-xl pb-0">
-          {/* Core Field: Requester Lookup separated safely */}
-          <RequesterSearch />
-        </div>
-
-        {/* 3. Detailed Data Input Elements & Actions Bar */}
-        <TicketDetailsForm />
+        {/* 2. Unified Form */}
+        <HelpNewTicketForm />
       </div>
     </main>
   );
