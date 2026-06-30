@@ -78,17 +78,14 @@ export default function ReplyBox({ onSend }) {
           >
             {/* Formatting buttons */}
             <div className="flex gap-xs">
-              {FORMAT_BUTTONS.map(({ icon: Icon, title }) => (
-                <button
-                  key={title}
-                  type="button"
-                  title={title}
-                  className="p-xs text-on-surface-variant hover:text-primary
-                    hover:bg-surface-container rounded transition-colors"
-                >
-                  <Icon size={20} />
-                </button>
-              ))}
+              <button
+                type="button"
+                title="Attach file"
+                className="p-xs text-on-surface-variant hover:text-primary
+                  hover:bg-surface-container rounded transition-colors"
+              >
+                <MdAttachFile size={20} />
+              </button>
             </div>
 
             {/* Send button */}

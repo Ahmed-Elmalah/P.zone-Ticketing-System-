@@ -34,47 +34,52 @@ function Divider() {
 }
 
 export default function PropertiesPanel({
-  status = "in_progress",
-  assignee = { name: "Unassigned", avatar: "" },
-  priority = "high",
+  status = "Open",
+  onStatusChange,
+  assignee = { id: "", name: "Unassigned", avatar: "" },
+  onAssigneeChange,
+  agents = [], // list of agents for the assignee dropdown
+  priority = "Medium",
   category = "General",
   requester = {},
-  sla = { remaining: "1h 12m", percentUsed: 80 },
 }) {
-  // SLA bar color: >80% used → error, >50% → tertiary, else primary
-  const slaBarColor =
-    sla.percentUsed >= 80
-      ? "bg-error"
-      : sla.percentUsed >= 50
-        ? "bg-tertiary"
-        : "bg-primary";
-
   return (
     // Natural height — no scroll, no max-h
-    <div className="lg:w-1/4 flex flex-col gap-md">
+    <div className="w-full flex flex-col gap-md">
       {/* ── Status card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
+      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm relative overflow-hidden">
         <SectionLabel>Status</SectionLabel>
         <div
           className="flex items-center justify-between p-sm bg-surface-container-low
-          border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container transition-colors"
+          border border-outline-variant rounded-lg group hover:bg-surface-container transition-colors"
         >
           <div className="flex items-center gap-sm">
-            <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+            <div className="w-3 h-3 rounded-full bg-primary animate-pulse shrink-0" />
             <span className="font-button-text text-on-surface capitalize">
-              {status.replace("_", " ")}
+              {status === "InProgress" ? "In Progress" : status}
             </span>
           </div>
-          <MdExpandMore size={20} className="text-outline" />
+          <MdExpandMore size={20} className="text-outline shrink-0 group-hover:text-primary transition-colors" />
         </div>
+        {/* Invisible absolute select overlays the entire card to make it fully clickable */}
+        <select 
+          value={status === "In Progress" ? "InProgress" : status}
+          onChange={(e) => onStatusChange && onStatusChange(e.target.value)}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        >
+          <option value="Open">Open</option>
+          <option value="InProgress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Closed">Closed</option>
+        </select>
       </div>
 
       {/* ── Assignee card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
+      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm relative overflow-hidden">
         <SectionLabel>Assignee</SectionLabel>
         <div
           className="flex items-center justify-between p-sm border border-outline-variant
-          rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors group"
+          rounded-lg hover:bg-surface-container-low transition-colors group bg-surface-container-low"
         >
           <div className="flex items-center gap-sm">
             <div
@@ -99,9 +104,22 @@ export default function PropertiesPanel({
           </div>
           <MdPersonAdd
             size={18}
-            className="text-outline group-hover:text-primary transition-colors"
+            className="text-outline group-hover:text-primary transition-colors shrink-0"
           />
         </div>
+        {/* Invisible select for assignee */}
+        <select 
+          value={assignee.id || "unassigned"}
+          onChange={(e) => onAssigneeChange && onAssigneeChange(e.target.value)}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        >
+          <option value="unassigned">Unassigned</option>
+          {agents.map((a) => (
+            <option key={a.id || a.documentId} value={a.documentId || a.id}>
+              {a.username}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* ── Details card: priority + category ── */}
@@ -145,28 +163,6 @@ export default function PropertiesPanel({
           </div>
         </div>
       )}
-
-      {/* ── SLA resolution card ── */}
-      <div
-        className="bg-surface border border-outline-variant border-l-4 border-l-error
-        rounded-xl p-md shadow-sm"
-      >
-        <SectionLabel>SLA Resolution</SectionLabel>
-        <div className="flex items-end gap-sm">
-          <span className="font-headline-lg text-headline-lg text-error leading-none">
-            {sla.remaining}
-          </span>
-          <span className="font-body-md text-on-surface-variant mb-1">
-            remaining
-          </span>
-        </div>
-        <div className="w-full bg-surface-variant h-1 rounded-full mt-sm overflow-hidden">
-          <div
-            className={`${slaBarColor} h-full rounded-full transition-all`}
-            style={{ width: `${sla.percentUsed}%` }}
-          />
-        </div>
-      </div>
     </div>
   );
 }

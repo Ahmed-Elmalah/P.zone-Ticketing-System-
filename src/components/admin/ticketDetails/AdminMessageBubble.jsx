@@ -18,14 +18,8 @@
 //   attachments - array of file name strings
 // ============================================================
 
-import { MdSmartToy } from "react-icons/md";
+import { MdSmartToy, MdLock } from "react-icons/md";
 import AttachmentChip from "../../user/ticketDetails/AttachmentChip";
-
-// Role badge styles per sender type
-const BADGE = {
-  customer: "bg-secondary-container text-on-secondary-container",
-  staff: "bg-primary-container text-on-primary-container",
-};
 
 // Avatar fallback — shows initials when no image provided
 function AvatarFallback({ name }) {
@@ -91,7 +85,8 @@ export default function AdminMessageBubble({
     );
   }
 
-  const isStaff = type === "staff";
+  const isInternal = type === "internal";
+  const isStaff = type === "staff"; // Normal staff replies align right, internal notes align left to match the image
 
   return (
     <div className={`flex gap-md ${isStaff ? "flex-row-reverse" : ""}`}>
@@ -107,21 +102,28 @@ export default function AdminMessageBubble({
       )}
 
       {/* Message content */}
-      <div className={`flex-1 flex flex-col ${isStaff ? "items-end" : ""}`}>
+      <div className={`flex-1 flex flex-col ${isStaff ? "items-end" : "items-start"}`}>
         {/* Name + role badge + time */}
         <div
-          className={`flex items-baseline gap-sm mb-xs ${isStaff ? "flex-row-reverse" : ""}`}
+          className={`flex items-center gap-sm mb-xs ${isStaff ? "flex-row-reverse" : ""}`}
         >
           <span className="font-button-text text-on-surface">{senderName}</span>
-          {BADGE[type] && (
+          
+          {/* Badge */}
+          {isInternal ? (
+            <span className="px-sm py-0.5 rounded text-[10px] uppercase font-bold tracking-wide bg-[#006A4E] text-white">
+              Internal Note
+            </span>
+          ) : (
             <span
               className={`px-xs py-0.5 rounded text-[9px] uppercase font-bold tracking-wide
-              ${BADGE[type]}`}
+              ${type === 'customer' ? 'bg-secondary-container text-on-secondary-container' : 'bg-primary-container text-on-primary-container'}`}
             >
-              {isStaff ? "Staff" : "Customer"}
+              {type === 'customer' ? 'Customer' : 'Staff'}
             </span>
           )}
-          <span className="font-label-md text-on-surface-variant text-[10px]">
+
+          <span className="font-label-md text-on-surface-variant text-[10px] mt-0.5">
             {time}
           </span>
         </div>
@@ -130,7 +132,9 @@ export default function AdminMessageBubble({
         <div
           className={`p-md rounded-lg font-body-md shadow-sm max-w-[90%]
           ${
-            isStaff
+            isInternal
+              ? "bg-[#6EFEB8] text-[#004D36] rounded-tl-none shadow-sm"
+              : isStaff
               ? "bg-primary-container text-on-primary-container border border-primary rounded-tr-none"
               : "bg-surface border border-outline-variant rounded-tl-none text-on-surface"
           }`}

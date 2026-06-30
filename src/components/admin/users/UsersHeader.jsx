@@ -1,7 +1,10 @@
 import React from "react";
-import { MdFilterList, MdDownload } from "react-icons/md";
+import { MdFilterList } from "react-icons/md";
 
-export default function UsersHeader() {
+export default function UsersHeader({ roles = [], roleFilter, setRoleFilter }) {
+  // Exclude 'Public' from filters
+  const filterRoles = roles.filter(r => r.name.toLowerCase() !== 'public');
+
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-md">
       
@@ -16,15 +19,22 @@ export default function UsersHeader() {
       </div>
       
       {/* ── Action Buttons ── */}
-      <div className="flex gap-sm">
-        <button className="flex items-center gap-xs px-md py-2 border border-outline-variant rounded-lg font-button-text text-on-surface hover:bg-surface-container transition-colors bg-surface-container-lowest shadow-sm">
-          <MdFilterList size={18} />
-          Filter
-        </button>
-        <button className="flex items-center gap-xs px-md py-2 border border-outline-variant rounded-lg font-button-text text-on-surface hover:bg-surface-container transition-colors bg-surface-container-lowest shadow-sm">
-          <MdDownload size={18} />
-          Export
-        </button>
+      <div className="flex gap-sm items-center">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+            <MdFilterList size={18} />
+          </div>
+          <select 
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            className="pl-9 pr-8 py-2 border border-outline-variant rounded-lg font-button-text text-on-surface hover:bg-surface-container transition-colors bg-surface-container-lowest shadow-sm appearance-none outline-none focus:border-primary"
+          >
+            <option value="All">All Roles</option>
+            {filterRoles.map(role => (
+              <option key={role.id} value={role.name}>{role.name}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
     </div>

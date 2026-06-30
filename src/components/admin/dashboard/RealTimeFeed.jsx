@@ -1,43 +1,47 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function RealTimeFeed() {
-  const feed = [
-    {
-      id: "#INC-9402",
-      issue: "Database latency on production nodes",
-      agent: "Maria G.",
-      status: "Resolved",
-      badge: "bg-secondary-container/30 text-secondary",
-      time: "14 mins ago",
-    },
-    {
-      id: "#INC-9398",
-      issue: "VPN Access failure - Seattle Office",
-      agent: "Sarah J.",
-      status: "In Progress",
-      badge: "bg-primary-container/20 text-primary",
-      time: "32 mins ago",
-    },
-    {
-      id: "#INC-9395",
-      issue: "New hire workstation setup (HR)",
-      agent: "Alex M.",
-      status: "Open",
-      badge: "bg-surface-container-high text-on-surface-variant",
-      time: "1 hour ago",
-    },
-  ];
+export default function RealTimeFeed({ tickets = [], isLoading }) {
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className="mt-2xl">
+        <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">
+          Real-time Feed
+        </h2>
+        <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-xl animate-pulse">
+          <div className="h-4 bg-surface-container-high rounded w-full mb-4"></div>
+          <div className="h-4 bg-surface-container-high rounded w-3/4 mb-4"></div>
+          <div className="h-4 bg-surface-container-high rounded w-1/2 mb-4"></div>
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback if empty array provided
+  const feed = tickets.length > 0 ? tickets.map(t => ({
+    rawId: t.documentId || t.id,
+    id: `#${(t.documentId || t.id).substring(0, 8).toUpperCase()}`,
+    issue: t.subject,
+    agent: t.assignee?.username || "Unassigned",
+    status: t.state || "Open",
+    badge: t.state === "Open" ? "bg-surface-container-high text-on-surface-variant" : 
+           (t.state === "In Progress" || t.state === "Pending") ? "bg-primary-container/50 text-primary" : 
+           "bg-secondary-container/30 text-secondary",
+    time: new Date(t.createdAt).toLocaleDateString()
+  })) : [];
 
   return (
     <div className="mt-2xl">
       <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">
-        Real-time Feed
+        Recent Activity
       </h2>
       <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-x-auto">
         <table className="w-full text-left min-w-200">
           <thead className="bg-surface-container-low">
             <tr>
-              {["Ticket ID", "Issue", "Agent", "Status", "Time"].map(
+              {["Ticket ID", "Issue", "Agent", "Status", "Date"].map(
                 (head, i) => (
                   <th
                     key={i}
@@ -50,10 +54,11 @@ export default function RealTimeFeed() {
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant">
-            {feed.map((row, idx) => (
+            {feed.slice(0, 5).map((row, idx) => (
               <tr
                 key={idx}
-                className="hover:bg-surface-container-low/50 transition-colors"
+                onClick={() => navigate(`/admin/tickets/${row.rawId}`)}
+                className="hover:bg-surface-container-low transition-colors cursor-pointer"
               >
                 <td className="px-xl py-lg font-button-text text-primary">
                   {row.id}

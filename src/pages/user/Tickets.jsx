@@ -6,12 +6,14 @@ import TicketItem from "../../components/user/Tickets/TicketItem";
 import Pagination from "../../components/user/Tickets/Pagination";
 import useTicketStore from "../../store/useTicketStore";
 import useAdminStore from "../../store/useAdminStore";
+import { useAuthStore } from "../../auth/authStore";
 
 const PAGE_SIZE = 10;
 
 const Tickets = () => {
   const { tickets, fetchTickets, isLoading, pagination } = useTicketStore();
   const { categories, fetchCategories } = useAdminStore();
+  const { user } = useAuthStore();
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
@@ -22,10 +24,15 @@ const Tickets = () => {
 
   // Build Strapi query params and fetch
   const loadTickets = useCallback(() => {
+    if (!user?.id) return;
+
     const params = {
       pagination: { page, pageSize: PAGE_SIZE },
       sort: sortBy,
       populate: ["creator", "assignee", "category"],
+      filters: {
+        creator: { id: { $eq: user.id } }
+      }
     };
 
     if (search) {

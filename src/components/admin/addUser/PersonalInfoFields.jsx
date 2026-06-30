@@ -2,21 +2,11 @@
 // PersonalInfoFields.jsx
 // Two-column grid for the employee's basic info fields.
 // Uses Formik Field + ErrorMessage for validation.
-//
-// Add/remove departments in the DEPARTMENTS array below.
 // ============================================================
 
 import { useState } from "react";
 import { Field, ErrorMessage } from "formik";
-import { MdExpandMore, MdVisibility, MdVisibilityOff } from "react-icons/md";
-
-// Edit departments here without touching the component logic
-const DEPARTMENTS = [
-  { value: "it", label: "IT Support" },
-  { value: "hr", label: "Human Resources" },
-  { value: "engineering", label: "Engineering" },
-  { value: "sales", label: "Sales" },
-];
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 // Reusable input wrapper with label + error
 function FormField({ label, name, children }) {
@@ -80,7 +70,10 @@ export default function PersonalInfoFields({ disabled = false }) {
             className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
+      </div>
 
+      {/* ── Right column ── */}
+      <div className="flex flex-col gap-lg">
         <FormField label="Email Address" name="email">
           <Field
             name="email"
@@ -92,35 +85,14 @@ export default function PersonalInfoFields({ disabled = false }) {
         </FormField>
       </div>
 
-      {/* ── Right column ── */}
-      <div className="flex flex-col gap-lg">
-        <FormField label="Department" name="department">
-          <div className="relative">
-            <Field
-              as="select"
-              name="department"
-              disabled={disabled}
-              className={`${inputClass} appearance-none cursor-pointer ${disabledClass}`}
-            >
-              <option value="">Select Department...</option>
-              {DEPARTMENTS.map(({ value, label }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Field>
-            <MdExpandMore
-              size={20}
-              className="absolute right-md top-1/2 -translate-y-1/2 text-outline pointer-events-none"
-            />
-          </div>
-        </FormField>
+      {/* ── Full Width Laptop Number ── */}
+      <div className="col-span-1 md:col-span-2">
 
-        <FormField label="Job Title" name="jobTitle">
+        <FormField label="Laptop Number" name="laptopNumber">
           <Field
-            name="jobTitle"
+            name="laptopNumber"
             type="text"
-            placeholder="e.g. Support Technician"
+            placeholder="e.g. LPT-001"
             disabled={disabled}
             className={`${inputClass} ${disabledClass}`}
           />

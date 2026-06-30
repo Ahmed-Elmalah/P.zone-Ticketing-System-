@@ -14,7 +14,7 @@ import AdminComposer from "./AdminComposer";
 export default function ConversationPanel({ messages = [], onSend }) {
   return (
     <div
-      className="lg:w-1/2 h-full flex flex-col bg-surface border border-outline-variant
+      className="flex-1 w-full flex flex-col bg-surface border border-outline-variant
       rounded-xl shadow-sm overflow-hidden"
     >
       {/* ── Header with filter controls ── */}
@@ -46,7 +46,7 @@ export default function ConversationPanel({ messages = [], onSend }) {
       {/* ── Message list — scrollable ── */}
       <div
         className="flex-1 overflow-y-auto p-md flex flex-col gap-lg bg-surface-container-lowest
-        min-h-75 max-h-[calc(100vh-380px)]"
+        min-h-75 max-h-[600px]"
       >
         {messages.map((msg, i) => (
           <AdminMessageBubble key={i} {...msg} />

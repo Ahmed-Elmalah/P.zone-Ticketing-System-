@@ -63,10 +63,9 @@ export default function HelpReplyBox({ onSend }) {
           {/* Toolbar */}
           <div className="flex justify-between items-center p-sm bg-surface-container-lowest border-t border-outline-variant">
             <div className="flex gap-xs">
-              <button className="p-xs text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors"><MdFormatBold size={20} /></button>
-              <button className="p-xs text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors"><MdFormatItalic size={20} /></button>
-              <button className="p-xs text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors"><MdAttachFile size={20} /></button>
-              <button className="p-xs text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors"><MdEmojiEmotions size={20} /></button>
+              <button className="p-xs text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors" title="Attach file">
+                <MdAttachFile size={20} />
+              </button>
             </div>
             <div className="flex items-center gap-sm">
               <button

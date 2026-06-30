@@ -13,14 +13,25 @@ import SystemAlert from "../../components/user/dashboard/SystemAlert";
 import { MdInbox, MdTaskAlt } from "react-icons/md";
 // Import store
 import useTicketStore from "../../store/useTicketStore";
+import useAdminStore from "../../store/useAdminStore";
+
+import { useAuthStore } from "../../auth/authStore";
 
 // ── Page ─────────────────────────────────────────────────────
 export default function Dashboard() {
   const { tickets, fetchTickets, isLoading } = useTicketStore();
+  const { fetchSettings, announcement, quickActions } = useAdminStore();
+  const { user } = useAuthStore();
 
   useEffect(() => {
-    fetchTickets({ sort: 'createdAt:desc' });
-  }, [fetchTickets]);
+    if (user?.id) {
+      fetchTickets({ 
+        sort: 'createdAt:desc',
+        filters: { creator: { id: { $eq: user.id } } }
+      });
+    }
+    fetchSettings();
+  }, [fetchTickets, fetchSettings, user?.id]);
 
   // Calculate dynamic stats — field is 'state' in Strapi (not 'status')
   const openTickets = tickets.filter((t) => t.state !== "Closed" && t.state !== "Resolved").length;
@@ -73,8 +84,8 @@ export default function Dashboard() {
 
         {/* Right column — 4 cols */}
         <div className="lg:col-span-4 flex flex-col gap-gutter">
-          <SystemAlert />
-          <QuickActions />
+          <SystemAlert announcement={announcement} />
+          <QuickActions quickActions={quickActions} />
         </div>
       </div>
     </main>

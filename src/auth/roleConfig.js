@@ -25,8 +25,13 @@ export const defaultRedirect = "/login";
 
 // Helper: get the redirect path for a given role string
 export const getRedirectByRole = (roleName = "") => {
-  const key = roleName.toLowerCase().trim();
-  return roleConfig[key]?.redirect || defaultRedirect;
+  const name = roleName.toLowerCase().trim();
+  
+  if (name.includes('admin')) return roleConfig.admin.redirect;
+  if (name.includes('help')) return roleConfig.help.redirect;
+  if (name.includes('authenticated') || name.includes('user')) return roleConfig.authenticated.redirect;
+  
+  return defaultRedirect;
 };
 
 // Helper: check if a role string is valid/known

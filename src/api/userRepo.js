@@ -32,5 +32,22 @@ export const userRepo = {
     const response = await axiosInstance.put(`/users/${id}`, data); 
     // Note: User update in Strapi usually doesn't wrap in { data }
     return response.data;
+  },
+
+  /**
+   * Fetch all roles
+   */
+  getRoles: async () => {
+    const response = await axiosInstance.get('/users-permissions/roles');
+    // usually response.data.roles
+    return response.data?.roles || [];
+  },
+
+  /**
+   * Create a new user (Admin only)
+   */
+  createUser: async (userData) => {
+    const response = await axiosInstance.post('/users', userData);
+    return response.data;
   }
 };

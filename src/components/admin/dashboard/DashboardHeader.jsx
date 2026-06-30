@@ -15,18 +15,7 @@ export default function DashboardHeader() {
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-sm">
-          <button className="flex items-center gap-sm px-lg py-sm bg-surface-container-lowest border border-outline-variant rounded-lg font-button-text text-button-text text-on-surface hover:bg-surface-container-low transition-all">
-            <MdCalendarToday size={18} className="text-on-surface-variant" />
-            <span>Last 30 Days</span>
-          </button>
-
-          <button className="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary rounded-lg font-button-text text-button-text hover:opacity-90 transition-all shadow-sm">
-            <MdDownload size={18} />
-            <span>Export Report</span>
-          </button>
-        </div>
+        
       </div>
     </>
   );

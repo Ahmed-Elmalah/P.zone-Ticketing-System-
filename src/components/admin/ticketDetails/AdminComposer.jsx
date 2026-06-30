@@ -45,31 +45,6 @@ export default function AdminComposer({ onSend }) {
         focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent
         transition-shadow"
       >
-        {/* ── Format toolbar ── */}
-        <div className="bg-surface-container-low px-sm py-xs flex gap-xs border-b border-outline-variant">
-          {FORMAT_BUTTONS.map(({ icon: Icon, title }) => (
-            <button
-              key={title}
-              type="button"
-              title={title}
-              className="p-xs text-on-surface-variant hover:bg-surface-container-high rounded"
-            >
-              <Icon size={18} />
-            </button>
-          ))}
-
-          {/* Vertical divider */}
-          <div className="w-px h-4 bg-outline-variant my-auto mx-xs" />
-
-          <button
-            type="button"
-            title="Attach file"
-            className="p-xs text-on-surface-variant hover:bg-surface-container-high rounded"
-          >
-            <MdAttachFile size={18} />
-          </button>
-        </div>
-
         {/* ── Textarea ── */}
         <textarea
           value={reply}
@@ -84,19 +59,28 @@ export default function AdminComposer({ onSend }) {
 
         {/* ── Footer: internal note toggle + send ── */}
         <div className="bg-surface px-sm py-sm flex justify-between items-center border-t border-outline-variant">
-          {/* Internal note checkbox */}
-          <label className="flex items-center gap-xs cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={isInternal}
-              onChange={(e) => setIsInternal(e.target.checked)}
-              className="rounded text-primary focus:ring-primary h-3 w-3
-                bg-surface-container border-outline-variant"
-            />
-            <span className="font-label-md text-on-surface-variant text-[11px]">
-              Internal Note Only
-            </span>
-          </label>
+          <div className="flex items-center gap-md">
+            <button
+              type="button"
+              title="Attach file"
+              className="p-xs text-on-surface-variant hover:bg-surface-container-high rounded"
+            >
+              <MdAttachFile size={20} />
+            </button>
+            {/* Internal note checkbox */}
+            <label className="flex items-center gap-xs cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={isInternal}
+                onChange={(e) => setIsInternal(e.target.checked)}
+                className="rounded text-primary focus:ring-primary h-3 w-3
+                  bg-surface-container border-outline-variant"
+              />
+              <span className="font-label-md text-on-surface-variant text-[11px]">
+                Internal Note Only
+              </span>
+            </label>
+          </div>
 
           {/* Send button */}
           <button

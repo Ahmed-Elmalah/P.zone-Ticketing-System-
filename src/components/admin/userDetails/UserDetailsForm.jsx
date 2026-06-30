@@ -25,8 +25,7 @@ const Divider = () => <div className="h-px bg-outline-variant w-full" />;
 const EditUserSchema = Yup.object({
   fullName: Yup.string().required("Full name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  department: Yup.string().required("Please select a department"),
-  jobTitle: Yup.string().required("Job title is required"),
+  laptopNumber: Yup.string().required("Laptop number is required"),
   role: Yup.string().required("Please select a role"),
   isActive: Yup.boolean(),
 });
@@ -40,16 +39,24 @@ export default function UserDetailsForm({
   const initialValues = {
     fullName: user?.username || "",
     email: user?.email || "",
-    department: user?.department || "",
-    jobTitle: user?.jobTitle || "",
-    role: user?.role?.name?.toLowerCase() || "authenticated",
+    laptopNumber: user?.deviceNumber || "",
+    role: user?.role?.id || "",
     isActive: user?.blocked !== true, // Strapi uses "blocked" to disable users
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // TODO: call LoginRepo.update_user(user.id, values, jwt)
-      console.log("Updated user:", values);
+      const { userRepo } = await import("../../../api/userRepo");
+      
+      const updateData = {
+        username: values.fullName,
+        email: values.email,
+        deviceNumber: values.laptopNumber,
+        role: values.role,
+        blocked: !values.isActive
+      };
+
+      await userRepo.updateUser(user.id, updateData);
       toast.success("User updated successfully.");
       onSubmitDone?.();
     } catch (err) {

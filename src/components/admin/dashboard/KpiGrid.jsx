@@ -1,40 +1,40 @@
 import React from "react";
 import { MdTrendingUp } from "react-icons/md";
 
-export default function KpiGrid() {
+export default function KpiGrid({ stats, isLoading }) {
   // KPI Data source
   const kpis = [
     {
       title: "Total Tickets",
-      value: "1,284",
-      badgeText: "+12%",
-      badgeType: "success",
+      value: isLoading ? "..." : stats?.totalTickets || "0",
+      badgeText: "All Time",
+      badgeType: "neutral",
       iconFilter:
         "brightness(0) saturate(100%) invert(20%) sepia(85%) saturate(3020%) hue-rotate(215deg) brightness(95%) contrast(104%)",
       iconBg: "bg-primary-container/10",
     },
     {
-      title: "Avg Resolution Time",
-      value: "2.4 Hours",
-      badgeText: "Target: 3h",
-      badgeType: "neutral",
-      iconFilter:
-        "brightness(0) saturate(100%) invert(32%) sepia(74%) saturate(628%) hue-rotate(114deg) brightness(96%) contrast(101%)",
-      iconBg: "bg-secondary-container/10",
-    },
-    {
-      title: "Open IT Issues",
-      value: "42",
-      badgeText: "High Priority",
+      title: "Open Tickets",
+      value: isLoading ? "..." : stats?.openTickets || "0",
+      badgeText: "Needs Action",
       badgeType: "danger",
       iconFilter:
         "brightness(0) saturate(100%) invert(24%) sepia(99%) saturate(1814%) hue-rotate(15deg) brightness(95%) contrast(101%)",
       iconBg: "bg-tertiary-container/10",
     },
     {
-      title: "Active Agents",
-      value: "15",
-      badgeText: "Active Now",
+      title: "Resolved Tickets",
+      value: isLoading ? "..." : stats?.resolvedTickets || "0",
+      badgeText: "Success",
+      badgeType: "success",
+      iconFilter:
+        "brightness(0) saturate(100%) invert(32%) sepia(74%) saturate(628%) hue-rotate(114deg) brightness(96%) contrast(101%)",
+      iconBg: "bg-secondary-container/10",
+    },
+    {
+      title: "Total Users",
+      value: isLoading ? "..." : stats?.totalUsers || "0",
+      badgeText: "Active Directory",
       badgeType: "neutral",
       iconFilter:
         "brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1400%) hue-rotate(190deg) brightness(90%) contrast(85%)",

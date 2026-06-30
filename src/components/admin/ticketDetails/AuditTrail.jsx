@@ -11,7 +11,7 @@
 export default function AuditTrail({ events = [] }) {
   return (
     <div
-      className="lg:w-1/4 flex flex-col bg-surface border border-outline-variant
+      className="w-full flex flex-col bg-surface border border-outline-variant
       rounded-xl shadow-sm overflow-hidden"
     >
       {/* ── Header ── */}

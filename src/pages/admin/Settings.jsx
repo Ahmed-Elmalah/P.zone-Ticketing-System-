@@ -1,16 +1,22 @@
-import React, { useState } from "react";
-import TopHeader from "../../components/admin/shared/TopHeader";
+import React, { useState, useEffect } from "react";
 import ITCategoriesSettings from "../../components/admin/settings/ITCategoriesSettings";
+import AnnouncementManager from "../../components/admin/settings/AnnouncementManager";
+import QuickActionsManager from "../../components/admin/settings/QuickActionsManager";
+import useAdminStore from "../../store/useAdminStore";
 
 export default function AdminSettings() {
-  const [activeTab, setActiveTab] = useState("IT Categories");
+  const [activeTab, setActiveTab] = useState("Categories");
+  const { fetchSettings, fetchCategories } = useAdminStore();
 
-  const tabs = ["General", "IT Categories", "Priorities", "SLA Policies"];
+  useEffect(() => {
+    fetchSettings();
+    fetchCategories();
+  }, [fetchSettings, fetchCategories]);
+
+  const tabs = ["Categories", "Announcements", "Quick Actions"];
 
   return (
     <div className="flex flex-col min-h-screen w-full">
-      {/* <TopHeader placeholder="Search settings, tickets, users..." /> */}
-
       <main className="flex-1 p-margin-mobile md:p-margin-desktop max-w-360 mx-auto w-full">
         {/* Page Title */}
         <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-lg">
@@ -35,8 +41,11 @@ export default function AdminSettings() {
         </div>
 
         {/* Settings Content Area */}
-        {activeTab === "IT Categories" && <ITCategoriesSettings />}
-        {/* Add other components here for other tabs */}
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+          {activeTab === "Categories" && <ITCategoriesSettings />}
+          {activeTab === "Announcements" && <AnnouncementManager />}
+          {activeTab === "Quick Actions" && <QuickActionsManager />}
+        </div>
       </main>
     </div>
   );

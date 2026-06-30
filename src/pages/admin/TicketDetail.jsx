@@ -14,124 +14,162 @@
 // the remaining space and each panel scrolls independently.
 // ============================================================
 
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AdminTicketHeader from "../../components/admin/ticketDetails/TicketDetailHeader";
 import ConversationPanel from "../../components/admin/ticketDetails/ConversationPanel";
 import PropertiesPanel from "../../components/admin/ticketDetails/PropertiesPanel";
 import AuditTrail from "../../components/admin/ticketDetails/AuditTrail";
 
-// ── Static data (replace with useFetch / Strapi API later) ──
+import useTicketStore from "../../store/useTicketStore";
+import useChatStore from "../../store/useChatStore";
+import { useAuthStore } from "../../auth/authStore";
+import useAdminStore from "../../store/useAdminStore";
 
-const MESSAGES = [
-  {
-    type: "system",
-    senderName: "System Auto-Reply",
-    time: "Just now",
-    lines: ["Ticket status changed to In Progress. SLA clock has started."],
-  },
-  {
-    type: "customer",
-    senderName: "Sarah Jenkins",
-    time: "10 mins ago",
-    lines: [
-      "Hello, the European servers are still showing offline on our dashboard. We cannot sync our inventory databases. Please advise on ETA.",
-    ],
-    attachments: ["error_log_EU.txt"],
-  },
-  {
-    type: "staff",
-    senderName: "Admin User",
-    time: "25 mins ago",
-    lines: [
-      "Hi Sarah, we are aware of the regional outage affecting EU-West-2. Our infrastructure team is currently rebooting the cluster. I will keep you updated here.",
-    ],
-  },
-];
-
-const REQUESTER = {
-  Department: "IT Operations",
-  Location: "EU-West-2",
-  Device: "MacBook Pro 16",
-};
-
+// Static audit events since Strapi doesn't track this by default
 const AUDIT_EVENTS = [
   {
-    time: "Oct 24, 10:45 AM",
+    time: "Just now",
     isActive: true,
     description: (
       <>
-        Status changed to <strong>In Progress</strong> by{" "}
-        <span className="text-primary cursor-pointer hover:underline">
-          System
-        </span>
+        Ticket accessed by <strong className="text-primary">Admin</strong>
       </>
     ),
-  },
-  {
-    time: "Oct 24, 10:30 AM",
-    isActive: false,
-    description: (
-      <>
-        Priority escalated to <strong className="text-error">High</strong> by{" "}
-        <span className="text-primary cursor-pointer hover:underline">
-          Admin User
-        </span>
-      </>
-    ),
-  },
-  {
-    time: "Oct 24, 10:25 AM",
-    isActive: false,
-    description: (
-      <>
-        Ticket assigned to{" "}
-        <span className="text-primary cursor-pointer hover:underline">
-          Admin User
-        </span>
-      </>
-    ),
-  },
-  {
-    time: "Oct 24, 10:00 AM",
-    isActive: false,
-    description: (
-      <>
-        Ticket created via <strong>Support Portal</strong>
-      </>
-    ),
-  },
+  }
 ];
 
-// ── Page ─────────────────────────────────────────────────────
 export default function TicketDetail() {
-  const handleSend = (text, isInternal) => {
-    // TODO: replace with Strapi API call
-    console.log("Reply:", { text, isInternal });
+  const { id } = useParams();
+  const { selectedTicket, fetchTicketById, updateTicket, clearSelectedTicket } = useTicketStore();
+  const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
+  const { user } = useAuthStore();
+  const { users, fetchUsers } = useAdminStore();
+
+  useEffect(() => {
+    if (id) {
+      fetchTicketById(id);
+      fetchMessages(id);
+      fetchUsers();
+    }
+    return () => {
+      clearMessages();
+      clearSelectedTicket();
+    };
+  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket, fetchUsers]);
+
+  const handleSend = async (text, isInternal) => {
+    if (!text.trim()) return;
+    try {
+      await sendMessage({
+        content: text,
+        ticket: id,
+        sender: user?.id,
+        isInternalNote: isInternal,
+      });
+      await fetchMessages(id);
+    } catch (err) {
+      console.error("Failed to send reply", err);
+    }
   };
 
+  const handleUpdateStatus = async (newStatus) => {
+    try {
+      await updateTicket(selectedTicket.documentId || selectedTicket.id, { state: newStatus });
+      await fetchTicketById(id);
+    } catch (err) {
+      console.error("Failed to update status", err);
+    }
+  };
+
+  const handleUpdateAssignee = async (newAssigneeId) => {
+    try {
+      const payload = newAssigneeId === "unassigned" ? { assignee: null } : { assignee: newAssigneeId };
+      await updateTicket(selectedTicket.documentId || selectedTicket.id, payload);
+      await fetchTicketById(id);
+    } catch (err) {
+      console.error("Failed to update assignee", err);
+    }
+  };
+
+  if (!selectedTicket) {
+    return (
+      <div className="flex h-screen items-center justify-center text-on-surface-variant">
+        Loading ticket details...
+      </div>
+    );
+  }
+
+  // Format Messages for ConversationPanel
+  const formattedMessages = messages.map(msg => {
+    const senderRole = msg.sender?.role?.type;
+    
+    // An agent is anyone who is an admin, help, sent an internal note, or is the current logged-in user
+    const isAgent = msg.isInternalNote || 
+                    senderRole === 'admin' || 
+                    senderRole === 'help' || 
+                    msg.sender?.id === user?.id || 
+                    msg.sender?.documentId === user?.id ||
+                    msg.sender?.id === user?.documentId;
+    
+    let type = "customer";
+    if (msg.isInternalNote) {
+      type = "internal";
+    } else if (isAgent) {
+      type = "staff";
+    }
+    
+    // Strip manual "[INTERNAL NOTE]" prefix if it was added manually in older messages
+    const rawContent = msg.content || "";
+    const cleanContent = rawContent.replace(/^\[INTERNAL NOTE\]\s*/i, "");
+
+    return {
+      type: type,
+      senderName: msg.sender?.username || user?.username || 'System',
+      time: new Date(msg.createdAt).toLocaleString(),
+      avatar: msg.sender?.avatar?.url,
+      lines: [cleanContent],
+      attachments: msg.attachments || [],
+    };
+  });
+
+  const requesterData = {
+    Email: selectedTicket.creator?.email || "N/A",
+    Device: selectedTicket.creator?.deviceNumber || selectedTicket.creator?.laptopNumber || "N/A",
+  };
+
+  // Filter users to only agents for the assignee dropdown
+  const agentsOnly = users.filter(
+    (u) =>
+      u.role?.type === "help" ||
+      u.role?.type === "admin" ||
+      u.role?.name?.toLowerCase().includes("help"),
+  );
+
   return (
-    // h-screen gives a fixed total height so the 3-col section
-    // can use flex-1 to fill whatever space is left below the header
-    <div className="flex flex-col h-screen">
-      {/* Sticky ticket header — auto height */}
+    <div className="flex flex-col min-h-full pb-xl">
       <AdminTicketHeader
-        ticketRef="#INC-2023-8942"
-        title="Database Sync Failure in EU Region"
-        priority="high"
+        ticketRef={`#${(selectedTicket.documentId || selectedTicket.id).substring(0, 8).toUpperCase()}`}
+        title={selectedTicket.subject}
+        priority={selectedTicket.priority}
       />
 
-      {/* 3-column section — fills remaining height
-          min-h-0 is required so flex children can shrink + scroll */}
-      <div className="flex-1 min-h-0 p-margin-desktop flex flex-col lg:flex-row gap-lg overflow-hidden">
-        <ConversationPanel messages={MESSAGES} onSend={handleSend} />
-        <PropertiesPanel
-          status="in_progress"
-          assignee={{ name: "Admin User", avatar: "" }}
-          priority="high"
-          category="Infrastructure"
-          requester={REQUESTER}
-          sla={{ remaining: "1h 12m", percentUsed: 80 }}
-        />
-        <AuditTrail events={AUDIT_EVENTS} />
+      <div className="flex-1 p-margin-desktop flex flex-col lg:flex-row gap-lg">
+        <ConversationPanel messages={formattedMessages} onSend={handleSend} />
+        
+        <div className="flex flex-col gap-lg w-full lg:w-[350px] shrink-0">
+          <PropertiesPanel
+            status={selectedTicket.state || "Open"}
+            onStatusChange={handleUpdateStatus}
+            assignee={selectedTicket.assignee ? { id: selectedTicket.assignee.documentId || selectedTicket.assignee.id, name: selectedTicket.assignee.username, avatar: selectedTicket.assignee.avatar?.url } : { id: "", name: "Unassigned", avatar: "" }}
+            onAssigneeChange={handleUpdateAssignee}
+            agents={agentsOnly}
+            priority={selectedTicket.priority}
+            category={selectedTicket.category?.name || "General"}
+            requester={requesterData}
+          />
+          <AuditTrail events={AUDIT_EVENTS} />
+        </div>
       </div>
     </div>
   );

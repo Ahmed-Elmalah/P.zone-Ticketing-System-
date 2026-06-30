@@ -27,8 +27,7 @@ const AddUserSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  department: Yup.string().required("Please select a department"),
-  jobTitle: Yup.string().required("Job title is required"),
+  laptopNumber: Yup.string().required("Laptop number is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -43,11 +42,10 @@ const AddUserSchema = Yup.object({
 const initialValues = {
   fullName: "",
   email: "",
-  department: "",
-  jobTitle: "",
+  laptopNumber: "",
   password: "",
   confirmPassword: "",
-  role: "help",
+  role: "", // Changed from "help" to empty string to force selection
   isActive: true,
 };
 
@@ -57,15 +55,20 @@ export default function AddUserForm() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // TODO: hook up createStaffAccount from useLogin
-      // const { createStaffAccount } = useLogin();
-      // await createStaffAccount(
-      //   { username: values.fullName, email: values.email, password: tempPassword },
-      //   { department: values.department, jobTitle: values.jobTitle },
-      //   roleId   // get roleId by matching values.role to Strapi roles
-      // );
+      const { userRepo } = await import("../../../api/userRepo");
+      
+      const newUserData = {
+        username: values.fullName,
+        email: values.email,
+        password: values.password,
+        deviceNumber: values.laptopNumber,
+        role: values.role, // role ID from RoleAssignment
+        blocked: !values.isActive,
+        confirmed: true // usually required to bypass email confirmation
+      };
 
-      console.log("New employee:", values);
+      await userRepo.createUser(newUserData);
+
       toast.success("Account created! Invite sent.");
       navigate("/admin/users");
     } catch (err) {

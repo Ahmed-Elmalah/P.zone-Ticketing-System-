@@ -5,6 +5,7 @@ import { MdSearch } from "react-icons/md";
 export default function TopHeader({
   placeholder = "Search...",
   onSearch,
+  value,
   actionButton,
 }) {
   return (
@@ -21,6 +22,7 @@ export default function TopHeader({
           {/* Search Input - Upgraded mobile height to match action button */}
           <input
             type="text"
+            value={value}
             placeholder={placeholder}
             onChange={(e) => onSearch?.(e.target.value)}
             className="w-full bg-surface-container-low border border-outline-variant rounded-full pl-9 sm:pl-11 pr-sm py-2 sm:py-2.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:bg-surface transition-all font-body-md text-body-md placeholder-on-surface-variant outline-none"
