@@ -81,7 +81,7 @@ export default function NewTicketForm() {
         subject: values.subject,
         description: values.description,
         priority: values.priority,
-        state: "Open",                    // default status
+        state: "Open",                    // default state (field is 'state' in Strapi)
         category: values.category,         // documentId of selected category
         creator: user?.id,                 // current logged-in user
         ...(attachmentIds.length > 0 && { attachments: attachmentIds }),

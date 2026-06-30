@@ -62,7 +62,7 @@ export default function TicketDetail() {
           <TicketDetailHeader
             title={selectedTicket.subject}
             ticketRef={selectedTicket.documentId?.substring(0, 8).toUpperCase() || selectedTicket.id}
-            status={selectedTicket.status}
+            status={selectedTicket.state}
             createdAt={new Date(selectedTicket.createdAt).toLocaleString()}
             channel="Web"
           />

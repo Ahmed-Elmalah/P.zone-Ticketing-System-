@@ -110,7 +110,7 @@ const Tickets = () => {
                     subject={ticket.subject}
                     category={ticket.category?.name || "—"}
                     date={new Date(ticket.createdAt).toLocaleDateString()}
-                    status={ticket.status || "Open"}
+                    status={ticket.state || "Open"}
                   />
                 </div>
               ))

@@ -19,12 +19,12 @@ export default function Dashboard() {
   const { tickets, fetchTickets, isLoading } = useTicketStore();
 
   useEffect(() => {
-    fetchTickets();
+    fetchTickets({ sort: 'createdAt:desc' });
   }, [fetchTickets]);
 
-  // Calculate dynamic stats
-  const openTickets = tickets.filter((t) => t.status?.toLowerCase() !== "closed" && t.status?.toLowerCase() !== "resolved").length;
-  const resolvedTickets = tickets.filter((t) => t.status?.toLowerCase() === "resolved" || t.status?.toLowerCase() === "closed").length;
+  // Calculate dynamic stats — field is 'state' in Strapi (not 'status')
+  const openTickets = tickets.filter((t) => t.state !== "Closed" && t.state !== "Resolved").length;
+  const resolvedTickets = tickets.filter((t) => t.state === "Resolved" || t.state === "Closed").length;
 
   const summaryStats = [
     {
@@ -50,7 +50,7 @@ export default function Dashboard() {
     id: t.documentId || t.id,
     title: t.subject,
     date: new Date(t.createdAt).toLocaleDateString(),
-    status: t.status?.toLowerCase() || 'open',
+    status: t.state || 'Open', // field is 'state' in Strapi
   }));
 
 

@@ -72,7 +72,7 @@ export default function TicketItem({
       {/* Right: badge + chevron */}
       <div className="flex items-center gap-md">
         <span
-          className={`px-3 py-1 rounded-full font-label-md text-label-md ${config.badge}`}
+          className={`px-3 py-1 rounded-full font-label-md text-label-md text-white ${config.badge}`}
         >
           {config.label}
         </span>
