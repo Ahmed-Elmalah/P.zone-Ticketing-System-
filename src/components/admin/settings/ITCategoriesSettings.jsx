@@ -25,8 +25,8 @@ export default function ITCategoriesSettings() {
   }
 
   return (
-    <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 max-w-4xl">
-      <div className="p-lg border-b border-outline-variant/20 bg-surface-bright rounded-t-xl">
+    <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
+      <div className="p-lg border-b border-outline-variant bg-surface-container-low">
         <h3 className="font-headline-md text-on-surface">Manage IT Categories</h3>
         <p className="font-body-md text-on-surface-variant mt-1">
           Organize and structure support request categories.
@@ -34,7 +34,7 @@ export default function ITCategoriesSettings() {
       </div>
 
       {isAdding && (
-        <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant/20 bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
+        <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
           <div className="flex-1 w-full">
             <label className="font-label-md text-outline mb-xs block">Category Name</label>
             <input 
@@ -57,7 +57,7 @@ export default function ITCategoriesSettings() {
         </form>
       )}
 
-      <div>
+      <div className="divide-y divide-outline-variant/50">
         {categories.length === 0 ? (
           <div className="p-xl text-center text-outline">No categories found.</div>
         ) : (
@@ -74,7 +74,7 @@ export default function ITCategoriesSettings() {
       </div>
 
       {!isAdding && (
-        <div className="p-lg bg-surface-bright rounded-b-xl border-t border-outline-variant/20 flex justify-center">
+        <div className="p-lg bg-surface-container-low border-t border-outline-variant flex justify-center">
           <button 
             onClick={() => setIsAdding(true)}
             className="flex items-center gap-sm text-primary bg-primary-container/10 px-lg py-sm rounded-full font-button-text hover:bg-primary-container/20 transition-colors"

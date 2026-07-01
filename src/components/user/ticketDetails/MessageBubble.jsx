@@ -88,7 +88,7 @@ export default function MessageBubble({
               ? "bg-secondary-container text-on-secondary-container border border-secondary/30 rounded-lg rounded-tr-none"
               : isOwnMessage
               ? "bg-primary text-on-primary rounded-lg rounded-tr-none"
-              : "bg-surface-container-lowest border border-outline-variant rounded-lg rounded-tl-none"
+              : "bg-surface border border-outline-variant rounded-lg rounded-tl-none"
           }`}
         >
           {/* Paragraph lines */}

@@ -28,7 +28,7 @@ export default function ConversationPanel({ messages = [], onSend }) {
     >
       {/* ── Header with filter controls ── */}
       <div
-        className="p-md border-b border-outline-variant bg-surface-container-lowest
+        className="p-md border-b border-outline-variant bg-surface-container-low
         flex justify-between items-center"
       >
         <h3 className="font-headline-md text-headline-md text-on-surface">
@@ -39,7 +39,7 @@ export default function ConversationPanel({ messages = [], onSend }) {
 
       {/* ── Message list — scrollable ── */}
       <div
-        className="flex-1 overflow-y-auto p-md flex flex-col gap-lg bg-surface-container-lowest
+        className="flex-1 overflow-y-auto p-md flex flex-col gap-lg bg-background
         min-h-75 max-h-150"
         ref={chatContainerRef}
       >

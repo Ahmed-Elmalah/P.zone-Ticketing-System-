@@ -3,7 +3,7 @@ import { MdDragIndicator, MdEdit, MdDelete } from "react-icons/md";
 
 export default function CategoryItem({ icon, name, ticketCount, iconColor }) {
   return (
-    <div className="group flex items-center justify-between p-lg border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+    <div className="group flex items-center justify-between p-lg hover:bg-surface-container-low transition-colors">
       <div className="flex items-center gap-md">
         <MdDragIndicator className="text-outline-variant cursor-grab hover:text-outline" />
         <div

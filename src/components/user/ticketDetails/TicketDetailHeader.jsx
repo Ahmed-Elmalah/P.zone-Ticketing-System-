@@ -40,8 +40,8 @@ export default function TicketDetailHeader({
 
   return (
     <header
-      className="bg-surface-container-lowest shadow-sm w-full sticky top-0 z-10
-      px-margin-desktop py-md flex justify-between items-center border-b border-outline-variant"
+      className="w-full sticky top-0 z-10
+      px-margin-desktop py-md flex justify-between items-center"
     >
       {/* ── Left: back button + ticket info ── */}
       <div className="flex items-center gap-md">
@@ -81,13 +81,7 @@ export default function TicketDetailHeader({
         </div>
       </div>
 
-      {/* ── Right: notification button ── */}
-      <button
-        className="text-on-surface-variant hover:text-primary transition-colors
-        p-sm rounded-full hover:bg-surface-container-high"
-      >
-        <MdNotifications size={22} />
-      </button>
+
     </header>
   );
 }

@@ -78,7 +78,7 @@ export default function TicketDetail() {
   return (
     <main className="fixed inset-0 z-50 flex flex-col bg-background overflow-hidden">
       {/* Header */}
-      <header className="flex-none w-full bg-surface-container-lowest border-b border-outline-variant">
+      <header className="flex-none w-full bg-surface-container-low border-b border-outline-variant">
         <div className="w-full mx-auto">
           <TicketDetailHeader
             title={selectedTicket.subject}
@@ -91,7 +91,7 @@ export default function TicketDetail() {
       </header>
 
       {/* Chat Area — shows only Messages from the Messages collection */}
-      <div className="flex-1 overflow-y-auto bg-surface-bright" ref={chatContainerRef}>
+      <div className="flex-1 overflow-y-auto bg-background" ref={chatContainerRef}>
         <div className="max-w-4xl mx-auto p-margin-desktop space-y-xl">
 
           {/* System note if ticket has been assigned */}

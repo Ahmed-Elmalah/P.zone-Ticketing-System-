@@ -27,7 +27,7 @@ export default function StaffComposer({ onSend }) {
   };
 
   return (
-    <div className="shrink-0 bg-surface-container-lowest border-t border-outline-variant p-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+    <div className="shrink-0 bg-surface border-t border-outline-variant p-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
       <div className="max-w-3xl mx-auto flex flex-col gap-sm">
         
         {/* ── Tabs: Reply vs Internal Note ── */}
@@ -58,7 +58,7 @@ export default function StaffComposer({ onSend }) {
         <div className={`relative rounded-lg border focus-within:ring-1 transition-all overflow-hidden shadow-sm flex flex-col ${
           activeTab === "internal" 
             ? "bg-surface-container-low border-secondary/50 focus-within:border-secondary focus-within:ring-secondary" 
-            : "bg-surface border-outline-variant focus-within:border-primary focus-within:ring-primary"
+            : "bg-surface-container-lowest border-outline-variant focus-within:border-primary focus-within:ring-primary"
         }`}>
           
           {/* Selected Files Area */}
@@ -88,7 +88,7 @@ export default function StaffComposer({ onSend }) {
           />
           
           {/* Toolbar */}
-          <div className="flex justify-between items-center p-sm bg-surface-container-lowest border-t border-outline-variant">
+          <div className="flex justify-between items-center p-sm bg-surface-container-low border-t border-outline-variant">
             <div className="flex gap-xs">
               <input
                 type="file"

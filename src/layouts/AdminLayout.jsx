@@ -10,14 +10,16 @@
 
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { MdMenu } from "react-icons/md";
+import { MdMenu, MdDarkMode, MdLightMode } from "react-icons/md";
 import AdminSidebar from "../components/admin/dashboard/AdminSidebar";
 import AdminFooter from "../components/admin/dashboard/AdminFooter";
 import NotificationBell from "../components/shared/NotificationBell";
+import useThemeStore from "../store/useThemeStore";
 
 export default function AdminLayout() {
   // Controls mobile drawer — tablet/desktop ignore this
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <div className="bg-background text-on-background min-h-screen flex">
@@ -46,6 +48,12 @@ export default function AdminLayout() {
             P.ZONE
           </span>
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-1 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors"
+            >
+              {theme === 'dark' ? <MdLightMode size={22} /> : <MdDarkMode size={22} />}
+            </button>
             <NotificationBell />
             <button
               onClick={() => setMobileOpen(true)}

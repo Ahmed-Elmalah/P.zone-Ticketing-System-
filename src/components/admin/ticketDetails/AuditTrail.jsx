@@ -15,7 +15,7 @@ export default function AuditTrail({ events = [] }) {
       rounded-xl shadow-sm overflow-hidden"
     >
       {/* ── Header ── */}
-      <div className="p-md border-b border-outline-variant bg-surface-container-lowest">
+      <div className="p-md border-b border-outline-variant bg-surface-container-low">
         <h3 className="font-headline-md text-headline-md text-on-surface">
           Audit Trail
         </h3>

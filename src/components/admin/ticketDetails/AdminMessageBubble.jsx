@@ -135,7 +135,7 @@ export default function AdminMessageBubble({
             isInternal
               ? "bg-[#6EFEB8] text-[#004D36] rounded-tl-none shadow-sm"
               : isStaff
-              ? "bg-primary-container text-on-primary-container border border-primary rounded-tr-none"
+              ? "bg-primary text-on-primary rounded-tr-none shadow-sm"
               : "bg-surface border border-outline-variant rounded-tl-none text-on-surface"
           }`}
         >

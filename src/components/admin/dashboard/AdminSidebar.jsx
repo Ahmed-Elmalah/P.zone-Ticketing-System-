@@ -24,6 +24,8 @@ import {
 import useLogin from "../../../auth/useLogin";
 import { useAuthStore } from "../../../auth/authStore";
 import NotificationBell from "../../shared/NotificationBell";
+import useThemeStore from "../../../store/useThemeStore";
+import { MdLightMode } from "react-icons/md";
 
 // ── Nav links config — add/remove here ──────────────────────
 const NAV_LINKS = [
@@ -37,6 +39,7 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
   const navigate = useNavigate();
   const { logOut } = useLogin();
   const { user } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <>
@@ -169,11 +172,12 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
                 </div>
               </div>
               <button
-                title="Toggle dark mode"
+                onClick={toggleTheme}
+                title={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
                 className="p-2 rounded-full hover:bg-surface-container-high
                   transition-colors text-on-surface-variant"
               >
-                <MdDarkMode size={20} />
+                {theme === 'dark' ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
               </button>
               <button
                 onClick={logOut}

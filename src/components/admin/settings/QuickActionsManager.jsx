@@ -24,8 +24,8 @@ export default function QuickActionsManager() {
   }
 
   return (
-    <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 max-w-4xl">
-      <div className="p-lg border-b border-outline-variant/20 bg-surface-bright rounded-t-xl flex justify-between items-center">
+    <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
+      <div className="p-lg border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
         <div className="flex items-center gap-md">
           <div className="p-sm bg-tertiary-container/20 text-tertiary rounded-lg">
             <MdLink size={24} />
@@ -48,7 +48,7 @@ export default function QuickActionsManager() {
       </div>
 
       {isAdding && (
-        <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant/20 bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
+        <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
           <div className="flex-1 w-full">
             <label className="font-label-md text-outline mb-xs block">Title</label>
             <input 
@@ -86,7 +86,7 @@ export default function QuickActionsManager() {
         {quickActions.length === 0 ? (
           <div className="p-xl text-center text-outline">No quick actions found. Add one above.</div>
         ) : (
-          <ul className="divide-y divide-outline-variant/20">
+          <ul className="divide-y divide-outline-variant/50">
             {quickActions.map(action => (
               <li key={action.documentId || action.id} className="p-lg flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
                 <div className="flex items-center gap-md">

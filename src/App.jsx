@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Auth
 import { ProtectedRoute } from "./auth";
+import { useAuthStore } from "./auth/authStore";
+import useThemeStore from "./store/useThemeStore";
 
 // Layouts
 import AdminLayout from "./layouts/AdminLayout";
@@ -41,6 +43,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import { Toaster } from "react-hot-toast";
 import UserDetails from "./pages/admin/UserDetails";
 import GlobalSocketListener from "./components/shared/GlobalSocketListener";
+import { useEffect } from "react";
 
 // ── Root redirect ─────────────────────────────────────────────
 // If there's a saved token → go to /admin (useLogin's checkToken
@@ -59,6 +62,17 @@ function RootRedirect() {
 
 // ── App ───────────────────────────────────────────────────────
 export default function App() {
+  const { theme } = useThemeStore();
+
+  // Sync theme with HTML element
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
   return (
     <>
       <Toaster position="top-center" />

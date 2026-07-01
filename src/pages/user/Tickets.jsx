@@ -71,7 +71,7 @@ const Tickets = () => {
   const totalPages = pagination?.pageCount || 1;
 
   return (
-    <div className="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+    <div className="text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
       <main className="flex-1 w-full max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-xl">
         <TicketHeader />
 
@@ -89,9 +89,9 @@ const Tickets = () => {
         />
 
         {/* Ticket List */}
-        <section className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
+        <section className="bg-surface rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
           {/* Column Headers */}
-          <div className="hidden md:grid grid-cols-12 gap-md px-lg py-md border-b border-outline-variant bg-surface-dim font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+          <div className="hidden md:grid grid-cols-12 gap-md px-lg py-md border-b border-outline-variant bg-surface-container-low font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
             <div className="col-span-2">Ticket ID</div>
             <div className="col-span-4">Subject</div>
             <div className="col-span-2">Category</div>

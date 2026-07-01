@@ -13,9 +13,12 @@ import {
   MdLogout,
   MdMenu,
   MdClose,
+  MdDarkMode,
+  MdLightMode,
 } from "react-icons/md";
 import { useAuthStore } from "../../../auth/authStore";
 import useLogin from "../../../auth/useLogin";
+import useThemeStore from "../../../store/useThemeStore";
 import NotificationBell from "../../shared/NotificationBell";
 
 // Nav links shown in the top bar
@@ -28,6 +31,7 @@ export default function UserTopNav() {
   const { user } = useAuthStore();
   const { logOut } = useLogin();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useThemeStore();
 
   // State to manage mobile menu visibility
   const [isOpen, setIsOpen] = useState(false);
@@ -86,7 +90,14 @@ export default function UserTopNav() {
           </button>
 
           {/* Notification Bell */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-xs">
+            <button
+              onClick={toggleTheme}
+              title={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
+              className="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant"
+            >
+              {theme === 'dark' ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
+            </button>
             <NotificationBell />
           </div>
 
@@ -111,8 +122,14 @@ export default function UserTopNav() {
             <MdLogout size={20} />
           </button>
 
-          {/* Mobile Actions: Notification Bell + Burger Button */}
-          <div className="md:hidden flex items-center gap-2">
+          {/* Mobile Actions: Notification Bell + Dark Mode + Burger Button */}
+          <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={toggleTheme}
+              className="p-xs text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors"
+            >
+              {theme === 'dark' ? <MdLightMode size={22} /> : <MdDarkMode size={22} />}
+            </button>
             <NotificationBell />
             <button
               onClick={() => setIsOpen(!isOpen)}

@@ -28,7 +28,7 @@ export default function UsersRow({ user }) {
               className="w-9 h-9 rounded-full border border-outline-variant object-cover" 
             />
           ) : (
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm bg-primary-container text-primary`}>
+            <div className={`w-9 h-9 text-white rounded-full flex items-center justify-center font-bold text-sm bg-primary-container `}>
               {getInitials(user.username || user.email)}
             </div>
           )}

@@ -42,7 +42,7 @@ export default function ReplyBox({ onSend }) {
   return (
     <div
       className="sticky bottom-0 left-0 right-0
-      bg-surface-container-lowest border-t border-outline-variant p-md
+      bg-surface border-t border-outline-variant p-md
       shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-10"
     >
       <div className="max-w-3xl mx-auto flex flex-col gap-sm">
@@ -55,7 +55,7 @@ export default function ReplyBox({ onSend }) {
 
         {/* Textarea + toolbar wrapper */}
         <div
-          className="relative bg-surface rounded-lg border border-outline-variant
+          className="relative bg-surface-container-lowest rounded-lg border border-outline-variant
           focus-within:border-primary focus-within:ring-1 focus-within:ring-primary
           transition-all overflow-hidden shadow-sm flex flex-col"
         >
@@ -89,7 +89,7 @@ export default function ReplyBox({ onSend }) {
           {/* Toolbar */}
           <div
             className="flex justify-between items-center p-sm
-            bg-surface-container-lowest border-t border-outline-variant"
+            bg-surface-container-low border-t border-outline-variant"
           >
             {/* Formatting buttons */}
             <div className="flex gap-xs">

@@ -25,7 +25,7 @@ const TicketItem = ({ id, subject, category, date, status }) => {
   const currentStyle = statusStyles[status] || statusStyles.Open;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-sm md:gap-md px-md md:px-lg py-md border-b border-outline-variant hover:bg-surface-container transition-colors items-center cursor-pointer group">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-sm md:gap-md px-md md:px-lg py-md border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors items-center cursor-pointer group">
       {/* Ticket ID */}
       <div className="col-span-1 md:col-span-2 font-body-md text-body-md text-outline">
         {id}

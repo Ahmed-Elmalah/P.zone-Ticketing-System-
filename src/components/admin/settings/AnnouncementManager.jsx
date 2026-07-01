@@ -37,8 +37,8 @@ export default function AnnouncementManager() {
   }
 
   return (
-    <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/20 max-w-4xl">
-      <div className="p-lg border-b border-outline-variant/20 bg-surface-bright rounded-t-xl flex items-center gap-md">
+    <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
+      <div className="p-lg border-b border-outline-variant bg-surface-container-low flex items-center gap-md">
         <div className="p-sm bg-primary-container/20 text-primary rounded-lg">
           <MdCampaign size={24} />
         </div>
