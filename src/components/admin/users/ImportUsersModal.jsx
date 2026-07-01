@@ -17,9 +17,9 @@ export default function ImportUsersModal({ isOpen, onClose, roles, userRepo, onI
 
   const handleDownloadSample = () => {
     const wsData = [
-      ["Full Name", "Email", "Password", "Laptop Number", "Phone Number", "Role"],
-      ["Ahmed Elmalah", "ahmed@example.com", "Pass@123", "LP-101", "01000000000", "Authenticated"],
-      ["IT Support One", "it@example.com", "Secure!45", "LP-102", "01111111111", "help"]
+      ["Employee ID", "Full Name", "Email", "Password", "Laptop Number", "Phone Number", "Role"],
+      ["EMP-001", "Ahmed Elmalah", "ahmed@example.com", "Pass@123", "LP-101", "01000000000", "Authenticated"],
+      ["EMP-002", "IT Support One", "it@example.com", "Secure!45", "LP-102", "01111111111", "help"]
     ];
     const ws = XLSX.utils.aoa_to_sheet(wsData);
     const wb = XLSX.utils.book_new();
@@ -78,6 +78,7 @@ export default function ImportUsersModal({ isOpen, onClose, roles, userRepo, onI
             }
 
             const payload = {
+              employeeId: String(row["Employee ID"] || "").trim(),
               username: String(row["Full Name"] || "").trim(),
               email: String(row["Email"] || "").trim(),
               password: String(row["Password"] || "").trim(),

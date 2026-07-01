@@ -1,7 +1,9 @@
 import React from "react";
 import { MdPerson } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function TopAgents({ agents = [], isLoading }) {
+  const navigate = useNavigate();
   if (isLoading) {
     return (
       <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col h-full animate-pulse">
@@ -71,7 +73,7 @@ export default function TopAgents({ agents = [], isLoading }) {
         ))}
       </div>
 
-      <button className="w-full mt-xl py-sm border-2 border-dashed border-outline-variant rounded-xl text-label-md font-label-md text-outline hover:text-primary hover:border-primary transition-all">
+      <button onClick={()=> navigate('/admin/users')} className="w-full mt-xl py-sm border-2 border-dashed border-outline-variant rounded-xl text-label-md font-label-md text-outline hover:text-primary hover:border-primary transition-all">
         View All Agents
       </button>
     </div>
