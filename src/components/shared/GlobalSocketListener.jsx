@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getSocket } from '../../api/socket';
 import { useAuthStore } from '../../auth/authStore';
+import useNotificationStore from '../../store/useNotificationStore';
 
 const handledMessages = new Set();
 
 export default function GlobalSocketListener() {
   const { user } = useAuthStore();
+  const { addLiveNotification } = useNotificationStore();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -53,6 +55,9 @@ export default function GlobalSocketListener() {
         console.log("[GlobalSocket] Ignoring because I am the sender.");
         return;
       }
+
+      // Add to Bell Notifications Dropdown via Zustand
+      addLiveNotification(message, documentId);
 
       const ticketId = message.ticket?.documentId || message.ticket?.id?.toString();
       if (!ticketId) {

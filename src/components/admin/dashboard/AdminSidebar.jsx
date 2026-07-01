@@ -23,6 +23,7 @@ import {
 } from "react-icons/md";
 import useLogin from "../../../auth/useLogin";
 import { useAuthStore } from "../../../auth/authStore";
+import NotificationBell from "../../shared/NotificationBell";
 
 // ── Nav links config — add/remove here ──────────────────────
 const NAV_LINKS = [
@@ -160,7 +161,13 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
             </div>
 
             {/* Dark mode + logout */}
-            <div className="flex  flex-row items-center gap-xs">
+            <div className="flex flex-col md:flex-col lg:flex-row items-center gap-xs relative">
+              <div className="hidden md:block">
+                {/* On desktop/tablet, dropdown needs to open to the right and UP since it's at the bottom */}
+                <div className="group relative">
+                  <NotificationBell dropdownPosition="left-full bottom-0 ml-4" />
+                </div>
+              </div>
               <button
                 title="Toggle dark mode"
                 className="p-2 rounded-full hover:bg-surface-container-high

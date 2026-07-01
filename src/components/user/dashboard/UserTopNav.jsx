@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { useAuthStore } from "../../../auth/authStore";
 import useLogin from "../../../auth/useLogin";
+import NotificationBell from "../../shared/NotificationBell";
 
 // Nav links shown in the top bar
 const navLinks = [
@@ -84,6 +85,11 @@ export default function UserTopNav() {
             New Ticket
           </button>
 
+          {/* Notification Bell */}
+          <div className="hidden md:block">
+            <NotificationBell />
+          </div>
+
           {/* User avatar — hidden on mobile */}
           <div
             onClick={() => navigate("profile")}
@@ -105,14 +111,17 @@ export default function UserTopNav() {
             <MdLogout size={20} />
           </button>
 
-          {/* Mobile Burger Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-xs text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors"
-            title="Toggle Menu"
-          >
-            {isOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
-          </button>
+          {/* Mobile Actions: Notification Bell + Burger Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <NotificationBell />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-xs text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors"
+              title="Toggle Menu"
+            >
+              {isOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 

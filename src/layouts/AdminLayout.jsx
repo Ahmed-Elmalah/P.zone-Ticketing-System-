@@ -13,6 +13,7 @@ import { Outlet } from "react-router-dom";
 import { MdMenu } from "react-icons/md";
 import AdminSidebar from "../components/admin/dashboard/AdminSidebar";
 import AdminFooter from "../components/admin/dashboard/AdminFooter";
+import NotificationBell from "../components/shared/NotificationBell";
 
 export default function AdminLayout() {
   // Controls mobile drawer — tablet/desktop ignore this
@@ -44,13 +45,16 @@ export default function AdminLayout() {
           <span className="font-headline-md text-headline-md font-bold text-primary">
             P.ZONE
           </span>
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="p-2 rounded-full hover:bg-surface-container-high
-              text-on-surface-variant transition-colors"
-          >
-            <MdMenu size={24} />
-          </button>
+          <div className="flex items-center gap-2">
+            <NotificationBell />
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="p-2 rounded-full hover:bg-surface-container-high
+                text-on-surface-variant transition-colors"
+            >
+              <MdMenu size={24} />
+            </button>
+          </div>
         </header>
 
         {/* ── Child pages render here ── */}
