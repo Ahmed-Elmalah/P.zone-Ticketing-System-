@@ -20,6 +20,7 @@ import { useAuthStore } from "../../../auth/authStore";
 import useLogin from "../../../auth/useLogin";
 import useThemeStore from "../../../store/useThemeStore";
 import NotificationBell from "../../shared/NotificationBell";
+import ThemeToggle from "../../shared/ThemeToggle";
 
 // Nav links shown in the top bar
 const navLinks = [
@@ -91,13 +92,7 @@ export default function UserTopNav() {
 
           {/* Notification Bell */}
           <div className="hidden md:flex items-center gap-xs">
-            <button
-              onClick={toggleTheme}
-              title={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
-              className="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant"
-            >
-              {theme === 'dark' ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
-            </button>
+            <ThemeToggle />
             <NotificationBell />
           </div>
 
@@ -124,12 +119,7 @@ export default function UserTopNav() {
 
           {/* Mobile Actions: Notification Bell + Dark Mode + Burger Button */}
           <div className="md:hidden flex items-center gap-1">
-            <button
-              onClick={toggleTheme}
-              className="p-xs text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors"
-            >
-              {theme === 'dark' ? <MdLightMode size={22} /> : <MdDarkMode size={22} />}
-            </button>
+            <ThemeToggle />
             <NotificationBell />
             <button
               onClick={() => setIsOpen(!isOpen)}

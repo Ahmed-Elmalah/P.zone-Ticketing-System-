@@ -25,7 +25,7 @@ import useLogin from "../../../auth/useLogin";
 import { useAuthStore } from "../../../auth/authStore";
 import NotificationBell from "../../shared/NotificationBell";
 import useThemeStore from "../../../store/useThemeStore";
-import { MdLightMode } from "react-icons/md";
+import ThemeToggle from "../../shared/ThemeToggle";
 
 // ── Nav links config — add/remove here ──────────────────────
 const NAV_LINKS = [
@@ -171,14 +171,7 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
                   <NotificationBell dropdownPosition="left-full bottom-0 ml-4" />
                 </div>
               </div>
-              <button
-                onClick={toggleTheme}
-                title={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
-                className="p-2 rounded-full hover:bg-surface-container-high
-                  transition-colors text-on-surface-variant"
-              >
-                {theme === 'dark' ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
-              </button>
+              <ThemeToggle />
               <button
                 onClick={logOut}
                 title="Sign Out"
