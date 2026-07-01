@@ -21,6 +21,7 @@ import useLogin from "../../../auth/useLogin";
 import useThemeStore from "../../../store/useThemeStore";
 import NotificationBell from "../../shared/NotificationBell";
 import ThemeToggle from "../../shared/ThemeToggle";
+import LogoImage from "../../../assets/P.zone-LogoBlack-Version-01-2048x753.png";
 
 // Nav links shown in the top bar
 const navLinks = [
@@ -50,7 +51,7 @@ export default function UserTopNav() {
               setIsOpen(false);
             }}
           >
-            <MdConfirmationNumber size={28} className="text-primary" />
+            <img src={LogoImage} alt="P.ZONE Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
             <span className="font-headline-md text-headline-md font-bold text-primary">
               P.ZONE
             </span>

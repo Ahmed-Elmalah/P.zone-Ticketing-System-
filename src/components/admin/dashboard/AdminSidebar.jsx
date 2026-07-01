@@ -26,6 +26,7 @@ import { useAuthStore } from "../../../auth/authStore";
 import NotificationBell from "../../shared/NotificationBell";
 import useThemeStore from "../../../store/useThemeStore";
 import ThemeToggle from "../../shared/ThemeToggle";
+import LogoImage from "../../../assets/P.zone-LogoBlack-Version-01-2048x753.png";
 
 // ── Nav links config — add/remove here ──────────────────────
 const NAV_LINKS = [
@@ -70,9 +71,12 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
           className="flex items-center justify-between py-lg px-xl
           border-b border-outline-variant/50 md:hidden lg:flex"
         >
-          <span className="font-headline-md text-headline-md font-bold text-primary">
-            P.ZONE
-          </span>
+          <div className="flex items-center gap-sm">
+            <img src={LogoImage} alt="P.ZONE Logo" className="w-10 h-10 lg:w-12 lg:h-12 object-contain" />
+            <span className="font-headline-md text-headline-md font-bold text-primary">
+              P.ZONE
+            </span>
+          </div>
           {/* Close button — mobile drawer only */}
           <button
             onClick={onClose}
@@ -88,10 +92,8 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
           className="hidden md:flex lg:hidden justify-center py-lg
           border-b border-outline-variant/50"
         >
-          <div className="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center">
-            <span className="font-bold text-on-primary-container text-xs">
-              PZ
-            </span>
+          <div className="w-10 h-10 flex items-center justify-center">
+            <img src={LogoImage} alt="P.ZONE Logo" className="w-10 h-10 object-contain" />
           </div>
         </div>
 

@@ -31,12 +31,12 @@ export default function AdminLayout() {
 
       {/* ── Main content + footer ── */}
       {/*
-        Margin left accounts for sidebar width:
-          mobile  → ml-0  (sidebar is overlay, not in flow)
-          tablet  → ml-16 (icon-only sidebar = 4rem)
-          desktop → ml-70 (full sidebar = 17.5rem)
+        Padding left accounts for sidebar width:
+          mobile  → pl-0  (sidebar is overlay, not in flow)
+          tablet  → pl-16 (icon-only sidebar = 4rem)
+          desktop → pl-70 (full sidebar = 17.5rem)
       */}
-      <div className="flex-1 ml-0 md:ml-16 lg:ml-70 flex flex-col min-h-screen w-full">
+      <div className="flex-1 pl-0 md:pl-16 lg:pl-70 flex flex-col min-h-screen w-full">
         {/* ── Mobile top bar — burger + brand ── */}
         {/* Only rendered on mobile; hidden on tablet+ */}
         <header

@@ -7,6 +7,7 @@
   height: 34px;
   transform: scale(0.65); /* Made it smaller as requested */
   transform-origin: center;
+  margin: -5px -11px; /* Compensate for the scale to prevent layout pushing */
 }
 
 .switch input {
