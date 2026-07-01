@@ -73,6 +73,32 @@ const useAdminStore = create((set) => ({
     }
   },
 
+  updateCategory: async (id, categoryData) => {
+    try {
+      const updatedCat = await categoryRepo.updateCategory(id, categoryData);
+      const categoryToStore = updatedCat.data || updatedCat;
+      set((state) => ({
+        categories: state.categories.map((c) => 
+          (c.documentId === id || c.id === id) ? { ...c, ...categoryToStore } : c
+        )
+      }));
+      return categoryToStore;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  removeCategory: async (id) => {
+    try {
+      await categoryRepo.deleteCategory(id);
+      set((state) => ({
+        categories: state.categories.filter((c) => (c.documentId || c.id) !== id)
+      }));
+    } catch (error) {
+      throw error;
+    }
+  },
+
   // --- Dashboard Data ---
   dashboardStats: { totalTickets: 0, openTickets: 0, resolvedTickets: 0, totalUsers: 0 },
   recentTickets: [],

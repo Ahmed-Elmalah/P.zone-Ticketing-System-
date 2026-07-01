@@ -23,5 +23,13 @@ export const categoryRepo = {
   updateCategory: async (id, data) => {
     const response = await axiosInstance.put(`/categories/${id}`, { data });
     return response.data;
+  },
+
+  /**
+   * Delete a category.
+   */
+  deleteCategory: async (id) => {
+    const response = await axiosInstance.delete(`/categories/${id}`);
+    return response.data;
   }
 };
