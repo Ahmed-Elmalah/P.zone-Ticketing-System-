@@ -70,6 +70,16 @@ export default function PersonalInfoFields({ disabled = false }) {
             className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
+        
+        <FormField label="Phone Number" name="phoneNumber">
+          <Field
+            name="phoneNumber"
+            type="text"
+            placeholder="010xxxxxxx"
+            disabled={disabled}
+            className={`${inputClass} ${disabledClass}`}
+          />
+        </FormField>
       </div>
 
       {/* ── Right column ── */}
@@ -83,10 +93,6 @@ export default function PersonalInfoFields({ disabled = false }) {
             className={`${inputClass} ${disabledClass}`}
           />
         </FormField>
-      </div>
-
-      {/* ── Full Width Laptop Number ── */}
-      <div className="col-span-1 md:col-span-2">
 
         <FormField label="Laptop Number" name="laptopNumber">
           <Field

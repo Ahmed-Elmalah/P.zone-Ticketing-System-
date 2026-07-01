@@ -28,6 +28,7 @@ const AddUserSchema = Yup.object({
     .email("Invalid email address")
     .required("Email is required"),
   laptopNumber: Yup.string().required("Laptop number is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .required("Password is required"),
@@ -43,6 +44,7 @@ const initialValues = {
   fullName: "",
   email: "",
   laptopNumber: "",
+  phoneNumber: "",
   password: "",
   confirmPassword: "",
   role: "", // Changed from "help" to empty string to force selection
@@ -62,6 +64,7 @@ export default function AddUserForm() {
         email: values.email,
         password: values.password,
         deviceNumber: values.laptopNumber,
+        phoneNumber: values.phoneNumber,
         role: values.role, // role ID from RoleAssignment
         blocked: !values.isActive,
         confirmed: true // usually required to bypass email confirmation
