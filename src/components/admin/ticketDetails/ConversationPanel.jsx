@@ -13,10 +13,12 @@ import AdminMessageBubble from "./AdminMessageBubble";
 import StaffComposer from "../../shared/StaffComposer";
 
 export default function ConversationPanel({ messages = [], onSend }) {
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   return (
@@ -39,11 +41,11 @@ export default function ConversationPanel({ messages = [], onSend }) {
       <div
         className="flex-1 overflow-y-auto p-md flex flex-col gap-lg bg-surface-container-lowest
         min-h-75 max-h-150"
+        ref={chatContainerRef}
       >
         {messages.map((msg, i) => (
           <AdminMessageBubble key={i} {...msg} />
         ))}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* ── Composer — always at bottom ── */}

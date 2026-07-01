@@ -25,6 +25,7 @@ import useTicketStore from "../../store/useTicketStore";
 import useChatStore from "../../store/useChatStore";
 import { useAuthStore } from "../../auth/authStore";
 import useAdminStore from "../../store/useAdminStore";
+import { getSocket } from "../../api/socket";
 
 // Static audit events since Strapi doesn't track this by default
 const AUDIT_EVENTS = [
@@ -42,7 +43,7 @@ const AUDIT_EVENTS = [
 export default function TicketDetail() {
   const { id } = useParams();
   const { selectedTicket, fetchTicketById, updateTicket, clearSelectedTicket } = useTicketStore();
-  const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
+  const { messages, fetchMessages, sendMessage, clearMessages, receiveRealTimeMessage } = useChatStore();
   const { user } = useAuthStore();
   const { users, fetchUsers } = useAdminStore();
 
@@ -51,12 +52,25 @@ export default function TicketDetail() {
       fetchTicketById(id);
       fetchMessages(id);
       fetchUsers();
+
+      const socket = getSocket();
+      if (socket) {
+        socket.emit("join_ticket", id);
+        socket.on("new_message", (newMessage) => {
+          receiveRealTimeMessage(newMessage);
+        });
+      }
     }
     return () => {
+      const socket = getSocket();
+      if (socket && id) {
+        socket.emit("leave_ticket", id);
+        socket.off("new_message");
+      }
       clearMessages();
       clearSelectedTicket();
     };
-  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket, fetchUsers]);
+  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket, fetchUsers, receiveRealTimeMessage]);
 
   const handleSend = async (text, activeTab, files) => {
     if (!text.trim() && (!files || files.length === 0)) return;
@@ -67,7 +81,6 @@ export default function TicketDetail() {
         sender: user?.id,
         isInternalNote: activeTab === "internal",
       }, files);
-      await fetchMessages(id);
     } catch (err) {
       console.error("Failed to send reply", err);
     }

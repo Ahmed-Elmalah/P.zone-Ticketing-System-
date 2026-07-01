@@ -10,31 +10,47 @@ import ReplyBox from "../../components/user/ticketDetails/ReplyBox";
 import useTicketStore from "../../store/useTicketStore";
 import useChatStore from "../../store/useChatStore";
 import { useAuthStore } from "../../auth/authStore";
+import { getSocket } from "../../api/socket";
 
 export default function TicketDetail() {
   const { id } = useParams();
   const { selectedTicket, fetchTicketById, clearSelectedTicket } = useTicketStore();
-  const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
+  const { messages, fetchMessages, sendMessage, clearMessages, receiveRealTimeMessage } = useChatStore();
   const { user } = useAuthStore();
   
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     if (id) {
       fetchTicketById(id);
       fetchMessages(id);
+      
+      const socket = getSocket();
+      if (socket) {
+        socket.emit("join_ticket", id);
+        socket.on("new_message", (newMessage) => {
+          receiveRealTimeMessage(newMessage);
+        });
+      }
     }
 
-    // Cleanup on unmount — so messages don't bleed between tickets
+    // Cleanup on unmount
     return () => {
+      const socket = getSocket();
+      if (socket && id) {
+        socket.emit("leave_ticket", id);
+        socket.off("new_message");
+      }
       clearMessages();
       clearSelectedTicket();
     };
-  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket]);
+  }, [id, fetchTicketById, fetchMessages, clearMessages, clearSelectedTicket, receiveRealTimeMessage]);
 
   // Auto-scroll to bottom when messages update
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const handleSendReply = async (replyText, files) => {
@@ -46,8 +62,6 @@ export default function TicketDetail() {
         ticket: id,
         sender: user?.id, // links the message to the current logged-in user
       }, files);
-      // Re-fetch messages to get fully populated sender data and show latest state
-      await fetchMessages(id);
     } catch (err) {
       console.error("Failed to send message", err);
     }
@@ -77,7 +91,7 @@ export default function TicketDetail() {
       </header>
 
       {/* Chat Area — shows only Messages from the Messages collection */}
-      <div className="flex-1 overflow-y-auto bg-surface-bright">
+      <div className="flex-1 overflow-y-auto bg-surface-bright" ref={chatContainerRef}>
         <div className="max-w-4xl mx-auto p-margin-desktop space-y-xl">
 
           {/* System note if ticket has been assigned */}
@@ -116,7 +130,6 @@ export default function TicketDetail() {
               );
             })
           )}
-          <div ref={messagesEndRef} />
         </div>
       </div>
 

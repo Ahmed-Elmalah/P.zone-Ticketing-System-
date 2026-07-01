@@ -10,13 +10,8 @@ const SOCKET_URL = isProd
 let socket = null;
 
 export const initSocket = () => {
-  // Skip socket connection if no socket server is configured
-  // Socket.io requires a plugin on the Strapi backend side
-  // Remove this guard once backend socket plugin is installed
-  if (import.meta.env.VITE_SOCKET_ENABLED !== 'true') {
-    console.info('[Socket] Socket.io is disabled. Set VITE_SOCKET_ENABLED=true to enable.');
-    return null;
-  }
+  // Socket.io plugin is now installed on the backend
+
 
   if (socket) return socket;
 

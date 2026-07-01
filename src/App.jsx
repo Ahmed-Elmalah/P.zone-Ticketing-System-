@@ -40,6 +40,7 @@ import TicketDetail from "./pages/user/TicketDetail";
 import ProfilePage from "./pages/profile/ProfilePage";
 import { Toaster } from "react-hot-toast";
 import UserDetails from "./pages/admin/UserDetails";
+import GlobalSocketListener from "./components/shared/GlobalSocketListener";
 
 // ── Root redirect ─────────────────────────────────────────────
 // If there's a saved token → go to /admin (useLogin's checkToken
@@ -61,8 +62,8 @@ export default function App() {
   return (
     <>
       <Toaster position="top-center" />
-
       <BrowserRouter>
+        <GlobalSocketListener />
         <Routes>
           {/* Root smart redirect */}
           <Route path="/" element={<RootRedirect />} />

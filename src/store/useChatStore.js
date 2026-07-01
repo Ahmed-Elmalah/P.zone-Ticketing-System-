@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { messageRepo } from '../api/messageRepo';
-// Socket import removed — socket.io backend plugin not yet configured
-
+import { getSocket } from '../api/socket';
 const useChatStore = create((set, get) => ({
   messages: [],
   isLoading: false,
@@ -21,12 +20,8 @@ const useChatStore = create((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const newMsg = await messageRepo.sendMessage(messageData, files);
-      // We don't push to state immediately if we rely on socket event, 
-      // but for optimistic UI, we can add it here.
-      set((state) => ({ 
-        messages: [...state.messages, newMsg.data || newMsg],
-        isLoading: false 
-      }));
+      // We rely entirely on the socket 'new_message' event to append the message for everyone (including the sender).
+      set({ isLoading: false });
       
       // Emit event through socket if backend expects it
       // const socket = getSocket();

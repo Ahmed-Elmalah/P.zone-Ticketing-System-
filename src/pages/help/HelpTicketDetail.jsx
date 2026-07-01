@@ -13,31 +13,47 @@ import useTicketStore from "../../store/useTicketStore";
 import useChatStore from "../../store/useChatStore";
 import useHelpStore from "../../store/useHelpStore";
 import { useAuthStore } from "../../auth/authStore";
+import { getSocket } from "../../api/socket";
 
 export default function HelpTicketDetail() {
   const { id } = useParams();
   const { user } = useAuthStore();
   const { selectedTicket, fetchTicketById, updateTicket, clearSelectedTicket } = useTicketStore();
-  const { messages, fetchMessages, sendMessage, clearMessages } = useChatStore();
+  const { messages, fetchMessages, sendMessage, clearMessages, receiveRealTimeMessage } = useChatStore();
   const { usersList, loadUsersList, optimisticUpdateTicket } = useHelpStore();
   
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     if (id) {
       fetchTicketById(id);
       fetchMessages(id);
       loadUsersList();
+
+      const socket = getSocket();
+      if (socket) {
+        socket.emit("join_ticket", id);
+        socket.on("new_message", (newMessage) => {
+          receiveRealTimeMessage(newMessage);
+        });
+      }
     }
     return () => {
+      const socket = getSocket();
+      if (socket && id) {
+        socket.emit("leave_ticket", id);
+        socket.off("new_message");
+      }
       clearMessages();
       clearSelectedTicket();
     };
-  }, [id, fetchTicketById, fetchMessages, loadUsersList, clearMessages, clearSelectedTicket]);
+  }, [id, fetchTicketById, fetchMessages, loadUsersList, clearMessages, clearSelectedTicket, receiveRealTimeMessage]);
 
   // Auto-scroll to bottom when messages update
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const handleSendReply = async (text, type, files) => {
@@ -48,7 +64,6 @@ export default function HelpTicketDetail() {
         sender: user?.id,
         isInternalNote: type === "internal",
       }, files);
-      await fetchMessages(id);
       toast.success(type === "internal" ? "Internal note added" : "Reply sent");
     } catch (err) {
       toast.error("Failed to send message");
@@ -89,7 +104,7 @@ export default function HelpTicketDetail() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden w-full">
         {/* Left Column: Conversation Feed */}
         <div className="flex-1 lg:flex-7 flex flex-col h-full lg:border-r border-outline-variant bg-surface-bright relative">
-          <div className="flex-1 overflow-y-auto p-margin-desktop space-y-xl">
+          <div className="flex-1 overflow-y-auto p-margin-desktop space-y-xl" ref={chatContainerRef}>
             
             {/* Initial Request Bubble (Simulated as first message for now) */}
             <MessageBubble
@@ -128,7 +143,6 @@ export default function HelpTicketDetail() {
                 />
               );
             })}
-            <div ref={messagesEndRef} />
           </div>
 
           {/* Help Desk Reply Box */}
