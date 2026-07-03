@@ -1,11 +1,8 @@
 import { io } from 'socket.io-client';
 
-const isProd = import.meta.env.PROD;
-const SOCKET_URL = isProd 
-  ? '/' 
-  : (import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace('/api', '') 
-      : 'http://localhost:1337');
+const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:1337/api';
+// The socket server is at the root of the backend URL (without /api)
+const SOCKET_URL = apiBaseUrl.replace(/\/api\/?$/, '');
 
 let socket = null;
 
