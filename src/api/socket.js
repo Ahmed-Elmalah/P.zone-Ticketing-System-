@@ -1,8 +1,11 @@
 import { io } from 'socket.io-client';
 
-const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:1337/api';
-// The socket server is at the root of the backend URL (without /api)
-const SOCKET_URL = apiBaseUrl.replace(/\/api\/?$/, '');
+const isProd = import.meta.env.PROD;
+const SOCKET_URL = isProd 
+  ? '/' 
+  : (import.meta.env.VITE_API_URL 
+      ? import.meta.env.VITE_API_URL.replace('/api', '') 
+      : 'http://localhost:1337');
 
 let socket = null;
 
@@ -16,7 +19,7 @@ export const initSocket = () => {
 
   socket = io(SOCKET_URL, {
     auth: { token },
-    transports: ['websocket', 'polling'],
+    transports: isProd ? ['polling'] : ['websocket', 'polling'],
   });
 
   socket.on('connect', () => {
