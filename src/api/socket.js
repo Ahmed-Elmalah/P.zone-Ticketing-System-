@@ -2,9 +2,12 @@ import { io } from 'socket.io-client';
 
 const isProd = import.meta.env.PROD;
 
-// If we are in production (Vercel), we MUST connect to the same origin to route through vercel.json rewrites.
-// Otherwise, we connect to the VITE_API_URL backend.
-const SOCKET_URL = isProd ? window.location.origin : (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:1337');
+// VITE_SOCKET_URL must be set to a direct HTTPS backend URL in production
+// (e.g., a Cloudflare Tunnel URL) because Vercel's serverless proxy
+// does NOT support socket.io long-polling or WebSockets.
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL
+  || (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : null)
+  || (isProd ? window.location.origin : 'http://localhost:1337');
 
 let socket = null;
 
@@ -15,8 +18,10 @@ export const initSocket = () => {
 
   socket = io(SOCKET_URL, {
     auth: { token },
-    // Force polling first to prevent Vercel from immediately killing ws:// upgrades
     transports: isProd ? ['polling'] : ['polling', 'websocket'],
+    extraHeaders: {
+      'ngrok-skip-browser-warning': 'true',
+    },
   });
 
   socket.on('connect', () => {
