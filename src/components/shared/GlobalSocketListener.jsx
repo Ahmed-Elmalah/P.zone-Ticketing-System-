@@ -24,7 +24,6 @@ export default function GlobalSocketListener() {
     const roleType = user.role?.type || (user.role && user.role.name ? user.role.name.toLowerCase() : 'authenticated');
 
     const handleConnect = () => {
-      console.log("[GlobalSocket] Connected with ID:", documentId, "Role:", roleType);
       if (documentId) {
         socket.emit("setup_global_rooms", {
           documentId: documentId,
@@ -39,20 +38,16 @@ export default function GlobalSocketListener() {
     socket.on("connect", handleConnect);
 
     const handleNotification = (message) => {
-      console.log("[GlobalSocket] Received global_notification:", message);
       
       const msgId = message.documentId || message.id;
       if (handledMessages.has(msgId)) {
-        console.log("[GlobalSocket] Ignoring duplicate message event.");
         return;
       }
       handledMessages.add(msgId);
       
       const senderId = message.sender?.documentId || message.sender?.id?.toString();
-      console.log("[GlobalSocket] Sender ID:", senderId, "My ID:", documentId);
       
       if (senderId === documentId) {
-        console.log("[GlobalSocket] Ignoring because I am the sender.");
         return;
       }
 
@@ -61,21 +56,17 @@ export default function GlobalSocketListener() {
 
       const ticketId = message.ticket?.documentId || message.ticket?.id?.toString();
       if (!ticketId) {
-        console.log("[GlobalSocket] Ignoring because no ticket ID found.");
         return;
       }
 
       const currentPath = location.pathname;
       const isInsideTicket = currentPath.includes(`/tickets/${ticketId}`);
       
-      console.log("[GlobalSocket] Path:", currentPath, "isInsideTicket:", isInsideTicket);
 
       if (isInsideTicket) {
-        console.log("[GlobalSocket] Ignoring because I am inside the chat already.");
         return;
       }
 
-      console.log("[GlobalSocket] Showing Toast!");
 
       const handleToastClick = (t) => {
         toast.dismiss(t.id);
@@ -93,10 +84,10 @@ export default function GlobalSocketListener() {
           onClick={() => handleToastClick(t)}
           className={`${
             t.visible ? 'animate-enter' : 'animate-leave'
-          } w-[350px] bg-surface shadow-2xl rounded-xl pointer-events-auto flex ring-1 ring-black/5 cursor-pointer hover:bg-surface-container transition-all p-4`}
+          } w-87.5 bg-surface shadow-2xl rounded-xl pointer-events-auto flex ring-1 ring-black/5 cursor-pointer hover:bg-surface-container transition-all p-4`}
         >
           <div className="flex items-start w-full gap-4 min-w-0">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               {fullAvatarUrl ? (
                 <img
                   className="h-10 w-10 rounded-full object-cover shadow-sm border border-outline-variant"

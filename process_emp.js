@@ -81,8 +81,6 @@ try {
   const outBuf = XLSX.write(newWb, { type: "buffer", bookType: "xlsx" });
   fs.writeFileSync(outputPath, outBuf);
   
-  console.log(`Success! Processed ${formattedData.length - 1} users.`);
-  console.log(`Saved to ${outputPath}`);
 
 } catch (error) {
   console.error("Error processing file:", error);

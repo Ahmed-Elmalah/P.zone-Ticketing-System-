@@ -24,13 +24,6 @@ export const initSocket = () => {
     },
   });
 
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server:', socket.id);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Disconnected from WebSocket server');
-  });
 
   socket.on('connect_error', (err) => {
     console.error('Socket connection error:', err.message);
