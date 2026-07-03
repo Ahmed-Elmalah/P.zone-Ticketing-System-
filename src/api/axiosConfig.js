@@ -17,7 +17,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   paramsSerializer: (params) => {
-    return qs.stringify(params, { encodeValuesOnly: true });
+    return qs.stringify(params);
   },
 });
 
