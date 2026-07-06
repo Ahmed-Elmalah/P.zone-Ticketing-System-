@@ -152,7 +152,7 @@ export default function LoginForm() {
             />
           </div>
 
-          {/* ── Remember Me + Forgot Password ── */}
+          {/* ── Remember Me ── */}
           <div className="flex items-center justify-between mt-[-8px]">
             <div className="flex items-center gap-sm">
               <Field
@@ -168,13 +168,6 @@ export default function LoginForm() {
                 Remember Me
               </label>
             </div>
-
-            <a
-              href="#"
-              className="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors"
-            >
-              Forgot Password?
-            </a>
           </div>
 
           {/* ── Submit Button ── */}

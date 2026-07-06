@@ -4,19 +4,17 @@
 // icon + title + subtitle
 // ============================================================
 
-import { MdShield } from "react-icons/md";
+import Logo from "../../../assets/P.zone-LogoBlack-Version-01-2048x753.png";
 
 export default function LoginHeader() {
   return (
     <div className="flex flex-col items-center text-center gap-sm">
-      {/* App icon */}
-      <div className="w-12 h-12 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center mb-sm">
-        <MdShield size={28} />
-      </div>
+      {/* App logo */}
+      <img src={Logo} alt="P.ZONE TICKETING SYSTEM" className="h-12 object-contain mb-sm" />
 
       {/* Title */}
       <h1 className="font-headline-lg text-headline-lg text-on-surface">
-        Welcome Back
+        P.ZONE TICKETING SYSTEM
       </h1>
 
       {/* Subtitle */}
