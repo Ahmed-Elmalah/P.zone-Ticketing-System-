@@ -38,7 +38,11 @@ export const ticketRepo = {
    * Update an existing ticket (e.g. status, priority, assignee).
    */
   updateTicket: async (id, data) => {
-    const response = await axiosInstance.put(`/tickets/${id}`, { data });
+    const response = await axiosInstance.put(`/tickets/${id}`, { data }, {
+      params: {
+        populate: ['creator', 'assignee', 'category', 'createdByAgent', 'attachments'],
+      },
+    });
     return response.data;
   },
 

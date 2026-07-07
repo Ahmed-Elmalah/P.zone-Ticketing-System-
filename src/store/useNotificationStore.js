@@ -31,11 +31,16 @@ const useNotificationStore = create(
             return state;
           }
 
+          let text = message.notificationText || `New message from ${message.sender?.username || 'User'}`;
+          if (text.includes('undefined') && message.ticket?.subject) {
+            text = text.replace('undefined', message.ticket.subject);
+          }
+
           const newNotif = {
             id: 'temp_' + Math.random(),
             documentId: 'temp_' + Math.random(),
             sourceMessageId: msgId,
-            message: message.notificationText || `New message from ${message.sender?.username || 'User'}`,
+            message: text,
             isRead: false,
             createdAt: new Date().toISOString(),
             ticket: message.ticket,

@@ -105,7 +105,9 @@ export default function GlobalSocketListener() {
                 {message.sender?.username || 'Unknown User'}
               </p>
               <p className="mt-1 text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                {message.content}
+                {message.content?.includes('undefined') && message.ticket?.subject 
+                  ? message.content.replace('undefined', message.ticket.subject) 
+                  : message.content}
               </p>
               <p className="mt-2 text-xs font-bold text-primary tracking-wide">
                 View Ticket #{ticketId.substring(0, 8).toUpperCase()}

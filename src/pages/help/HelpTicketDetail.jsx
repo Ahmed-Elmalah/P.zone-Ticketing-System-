@@ -101,9 +101,9 @@ export default function HelpTicketDetail() {
       </div>
 
       {/* 2. Two Column Layout */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden w-full">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden w-full">
         {/* Left Column: Conversation Feed */}
-        <div className="flex-1 lg:flex-7 flex flex-col h-full lg:border-r border-outline-variant bg-surface-bright relative">
+        <div className="flex-none h-[70vh] lg:flex-1 lg:flex-7 flex flex-col lg:h-full lg:border-r border-outline-variant bg-surface-bright relative">
           <div className="flex-1 overflow-y-auto p-margin-desktop space-y-xl" ref={chatContainerRef}>
             
             {/* Initial Request Bubble (Simulated as first message for now) */}
@@ -150,7 +150,7 @@ export default function HelpTicketDetail() {
         </div>
 
         {/* Right Column: Ticket Properties Sidebar */}
-        <div className="w-full lg:w-80 shrink-0 bg-surface-container-lowest border-t lg:border-t-0 lg:border-l border-outline-variant h-full overflow-hidden">
+        <div className="w-full lg:w-80 shrink-0 bg-surface-container-lowest border-t lg:border-t-0 lg:border-l border-outline-variant lg:h-full lg:overflow-hidden">
           <TicketSidebar 
             ticket={selectedTicket} 
             usersList={usersList} 
