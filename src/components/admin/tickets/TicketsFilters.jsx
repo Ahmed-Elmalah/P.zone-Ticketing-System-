@@ -31,7 +31,7 @@ export default function TicketsFilters({
         >
           <option value="">Status: All</option>
           <option value="Open">Open</option>
-          <option value="In Progress">In Progress</option>
+          <option value="InProgress">In Progress</option>
           <option value="Resolved">Resolved</option>
           <option value="Closed">Closed</option>
         </select>
@@ -44,7 +44,7 @@ export default function TicketsFilters({
         >
           <option value="">Category: All</option>
           {categories.map((c) => (
-            <option key={c.id || c.documentId} value={c.documentId || c.id}>{c.name || c.title}</option>
+            <option key={c.documentId || c.id} value={c.documentId || c.id}>{c.name || c.title}</option>
           ))}
         </select>
 
@@ -70,7 +70,7 @@ export default function TicketsFilters({
           <option value="">Assignee: Anyone</option>
           <option value="unassigned">Unassigned</option>
           {agentsOnly.map((a) => (
-            <option key={a.id || a.documentId} value={a.documentId || a.id}>{a.username}</option>
+            <option key={a.documentId || a.id} value={a.documentId || a.id}>{a.username}</option>
           ))}
         </select>
       </div>

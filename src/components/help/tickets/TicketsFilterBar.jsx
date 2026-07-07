@@ -41,10 +41,10 @@ export default function TicketsFilterBar() {
             id="filter-status"
           >
             <option value="all">All Statuses</option>
-            <option value="open">Open</option>
-            <option value="in-progress">In Progress</option>
-            <option value="pending">Pending</option>
-            <option value="resolved">Resolved</option>
+            <option value="Open">Open</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
           </select>
         </div>
 

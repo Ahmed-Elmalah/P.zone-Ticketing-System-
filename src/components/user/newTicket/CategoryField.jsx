@@ -45,7 +45,7 @@ export default function CategoryField() {
 
           {/* Dynamic options */}
           {categories.map((cat) => (
-            <option key={ cat.documentId} value={ cat.documentId}>
+            <option key={cat.id} value={cat.id}>
               {cat.name}
             </option>
           ))}

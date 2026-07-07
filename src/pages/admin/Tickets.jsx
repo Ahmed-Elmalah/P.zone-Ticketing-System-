@@ -35,7 +35,9 @@ export default function AdminTickets() {
         ...params.filters,
         $or: [
           { subject: { $containsi: search } },
-          { documentId: { $containsi: search } }
+          { documentId: { $containsi: search } },
+          { creator: { username: { $containsi: search } } },
+          { creator: { employeeId: { $containsi: search } } }
         ]
       };
     }
@@ -48,9 +50,12 @@ export default function AdminTickets() {
     }
 
     if (categoryFilter) {
+      const isNumeric = /^\d+$/.test(categoryFilter);
       params.filters = {
         ...params.filters,
-        category: { documentId: { $eq: categoryFilter } },
+        category: isNumeric 
+          ? { id: { $eq: parseInt(categoryFilter, 10) } } 
+          : { documentId: { $eq: categoryFilter } },
       };
     }
 
@@ -68,9 +73,12 @@ export default function AdminTickets() {
           assignee: { id: { $null: true } },
         };
       } else {
+        const isNumeric = /^\d+$/.test(assigneeFilter);
         params.filters = {
           ...params.filters,
-          assignee: { documentId: { $eq: assigneeFilter } },
+          assignee: isNumeric 
+            ? { id: { $eq: parseInt(assigneeFilter, 10) } } 
+            : { documentId: { $eq: assigneeFilter } },
         };
       }
     }

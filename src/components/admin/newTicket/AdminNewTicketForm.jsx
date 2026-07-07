@@ -153,7 +153,7 @@ export default function AdminNewTicketForm() {
               Select User...
             </option>
             {normalUsers.map((u) => (
-              <option key={u.id} value={u.documentId || u.id}>
+              <option key={u.id} value={u.id}>
                 {u.username} ({u.email})
               </option>
             ))}
@@ -205,7 +205,7 @@ export default function AdminNewTicketForm() {
               Select category
             </option>
             {categories.map((c) => (
-              <option key={c.id || c.documentId} value={c.documentId || c.id}>
+              <option key={c.id} value={c.id}>
                 {c.name || c.title}
               </option>
             ))}
@@ -251,7 +251,7 @@ export default function AdminNewTicketForm() {
           >
             <option value="unassigned">Unassigned (Queue)</option>
             {agentsOnly.map((a) => (
-              <option key={a.id} value={a.documentId || a.id}>
+              <option key={a.id} value={a.id}>
                 {a.username} ({a.role?.name})
               </option>
             ))}

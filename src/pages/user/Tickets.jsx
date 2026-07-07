@@ -38,7 +38,12 @@ const Tickets = () => {
     if (search) {
       params.filters = {
         ...params.filters,
-        subject: { $containsi: search },
+        $or: [
+          { subject: { $containsi: search } },
+          { documentId: { $containsi: search } },
+          { creator: { username: { $containsi: search } } },
+          { creator: { employeeId: { $containsi: search } } }
+        ]
       };
     }
 
@@ -50,9 +55,12 @@ const Tickets = () => {
     }
 
     if (categoryFilter) {
+      const isNumeric = /^\d+$/.test(categoryFilter);
       params.filters = {
         ...params.filters,
-        category: { documentId: { $eq: categoryFilter } },
+        category: isNumeric 
+          ? { id: { $eq: parseInt(categoryFilter, 10) } } 
+          : { documentId: { $eq: categoryFilter } },
       };
     }
 
