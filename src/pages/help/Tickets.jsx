@@ -20,13 +20,21 @@ export default function Tickets() {
     loadUrgentCount
   } = useHelpStore();
 
-  // Load tickets whenever the active tab changes
+  const [search, setSearch] = React.useState("");
+  const [statusFilter, setStatusFilter] = React.useState("all");
+  const [priorityFilter, setPriorityFilter] = React.useState("all");
+  
+  // Load tickets whenever the active tab, filters, or user changes
   useEffect(() => {
     if (user?.id) {
-      loadQueue(user.documentId || user.id);
+      loadQueue(user.documentId || user.id, 1, {
+        search,
+        status: statusFilter,
+        priority: priorityFilter
+      });
       loadUrgentCount(); // Load urgent count to show in the badge
     }
-  }, [activeTab, user?.id, loadQueue, user?.documentId, loadUrgentCount]);
+  }, [activeTab, search, statusFilter, priorityFilter, user?.id, loadQueue, user?.documentId, loadUrgentCount]);
 
   const handleAssignToMe = async (ticketId) => {
     try {
@@ -73,7 +81,14 @@ export default function Tickets() {
         ))}
       </div>
 
-      <TicketsFilterBar />
+      <TicketsFilterBar 
+        search={search}
+        onSearch={setSearch}
+        statusFilter={statusFilter}
+        onStatusFilter={setStatusFilter}
+        priorityFilter={priorityFilter}
+        onPriorityFilter={setPriorityFilter}
+      />
 
       <TicketsTable 
         tickets={queueTickets} 

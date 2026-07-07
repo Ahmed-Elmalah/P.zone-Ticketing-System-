@@ -40,9 +40,7 @@ const Tickets = () => {
         ...params.filters,
         $or: [
           { subject: { $containsi: search } },
-          { documentId: { $containsi: search } },
-          { creator: { username: { $containsi: search } } },
-          { creator: { employeeId: { $containsi: search } } }
+          { documentId: { $containsi: search } }
         ]
       };
     }

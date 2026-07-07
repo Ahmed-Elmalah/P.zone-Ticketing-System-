@@ -62,11 +62,11 @@ const useHelpStore = create((set, get) => ({
   },
 
   // Load the queue based on the active tab
-  loadQueue: async (currentUserId, page = 1) => {
+  loadQueue: async (currentUserId, page = 1, extraFilters = {}) => {
     const { activeTab } = get();
     set({ isLoading: true, error: null });
     try {
-      const data = await helpDeskRepo.fetchQueue(activeTab, currentUserId, page);
+      const data = await helpDeskRepo.fetchQueue(activeTab, currentUserId, page, 10, extraFilters);
       set({ 
         queueTickets: data.data || [], 
         pagination: data.meta?.pagination || null,
