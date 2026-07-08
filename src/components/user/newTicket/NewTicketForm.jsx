@@ -73,6 +73,11 @@ export default function NewTicketForm() {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
+      const parseId = (val) => {
+        if (!val) return val;
+        return /^\d+$/.test(String(val)) ? Number(val) : val;
+      };
+
       // 1. Upload attachments first (if any)
       const attachmentIds = await uploadFiles(files);
 
@@ -82,8 +87,8 @@ export default function NewTicketForm() {
         description: values.description,
         priority: values.priority,
         state: "Open",                    // default state (field is 'state' in Strapi)
-        category: values.category,         // documentId of selected category
-        creator: user?.id,                 // current logged-in user
+        category: values.category ? parseId(values.category) : null,
+        creator: user?.documentId || parseId(user?.id), // current logged-in user
         ...(attachmentIds.length > 0 && { attachments: attachmentIds }),
       });
 

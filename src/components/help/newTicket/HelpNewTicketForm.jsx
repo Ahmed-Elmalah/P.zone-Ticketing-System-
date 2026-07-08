@@ -84,6 +84,11 @@ export default function HelpNewTicketForm() {
 
     setIsLoading(true);
     try {
+      const parseId = (val) => {
+        if (!val) return val;
+        return /^\d+$/.test(String(val)) ? Number(val) : val;
+      };
+
       let attachmentIds = [];
       if (files.length > 0) {
         const formDataUpload = new FormData();
@@ -97,16 +102,16 @@ export default function HelpNewTicketForm() {
       const ticketPayload = {
         subject: formData.subject,
         description: formData.description,
-        category: formData.category || null,
+        category: formData.category ? parseId(formData.category) : null,
         priority: formData.priority,
         state: "Open",
-        creator: formData.requesterId, // User who requested the ticket
-        createdByAgent: agent?.documentId || agent?.id, // Agent who created it
+        creator: parseId(formData.requesterId), // User who requested the ticket
+        createdByAgent: agent?.documentId || parseId(agent?.id), // Agent who created it
         attachments: attachmentIds,
       };
 
       if (formData.assignee && formData.assignee !== "unassigned") {
-        ticketPayload.assignee = formData.assignee;
+        ticketPayload.assignee = parseId(formData.assignee);
       }
 
       const newTicketRes =
@@ -160,7 +165,7 @@ export default function HelpNewTicketForm() {
               Select User...
             </option>
             {normalUsers.map((u) => (
-              <option key={u.id} value={u.id}>
+              <option key={u.id} value={u.documentId || u.id}>
                 {u.username} ({u.email})
               </option>
             ))}
@@ -212,7 +217,7 @@ export default function HelpNewTicketForm() {
               Select category
             </option>
             {categories.map((c) => (
-              <option key={c.id} value={c.id}>
+              <option key={c.id} value={c.documentId || c.id}>
                 {c.name || c.title}
               </option>
             ))}
@@ -258,7 +263,7 @@ export default function HelpNewTicketForm() {
           >
             <option value="unassigned">Unassigned (Queue)</option>
             {agentsOnly.map((a) => (
-              <option key={a.id} value={a.id}>
+              <option key={a.id} value={a.documentId || a.id}>
                 {a.username} ({a.role?.name})
               </option>
             ))}
