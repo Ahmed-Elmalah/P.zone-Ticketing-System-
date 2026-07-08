@@ -13,6 +13,7 @@ import { helpDeskRepo } from "../../../api/helpDeskRepo";
 import { messageRepo } from "../../../api/messageRepo";
 import axiosInstance from "../../../api/axiosConfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import SearchableSelect from "../../shared/SearchableSelect";
 
 export default function HelpNewTicketForm() {
   const navigate = useNavigate();
@@ -153,23 +154,17 @@ export default function HelpNewTicketForm() {
           Requester / Employee
         </label>
         <div className="relative">
-          <select
-            className="w-full bg-surface-container-lowest rounded-lg border border-primary/30 px-md py-3 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-lg cursor-pointer"
-            id="requesterId"
-            name="requesterId"
+          <SearchableSelect
+            options={normalUsers.map((u) => ({
+              value: u.documentId || u.id,
+              label: `${u.employeeId ? `${u.employeeId} ` : ""}${u.username} (${u.email})`
+            }))}
             value={formData.requesterId}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Select User...
-            </option>
-            {normalUsers.map((u) => (
-              <option key={u.id} value={u.documentId || u.id}>
-                {u.employeeId ? `${u.employeeId} ` : ""}{u.username} ({u.email})
-              </option>
-            ))}
-          </select>
+            onChange={(val) => handleChange({ target: { name: "requesterId", value: val } })}
+            placeholder="Select User..."
+            required={true}
+            name="requesterId"
+          />
         </div>
         <p className="text-[11px] text-on-surface-variant px-1 italic">
           Crucial: Ensure correct identity for historical SLA tracking. This
