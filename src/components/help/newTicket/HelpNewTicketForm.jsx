@@ -166,7 +166,7 @@ export default function HelpNewTicketForm() {
             </option>
             {normalUsers.map((u) => (
               <option key={u.id} value={u.documentId || u.id}>
-                {u.username} ({u.email})
+                {u.employeeId ? `${u.employeeId} ` : ""}{u.username} ({u.email})
               </option>
             ))}
           </select>

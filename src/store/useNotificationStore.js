@@ -54,7 +54,7 @@ const useNotificationStore = create(
       dismissNotification: async (notif) => {
         // Optimistic UI update
         set((state) => ({
-          notifications: state.notifications.filter((n) => n.id !== notif.id),
+          notifications: state.notifications.filter((n) => n.id !== notif.id && n.documentId !== notif.documentId),
         }));
 
         if (!notif.documentId?.startsWith('temp_')) {
@@ -63,6 +63,38 @@ const useNotificationStore = create(
           } catch (err) {
             console.error("Failed to mark as read:", err);
           }
+        } else {
+          // If it's a temp notification, wait for backend to save it, then fetch and mark it read.
+          setTimeout(async () => {
+            try {
+              // We import auth store dynamically to avoid circular dependencies if any
+              const { useAuthStore } = await import('../auth/authStore');
+              const user = useAuthStore.getState().user;
+              if (!user) return;
+              
+              const userId = user.documentId || user.id;
+              const res = await fetchUnreadNotifications(userId);
+              const unreadNotifs = res.data?.data || [];
+              
+              // Find the real notification that matches the temp one
+              const realNotif = unreadNotifs.find(n => 
+                (n.ticket?.id === notif.ticket?.id || n.ticket?.documentId === notif.ticket?.documentId) && 
+                n.message === notif.message
+              );
+
+              if (realNotif) {
+                await markNotificationAsRead(realNotif.documentId || realNotif.id);
+                // Ensure it's removed from state just in case initialize() fetched it in the meantime
+                set((state) => ({
+                  notifications: state.notifications.filter((n) => 
+                    n.id !== realNotif.id && n.documentId !== realNotif.documentId
+                  )
+                }));
+              }
+            } catch (err) {
+              console.error("Failed to sync read status for temp notification:", err);
+            }
+          }, 2000);
         }
       },
     }),
