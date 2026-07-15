@@ -148,8 +148,8 @@ export default function AdminMessageBubble({
           {/* Attachments */}
           {attachments.length > 0 && (
             <div className="mt-sm flex gap-sm flex-wrap">
-              {attachments.map((file) => (
-                <AttachmentChip key={file} fileName={file} />
+              {attachments.map((file, index) => (
+                <AttachmentChip key={file?.id || file?.documentId || file?.name || index} fileName={file} />
               ))}
             </div>
           )}

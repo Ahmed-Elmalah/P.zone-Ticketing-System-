@@ -114,37 +114,49 @@ export default function TicketDetail() {
   }
 
   // Format Messages for ConversationPanel
-  const formattedMessages = messages.map(msg => {
-    const senderRole = msg.sender?.role?.type;
-    
-    // An agent is anyone who is an admin, help, sent an internal note, or is the current logged-in user
-    const isAgent = msg.isInternalNote || 
-                    senderRole === 'admin' || 
-                    senderRole === 'help' || 
-                    msg.sender?.id === user?.id || 
-                    msg.sender?.documentId === user?.id ||
-                    msg.sender?.id === user?.documentId;
-    
-    let type = "customer";
-    if (msg.isInternalNote) {
-      type = "internal";
-    } else if (isAgent) {
-      type = "staff";
-    }
-    
-    // Strip manual "[INTERNAL NOTE]" prefix if it was added manually in older messages
-    const rawContent = msg.content || "";
-    const cleanContent = rawContent.replace(/^\[INTERNAL NOTE\]\s*/i, "");
+  const initialMessage = {
+    type: "customer",
+    senderName: selectedTicket.creator?.username || "Unknown",
+    time: new Date(selectedTicket.createdAt).toLocaleString(),
+    avatar: selectedTicket.creator?.avatar?.url,
+    lines: [selectedTicket.description],
+    attachments: selectedTicket.attachments || [],
+  };
 
-    return {
-      type: type,
-      senderName: msg.sender?.username || user?.username || 'System',
-      time: new Date(msg.createdAt).toLocaleString(),
-      avatar: msg.sender?.avatar?.url,
-      lines: [cleanContent],
-      attachments: msg.attachments || [],
-    };
-  });
+  const formattedMessages = [
+    initialMessage,
+    ...messages.map(msg => {
+      const senderRole = msg.sender?.role?.type;
+      
+      // An agent is anyone who is an admin, help, sent an internal note, or is the current logged-in user
+      const isAgent = msg.isInternalNote || 
+                      senderRole === 'admin' || 
+                      senderRole === 'help' || 
+                      msg.sender?.id === user?.id || 
+                      msg.sender?.documentId === user?.id ||
+                      msg.sender?.id === user?.documentId;
+      
+      let type = "customer";
+      if (msg.isInternalNote) {
+        type = "internal";
+      } else if (isAgent) {
+        type = "staff";
+      }
+      
+      // Strip manual "[INTERNAL NOTE]" prefix if it was added manually in older messages
+      const rawContent = msg.content || "";
+      const cleanContent = rawContent.replace(/^\[INTERNAL NOTE\]\s*/i, "");
+
+      return {
+        type: type,
+        senderName: msg.sender?.username || user?.username || 'System',
+        time: new Date(msg.createdAt).toLocaleString(),
+        avatar: msg.sender?.avatar?.url,
+        lines: [cleanContent],
+        attachments: msg.attachments || [],
+      };
+    })
+  ];
 
   const requesterData = {
     Name: selectedTicket.creator?.fullName || selectedTicket.creator?.username || "N/A",
