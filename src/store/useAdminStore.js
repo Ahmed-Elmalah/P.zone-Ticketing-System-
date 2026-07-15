@@ -103,6 +103,7 @@ const useAdminStore = create((set) => ({
   dashboardStats: { totalTickets: 0, openTickets: 0, resolvedTickets: 0, totalUsers: 0 },
   recentTickets: [],
   topAgents: [],
+  categoryStats: [],
   isLoadingDashboard: false,
 
   fetchDashboardData: async () => {
@@ -112,16 +113,18 @@ const useAdminStore = create((set) => ({
       // I will assume adminRepo is imported at the top.
       const { adminRepo } = await import('../api/adminRepo');
       
-      const [stats, recent, agents] = await Promise.all([
+      const [stats, recent, agents, catStats] = await Promise.all([
         adminRepo.getDashboardStats(),
         adminRepo.getRecentTickets(),
-        adminRepo.getTopAgents()
+        adminRepo.getTopAgents(),
+        adminRepo.getCategoryStats()
       ]);
 
       set({ 
         dashboardStats: stats,
         recentTickets: recent,
         topAgents: agents,
+        categoryStats: catStats,
         isLoadingDashboard: false 
       });
     } catch (error) {

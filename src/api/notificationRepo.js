@@ -1,6 +1,7 @@
 import axiosInstance from "./axiosConfig";
 
 export const fetchUnreadNotifications = async (userId) => {
+  if (!userId) return { data: { data: [] } };
   const isDocumentId = typeof userId === 'string' && !/^\d+$/.test(userId);
   const filterField = isDocumentId ? 'documentId' : 'id';
   // Fetch unread notifications for the given user, sorted by newest first

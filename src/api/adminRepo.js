@@ -76,5 +76,43 @@ export const adminRepo = {
     agentsWithCounts.sort((a, b) => b.ticketsResolved - a.ticketsResolved);
 
     return agentsWithCounts;
+  },
+
+  // Fetch ticket count for each category
+  getCategoryStats: async () => {
+    try {
+      const categoriesRes = await axiosInstance.get('/categories');
+      const categories = categoriesRes.data?.data || [];
+      
+      const stats = await Promise.all(categories.map(async (cat) => {
+        try {
+          const catId = cat.documentId || cat.id;
+          const isDocId = typeof catId === 'string' && !/^\d+$/.test(catId);
+          const field = isDocId ? 'documentId' : 'id';
+          
+          const countRes = await axiosInstance.get('/tickets', {
+            params: {
+              pagination: { page: 1, pageSize: 1 },
+              filters: {
+                category: { [field]: { $eq: catId } }
+              }
+            }
+          });
+          
+          const count = countRes.data?.meta?.pagination?.total || 0;
+          return {
+            label: cat.name,
+            value: count
+          };
+        } catch (err) {
+          return { label: cat.name, value: 0 };
+        }
+      }));
+      
+      return stats;
+    } catch (error) {
+      console.error("Failed to fetch category stats", error);
+      return [];
+    }
   }
 };
