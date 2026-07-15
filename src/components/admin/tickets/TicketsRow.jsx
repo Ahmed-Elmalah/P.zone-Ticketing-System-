@@ -95,7 +95,14 @@ export default function TicketsRow({ ticket }) {
 
       {/* Date */}
       <td className="p-md font-body-md text-on-surface-variant">
-        {new Date(ticket.createdAt).toLocaleDateString()}
+        {new Date(ticket.createdAt).toLocaleString("en-US", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })}
       </td>
 
       {/* Priority */}

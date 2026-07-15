@@ -29,7 +29,14 @@ export default function RealTimeFeed({ tickets = [], isLoading }) {
     badge: t.state === "Open" ? "bg-surface-container-high text-on-surface-variant" : 
            (t.state === "In Progress" || t.state === "Pending") ? "bg-primary-container/50 text-primary" : 
            "bg-secondary-container/30 text-secondary",
-    time: new Date(t.createdAt).toLocaleDateString()
+    time: new Date(t.createdAt).toLocaleString("en-US", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    })
   })) : [];
 
   return (
