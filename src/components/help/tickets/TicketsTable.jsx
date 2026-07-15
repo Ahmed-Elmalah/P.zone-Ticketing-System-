@@ -2,7 +2,7 @@ import React from "react";
 import TicketsTableRow from "./TicketsTableRow";
 import TicketsTablePagination from "./TicketsTablePagination";
 
-export default function TicketsTable({ tickets, isLoading, activeTab, onAssignMe, pagination }) {
+export default function TicketsTable({ tickets, isLoading, activeTab, onAssignMe, pagination, onPageChange }) {
   const showAssignButton = activeTab === "unassigned";
 
   return (
@@ -70,7 +70,7 @@ export default function TicketsTable({ tickets, isLoading, activeTab, onAssignMe
 
       {/* ── Table Pagination Footer ── */}
       {pagination && pagination.pageCount > 1 && (
-        <TicketsTablePagination totalItems={pagination.total} />
+        <TicketsTablePagination pagination={pagination} onPageChange={onPageChange} />
       )}
     </div>
   );

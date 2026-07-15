@@ -67,10 +67,10 @@ export default function PropertiesPanel({
           onChange={(e) => onStatusChange && onStatusChange(e.target.value)}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         >
-          <option value="Open">Open</option>
-          <option value="InProgress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-          <option value="Closed">Closed</option>
+          <option className="bg-surface text-on-surface" value="Open">Open</option>
+          <option className="bg-surface text-on-surface" value="InProgress">In Progress</option>
+          <option className="bg-surface text-on-surface" value="Resolved">Resolved</option>
+          <option className="bg-surface text-on-surface" value="Closed">Closed</option>
         </select>
       </div>
 
@@ -113,9 +113,9 @@ export default function PropertiesPanel({
           onChange={(e) => onAssigneeChange && onAssigneeChange(e.target.value)}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         >
-          <option value="unassigned">Unassigned</option>
+          <option className="bg-surface text-on-surface" value="unassigned">Unassigned</option>
           {agents.map((a) => (
-            <option key={a.id || a.documentId} value={a.documentId || a.id}>
+            <option className="bg-surface text-on-surface" key={a.id || a.documentId} value={a.documentId || a.id}>
               {a.username}
             </option>
           ))}

@@ -17,8 +17,8 @@ export default function NotificationBell({ dropdownPosition = "right-0 mt-2" }) 
   const roleType = user?.role?.type || (user?.role && user?.role.name ? user.role.name.toLowerCase() : 'authenticated');
 
   useEffect(() => {
-    if (user?.id) {
-      initialize(user.id);
+    if (user) {
+      initialize(user.documentId || user.id);
     }
   }, [user, initialize]);
 

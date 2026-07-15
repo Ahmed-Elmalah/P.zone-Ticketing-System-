@@ -23,18 +23,24 @@ export default function Tickets() {
   const [search, setSearch] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [priorityFilter, setPriorityFilter] = React.useState("all");
+  const [currentPage, setCurrentPage] = React.useState(1);
   
-  // Load tickets whenever the active tab, filters, or user changes
+  // Load tickets whenever the active tab, filters, page, or user changes
   useEffect(() => {
     if (user?.id) {
-      loadQueue(user.documentId || user.id, 1, {
+      loadQueue(user.documentId || user.id, currentPage, {
         search,
         status: statusFilter,
         priority: priorityFilter
       });
       loadUrgentCount(); // Load urgent count to show in the badge
     }
-  }, [activeTab, search, statusFilter, priorityFilter, user?.id, loadQueue, user?.documentId, loadUrgentCount]);
+  }, [activeTab, search, statusFilter, priorityFilter, currentPage, user?.id, loadQueue, user?.documentId, loadUrgentCount]);
+
+  // Reset to page 1 when filters or tabs change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, search, statusFilter, priorityFilter]);
 
   const handleAssignToMe = async (ticketId) => {
     try {
@@ -96,6 +102,7 @@ export default function Tickets() {
         activeTab={activeTab} 
         onAssignMe={handleAssignToMe}
         pagination={pagination}
+        onPageChange={setCurrentPage}
       />
     </main>
   );
