@@ -1,4 +1,5 @@
 import React from "react";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function TicketSidebar({ ticket, usersList, onUpdate }) {
   // Extract lists for dropdowns (Assuming help desk agents are those with help or admin roles)
@@ -15,16 +16,18 @@ export default function TicketSidebar({ ticket, usersList, onUpdate }) {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Status
         </label>
-        <select 
+        <CustomDropdown
+          variant="form"
+          searchable={false}
           value={ticket.state || "Open"} 
-          onChange={(e) => onUpdate({ state: e.target.value })}
-          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
-        >
-          <option value="Open">Open</option>
-          <option value="InProgress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-          <option value="Closed">Closed</option>
-        </select>
+          onChange={(val) => onUpdate({ state: val })}
+          options={[
+            { value: "Open", label: "Open" },
+            { value: "InProgress", label: "In Progress" },
+            { value: "Resolved", label: "Resolved" },
+            { value: "Closed", label: "Closed" },
+          ]}
+        />
       </div>
 
       {/* Priority Dropdown */}
@@ -32,16 +35,18 @@ export default function TicketSidebar({ ticket, usersList, onUpdate }) {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Priority
         </label>
-        <select 
+        <CustomDropdown
+          variant="form"
+          searchable={false}
           value={ticket.priority || "Low"}
-          onChange={(e) => onUpdate({ priority: e.target.value })}
-          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-          <option value="Critical">Critical</option>
-        </select>
+          onChange={(val) => onUpdate({ priority: val })}
+          options={[
+            { value: "Low", label: "Low" },
+            { value: "Medium", label: "Medium" },
+            { value: "High", label: "High" },
+            { value: "Critical", label: "Critical" },
+          ]}
+        />
       </div>
 
       {/* Assignee Dropdown */}
@@ -49,21 +54,20 @@ export default function TicketSidebar({ ticket, usersList, onUpdate }) {
         <label className="font-label-md text-label-md text-on-surface-variant">
           Assignee
         </label>
-        <select 
+        <CustomDropdown
+          variant="form"
+          searchable={true}
           value={ticket.assignee?.documentId || ticket.assignee?.id || "unassigned"}
-          onChange={(e) => {
-            const val = e.target.value;
-            onUpdate({ assignee: val === "unassigned" ? null : val });
-          }}
-          className="bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow shadow-sm cursor-pointer"
-        >
-          <option value="unassigned">Unassigned</option>
-          {agentUsers.map(agent => (
-            <option key={agent.id} value={agent.documentId || agent.id}>
-              {agent.username} ({agent.role?.name})
-            </option>
-          ))}
-        </select>
+          onChange={(val) => onUpdate({ assignee: val === "unassigned" ? null : val })}
+          placeholder="Unassigned"
+          options={[
+            { value: "unassigned", label: "Unassigned" },
+            ...agentUsers.map(agent => ({
+              value: agent.documentId || agent.id,
+              label: `${agent.username} (${agent.role?.name || "Agent"})`,
+            })),
+          ]}
+        />
       </div>
 
       {/* Requester Info */}

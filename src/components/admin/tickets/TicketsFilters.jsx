@@ -1,4 +1,5 @@
 import React from "react";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function TicketsFilters({
   statusFilter, onStatusFilter,
@@ -24,55 +25,65 @@ export default function TicketsFilters({
       {/* ── Filters Group ── */}
       <div className="flex flex-wrap gap-md items-center">
         {/* Status Filter */}
-        <select 
+        <CustomDropdown
           value={statusFilter}
-          onChange={(e) => onStatusFilter(e.target.value)}
-          className="bg-surface border border-outline-variant rounded-md px-md py-sm text-sm font-body-md focus:ring-2 focus:ring-primary focus:border-primary min-w-40 outline-none"
-        >
-          <option value="">Status: All</option>
-          <option value="Open">Open</option>
-          <option value="InProgress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-          <option value="Closed">Closed</option>
-        </select>
+          onChange={onStatusFilter}
+          placeholder="Status: All"
+          searchable={false}
+          options={[
+            { value: "", label: "Status: All" },
+            { value: "Open", label: "Open" },
+            { value: "InProgress", label: "In Progress" },
+            { value: "Resolved", label: "Resolved" },
+            { value: "Closed", label: "Closed" },
+          ]}
+        />
 
         {/* Category Filter */}
-        <select 
+        <CustomDropdown
           value={categoryFilter}
-          onChange={(e) => onCategoryFilter(e.target.value)}
-          className="bg-surface border border-outline-variant rounded-md px-md py-sm text-sm font-body-md focus:ring-2 focus:ring-primary focus:border-primary min-w-40 outline-none"
-        >
-          <option value="">Category: All</option>
-          {categories.map((c) => (
-            <option key={c.documentId || c.id} value={c.documentId || c.id}>{c.name || c.title}</option>
-          ))}
-        </select>
+          onChange={onCategoryFilter}
+          placeholder="Category: All"
+          searchable={true}
+          options={[
+            { value: "", label: "Category: All" },
+            ...categories.map((c) => ({
+              value: c.documentId || c.id,
+              label: c.name || c.title,
+            })),
+          ]}
+        />
 
         {/* Priority Filter */}
-        <select 
+        <CustomDropdown
           value={priorityFilter}
-          onChange={(e) => onPriorityFilter(e.target.value)}
-          className="bg-surface border border-outline-variant rounded-md px-md py-sm text-sm font-body-md focus:ring-2 focus:ring-primary focus:border-primary min-w-40 outline-none"
-        >
-          <option value="">Priority: All</option>
-          <option value="Critical">Critical</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
+          onChange={onPriorityFilter}
+          placeholder="Priority: All"
+          searchable={false}
+          options={[
+            { value: "", label: "Priority: All" },
+            { value: "Critical", label: "Critical" },
+            { value: "High", label: "High" },
+            { value: "Medium", label: "Medium" },
+            { value: "Low", label: "Low" },
+          ]}
+        />
 
         {/* Assignee Filter */}
-        <select 
+        <CustomDropdown
           value={assigneeFilter}
-          onChange={(e) => onAssigneeFilter(e.target.value)}
-          className="bg-surface border border-outline-variant rounded-md px-md py-sm text-sm font-body-md focus:ring-2 focus:ring-primary focus:border-primary min-w-40 outline-none"
-        >
-          <option value="">Assignee: Anyone</option>
-          <option value="unassigned">Unassigned</option>
-          {agentsOnly.map((a) => (
-            <option key={a.documentId || a.id} value={a.documentId || a.id}>{a.username}</option>
-          ))}
-        </select>
+          onChange={onAssigneeFilter}
+          placeholder="Assignee: Anyone"
+          searchable={true}
+          options={[
+            { value: "", label: "Assignee: Anyone" },
+            { value: "unassigned", label: "Unassigned" },
+            ...agentsOnly.map((a) => ({
+              value: a.documentId || a.id,
+              label: a.username,
+            })),
+          ]}
+        />
       </div>
     </div>
   );

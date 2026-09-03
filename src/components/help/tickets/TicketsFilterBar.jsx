@@ -1,5 +1,6 @@
 import React from "react";
 import { MdSearch } from "react-icons/md";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function TicketsFilterBar({
   search, onSearch,
@@ -42,18 +43,19 @@ export default function TicketsFilterBar({
           >
             Status
           </label>
-          <select
-            className="bg-surface-container-low border-none rounded-lg py-3 pl-4 pr-10 text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary cursor-pointer min-w-40 outline-none"
-            id="filter-status"
+          <CustomDropdown
             value={statusFilter}
-            onChange={(e) => onStatusFilter(e.target.value)}
-          >
-            <option value="all">All Statuses</option>
-            <option value="Open">Open</option>
-            <option value="InProgress">In Progress</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Closed">Closed</option>
-          </select>
+            onChange={onStatusFilter}
+            placeholder="All Statuses"
+            searchable={false}
+            options={[
+              { value: "all", label: "All Statuses" },
+              { value: "Open", label: "Open" },
+              { value: "InProgress", label: "In Progress" },
+              { value: "Resolved", label: "Resolved" },
+              { value: "Closed", label: "Closed" },
+            ]}
+          />
         </div>
 
         {/* Priority Dropdown */}
@@ -64,18 +66,19 @@ export default function TicketsFilterBar({
           >
             Priority
           </label>
-          <select
-            className="bg-surface-container-low border-none rounded-lg py-3 pl-4 pr-10 text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary cursor-pointer min-w-40 outline-none"
-            id="filter-priority"
+          <CustomDropdown
             value={priorityFilter}
-            onChange={(e) => onPriorityFilter(e.target.value)}
-          >
-            <option value="all">All Priorities</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-            <option value="Critical">Critical</option>
-          </select>
+            onChange={onPriorityFilter}
+            placeholder="All Priorities"
+            searchable={false}
+            options={[
+              { value: "all", label: "All Priorities" },
+              { value: "Critical", label: "Critical" },
+              { value: "High", label: "High" },
+              { value: "Medium", label: "Medium" },
+              { value: "Low", label: "Low" },
+            ]}
+          />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import TicketsFilters from "../../components/admin/tickets/TicketsFilters";
 import TicketsGrid from "../../components/admin/tickets/TicketsGrid";
 import TopHeader from "../../components/admin/shared/TopHeader";
 import { MdAdd } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useTicketStore from "../../store/useTicketStore";
 import useAdminStore from "../../store/useAdminStore";
 
@@ -11,16 +11,31 @@ const PAGE_SIZE = 10;
 
 export default function AdminTickets() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { tickets, fetchTickets, isLoading, pagination } = useTicketStore();
   const { categories, fetchCategories, fetchUsers, users } = useAdminStore();
 
+  const urlStatus = searchParams.get("status");
+  // If ?status=all -> show all ("")
+  // If ?status=Open/Resolved -> show that status
+  // If NO status parameter in URL -> DEFAULT TO "Open"!
+  const initialStatus = urlStatus === "all" ? "" : (urlStatus || "Open");
+
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState(initialStatus);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
   const [assigneeFilter, setAssigneeFilter] = useState("");
   const [sortBy, setSortBy] = useState("createdAt:desc");
   const [page, setPage] = useState(1);
+
+  // Sync state if URL query param changes (e.g., clicking browser back/forward or from dashboard)
+  useEffect(() => {
+    const currentUrlStatus = searchParams.get("status");
+    const targetStatus = currentUrlStatus === "all" ? "" : (currentUrlStatus || "Open");
+    setStatusFilter(targetStatus);
+    setPage(1);
+  }, [searchParams]);
 
   // Build Strapi query params and fetch
   const loadTickets = useCallback(() => {
@@ -116,7 +131,11 @@ export default function AdminTickets() {
           {/* 1. Page Header & Filters */}
           <TicketsFilters 
             statusFilter={statusFilter}
-            onStatusFilter={(v) => { setStatusFilter(v); setPage(1); }}
+            onStatusFilter={(v) => {
+              setStatusFilter(v);
+              setPage(1);
+              setSearchParams(v ? { status: v } : { status: "all" });
+            }}
             categoryFilter={categoryFilter}
             onCategoryFilter={(v) => { setCategoryFilter(v); setPage(1); }}
             priorityFilter={priorityFilter}

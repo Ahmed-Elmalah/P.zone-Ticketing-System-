@@ -13,6 +13,7 @@ import { MdExpandMore, MdCloudUpload, MdInsertDriveFile, MdClose } from "react-i
 
 import SubjectField from "./SubjectField";
 import CategoryField from "./CategoryField";
+import PriorityField from "./PriorityField";
 import DescriptionField from "./DescriptionField";
 
 import useTicketStore from "../../../store/useTicketStore";
@@ -113,40 +114,7 @@ export default function NewTicketForm() {
           <SubjectField />
           <CategoryField />
 
-          {/* Priority Field */}
-          <div className="flex flex-col gap-sm">
-            <label
-              htmlFor="priority"
-              className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
-            >
-              Priority
-            </label>
-            <div className="relative">
-              <Field
-                as="select"
-                id="priority"
-                name="priority"
-                className="w-full bg-surface-container-low focus:bg-surface-container-lowest
-                  border border-transparent focus:border-primary rounded-lg px-md py-3
-                  font-body-md text-body-md text-on-surface transition-all outline-none
-                  appearance-none cursor-pointer"
-              >
-                {PRIORITY_OPTIONS.map((p) => (
-                  <option key={p} value={p}>{p}</option>
-                ))}
-              </Field>
-              <MdExpandMore
-                size={20}
-                className="absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
-              />
-            </div>
-            <ErrorMessage
-              name="priority"
-              component="p"
-              className="text-error font-body-md text-body-md"
-            />
-          </div>
-
+          <PriorityField />
           <DescriptionField />
 
           {/* Attachments Zone */}

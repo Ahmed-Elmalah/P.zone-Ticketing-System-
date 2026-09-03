@@ -1,8 +1,11 @@
 import React from "react";
 import { MdTrendingUp } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function KpiGrid({ stats, isLoading }) {
-  // KPI Data source
+  const navigate = useNavigate();
+
+  // KPI Data source with navigation links
   const kpis = [
     {
       title: "Total Tickets",
@@ -12,6 +15,7 @@ export default function KpiGrid({ stats, isLoading }) {
       iconFilter:
         "brightness(0) saturate(100%) invert(20%) sepia(85%) saturate(3020%) hue-rotate(215deg) brightness(95%) contrast(104%)",
       iconBg: "bg-primary-container/10",
+      link: "/admin/tickets?status=all",
     },
     {
       title: "Open Tickets",
@@ -21,6 +25,7 @@ export default function KpiGrid({ stats, isLoading }) {
       iconFilter:
         "brightness(0) saturate(100%) invert(24%) sepia(99%) saturate(1814%) hue-rotate(15deg) brightness(95%) contrast(101%)",
       iconBg: "bg-tertiary-container/10",
+      link: "/admin/tickets?status=Open",
     },
     {
       title: "Resolved Tickets",
@@ -30,6 +35,7 @@ export default function KpiGrid({ stats, isLoading }) {
       iconFilter:
         "brightness(0) saturate(100%) invert(32%) sepia(74%) saturate(628%) hue-rotate(114deg) brightness(96%) contrast(101%)",
       iconBg: "bg-secondary-container/10",
+      link: "/admin/tickets?status=Resolved",
     },
     {
       title: "Total Users",
@@ -39,6 +45,7 @@ export default function KpiGrid({ stats, isLoading }) {
       iconFilter:
         "brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1400%) hue-rotate(190deg) brightness(90%) contrast(85%)",
       iconBg: "bg-surface-container-high",
+      link: "/admin/users",
     },
   ];
 
@@ -59,7 +66,8 @@ export default function KpiGrid({ stats, isLoading }) {
         {kpis.map((item, index) => (
           <div
             key={index}
-            className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between"
+            onClick={() => item.link && navigate(item.link)}
+            className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between cursor-pointer hover:shadow-md hover:-translate-y-1 hover:border-primary/40 active:scale-[0.99] transition-all group"
           >
             {/* Card Header: Icon & Badge */}
             <div className="flex justify-between items-start mb-md">

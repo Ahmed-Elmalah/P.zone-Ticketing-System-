@@ -4,13 +4,14 @@
 // Add/remove categories from the CATEGORIES array below.
 // ============================================================
 
-import { Field, ErrorMessage } from "formik";
-import { MdExpandMore } from "react-icons/md";
+import { useFormikContext, ErrorMessage } from "formik";
 import { useEffect } from "react";
 import useAdminStore from "../../../store/useAdminStore";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function CategoryField() {
   const { categories, fetchCategories, isLoadingCategories } = useAdminStore();
+  const { values, setFieldValue } = useFormikContext();
 
   useEffect(() => {
     fetchCategories();
@@ -26,35 +27,19 @@ export default function CategoryField() {
         Category
       </label>
 
-      {/* Select wrapper — relative for the chevron icon */}
+      {/* Custom Dropdown wrapper */}
       <div className="relative">
-        <Field
-          as="select"
-          id="category"
-          name="category"
-          className="w-full bg-surface-container-low focus:bg-surface-container-lowest
-            border border-transparent focus:border-primary
-            rounded-lg px-md py-3 font-body-md text-body-md text-on-surface
-            transition-all outline-none appearance-none cursor-pointer"
+        <CustomDropdown
+          variant="form"
+          searchable={true}
           disabled={isLoadingCategories}
-        >
-          {/* Default placeholder option */}
-          <option value="" disabled>
-            {isLoadingCategories ? "Loading categories..." : "Select a category"}
-          </option>
-
-          {/* Dynamic options */}
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.documentId || cat.id}>
-              {cat.name}
-            </option>
-          ))}
-        </Field>
-
-        {/* Chevron icon — pointer-events-none so it doesn't block clicks */}
-        <MdExpandMore
-          size={20}
-          className="absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
+          placeholder={isLoadingCategories ? "Loading categories..." : "Select a category"}
+          value={values.category}
+          onChange={(val) => setFieldValue("category", val)}
+          options={categories.map((cat) => ({
+            value: cat.documentId || cat.id,
+            label: cat.name,
+          }))}
         />
       </div>
 

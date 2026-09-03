@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import TicketsHeader from "../../components/help/tickets/TicketsHeader";
 import TicketsFilterBar from "../../components/help/tickets/TicketsFilterBar";
 import TicketsTable from "../../components/help/tickets/TicketsTable";
@@ -7,6 +8,7 @@ import { useAuthStore } from "../../auth/authStore";
 import { toast } from "react-hot-toast";
 
 export default function Tickets() {
+  const [searchParams] = useSearchParams();
   const { user } = useAuthStore();
   const { 
     queueTickets, 
@@ -19,6 +21,14 @@ export default function Tickets() {
     urgentCount,
     loadUrgentCount
   } = useHelpStore();
+
+  // Sync tab from URL if present
+  useEffect(() => {
+    const urlTab = searchParams.get("tab");
+    if (urlTab && ["unassigned", "mine", "urgent", "resolved"].includes(urlTab)) {
+      setActiveTab(urlTab);
+    }
+  }, [searchParams, setActiveTab]);
 
   const [search, setSearch] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState("all");

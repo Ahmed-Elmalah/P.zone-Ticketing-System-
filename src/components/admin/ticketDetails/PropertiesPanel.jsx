@@ -18,6 +18,7 @@ import {
   MdPersonAdd,
   MdKeyboardDoubleArrowUp,
 } from "react-icons/md";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 // Section header — reused in every card
 function SectionLabel({ children }) {
@@ -47,79 +48,39 @@ export default function PropertiesPanel({
     // Natural height — no scroll, no max-h
     <div className="w-full flex flex-col gap-md">
       {/* ── Status card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm relative overflow-hidden">
+      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-xs">
         <SectionLabel>Status</SectionLabel>
-        <div
-          className="flex items-center justify-between p-sm bg-surface-container-low
-          border border-outline-variant rounded-lg group hover:bg-surface-container transition-colors"
-        >
-          <div className="flex items-center gap-sm">
-            <div className="w-3 h-3 rounded-full bg-primary animate-pulse shrink-0" />
-            <span className="font-button-text text-on-surface capitalize">
-              {status === "InProgress" ? "In Progress" : status}
-            </span>
-          </div>
-          <MdExpandMore size={20} className="text-outline shrink-0 group-hover:text-primary transition-colors" />
-        </div>
-        {/* Invisible absolute select overlays the entire card to make it fully clickable */}
-        <select 
+        <CustomDropdown
+          variant="card"
+          searchable={false}
           value={status === "In Progress" ? "InProgress" : status}
-          onChange={(e) => onStatusChange && onStatusChange(e.target.value)}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-        >
-          <option className="bg-surface text-on-surface" value="Open">Open</option>
-          <option className="bg-surface text-on-surface" value="InProgress">In Progress</option>
-          <option className="bg-surface text-on-surface" value="Resolved">Resolved</option>
-          <option className="bg-surface text-on-surface" value="Closed">Closed</option>
-        </select>
+          onChange={(val) => onStatusChange && onStatusChange(val)}
+          options={[
+            { value: "Open", label: "Open" },
+            { value: "InProgress", label: "In Progress" },
+            { value: "Resolved", label: "Resolved" },
+            { value: "Closed", label: "Closed" },
+          ]}
+        />
       </div>
 
       {/* ── Assignee card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm relative overflow-hidden">
+      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-xs">
         <SectionLabel>Assignee</SectionLabel>
-        <div
-          className="flex items-center justify-between p-sm border border-outline-variant
-          rounded-lg hover:bg-surface-container-low transition-colors group bg-surface-container-low"
-        >
-          <div className="flex items-center gap-sm">
-            <div
-              className="w-6 h-6 rounded-full overflow-hidden border border-outline-variant
-              bg-surface-variant flex items-center justify-center"
-            >
-              {assignee.avatar ? (
-                <img
-                  src={assignee.avatar}
-                  alt={assignee.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <span className="text-[10px] font-bold text-on-surface-variant">
-                  {assignee.name[0]?.toUpperCase()}
-                </span>
-              )}
-            </div>
-            <span className="font-button-text text-on-surface">
-              {assignee.name}
-            </span>
-          </div>
-          <MdPersonAdd
-            size={18}
-            className="text-outline group-hover:text-primary transition-colors shrink-0"
-          />
-        </div>
-        {/* Invisible select for assignee */}
-        <select 
+        <CustomDropdown
+          variant="card"
+          searchable={true}
           value={assignee.id || "unassigned"}
-          onChange={(e) => onAssigneeChange && onAssigneeChange(e.target.value)}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-        >
-          <option className="bg-surface text-on-surface" value="unassigned">Unassigned</option>
-          {agents.map((a) => (
-            <option className="bg-surface text-on-surface" key={a.id || a.documentId} value={a.documentId || a.id}>
-              {a.username}
-            </option>
-          ))}
-        </select>
+          onChange={(val) => onAssigneeChange && onAssigneeChange(val)}
+          placeholder="Unassigned"
+          options={[
+            { value: "unassigned", label: "Unassigned" },
+            ...agents.map((a) => ({
+              value: a.documentId || a.id,
+              label: a.username,
+            })),
+          ]}
+        />
       </div>
 
       {/* ── Details card: priority + category ── */}

@@ -13,7 +13,7 @@ import { ticketRepo } from "../../../api/ticketRepo";
 import { messageRepo } from "../../../api/messageRepo";
 import axiosInstance from "../../../api/axiosConfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import SearchableSelect from "../../shared/SearchableSelect";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function AdminNewTicketForm() {
   const navigate = useNavigate();
@@ -147,16 +147,17 @@ export default function AdminNewTicketForm() {
           Requester / Employee
         </label>
         <div className="relative">
-          <SearchableSelect
+          <CustomDropdown
+            variant="form"
+            searchable={true}
             options={normalUsers.map((u) => ({
               value: u.documentId || u.id,
               label: `${u.employeeId ? `${u.employeeId} ` : ""}${u.username} (${u.email})`
             }))}
             value={formData.requesterId}
             onChange={(val) => handleChange({ target: { name: "requesterId", value: val } })}
-            placeholder="Select User..."
-            required={true}
-            name="requesterId"
+            placeholder="Select User / Employee..."
+            disabled={isLoading}
           />
         </div>
         <p className="text-[11px] text-on-surface-variant px-1 italic">
@@ -193,23 +194,18 @@ export default function AdminNewTicketForm() {
           >
             Category
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
-            id="category"
-            name="category"
+          <CustomDropdown
+            variant="form"
+            searchable={true}
             value={formData.category}
-            onChange={handleChange}
+            onChange={(val) => handleChange({ target: { name: "category", value: val } })}
+            placeholder="Select category..."
             disabled={isLoading}
-          >
-            <option value="" disabled>
-              Select category
-            </option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.documentId || c.id}>
-                {c.name || c.title}
-              </option>
-            ))}
-          </select>
+            options={categories.map((c) => ({
+              value: c.documentId || c.id,
+              label: c.name || c.title,
+            }))}
+          />
         </div>
 
         <div className="flex flex-col gap-xs">
@@ -219,19 +215,19 @@ export default function AdminNewTicketForm() {
           >
             Priority
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
-            id="priority"
-            name="priority"
+          <CustomDropdown
+            variant="form"
+            searchable={false}
             value={formData.priority}
-            onChange={handleChange}
+            onChange={(val) => handleChange({ target: { name: "priority", value: val } })}
             disabled={isLoading}
-          >
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-            <option value="Critical">Critical</option>
-          </select>
+            options={[
+              { value: "Low", label: "Low" },
+              { value: "Medium", label: "Medium" },
+              { value: "High", label: "High" },
+              { value: "Critical", label: "Critical" },
+            ]}
+          />
         </div>
 
         <div className="flex flex-col gap-xs">
@@ -241,21 +237,21 @@ export default function AdminNewTicketForm() {
           >
             Assign To
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md cursor-pointer"
-            id="assignee"
-            name="assignee"
+          <CustomDropdown
+            variant="form"
+            searchable={true}
             value={formData.assignee}
-            onChange={handleChange}
+            onChange={(val) => handleChange({ target: { name: "assignee", value: val } })}
+            placeholder="Assign To..."
             disabled={isLoading}
-          >
-            <option value="unassigned">Unassigned (Queue)</option>
-            {agentsOnly.map((a) => (
-              <option key={a.id} value={a.documentId || a.id}>
-                {a.username} ({a.role?.name})
-              </option>
-            ))}
-          </select>
+            options={[
+              { value: "unassigned", label: "Unassigned (Queue)" },
+              ...agentsOnly.map((a) => ({
+                value: a.documentId || a.id,
+                label: `${a.username} (${a.role?.name || "Agent"})`,
+              })),
+            ]}
+          />
         </div>
 
         <div className="flex flex-col gap-xs">

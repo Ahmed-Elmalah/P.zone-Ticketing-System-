@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdAttachment, MdAssignmentTurnedIn } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function TicketDetailsForm() {
   const navigate = useNavigate();
+  const [category, setCategory] = useState("");
+  const [priority, setPriority] = useState("medium");
+  const [assignee, setAssignee] = useState("me");
+
   return (
     <form className="p-xl space-y-xl" onSubmit={(e) => e.preventDefault()}>
       {/* ── 2-Column Grid for Ticket Meta Data ── */}
@@ -33,20 +38,19 @@ export default function TicketDetailsForm() {
           >
             Category
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
-            id="category"
-            name="category"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select category
-            </option>
-            <option>Hardware Repair</option>
-            <option>Software Installation</option>
-            <option>Network Connectivity</option>
-            <option>Access Management</option>
-          </select>
+          <CustomDropdown
+            variant="form"
+            searchable={true}
+            value={category}
+            onChange={setCategory}
+            placeholder="Select category"
+            options={[
+              { value: "hardware", label: "Hardware Repair" },
+              { value: "software", label: "Software Installation" },
+              { value: "network", label: "Network Connectivity" },
+              { value: "access", label: "Access Management" },
+            ]}
+          />
         </div>
 
         {/* Priority */}
@@ -57,17 +61,18 @@ export default function TicketDetailsForm() {
           >
             Priority
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
-            id="priority"
-            name="priority"
-            defaultValue="medium"
-          >
-            <option value="low">Low - General Inquiry</option>
-            <option value="medium">Medium - Default</option>
-            <option value="high">High - Impacting Work</option>
-            <option value="critical">Critical - System Down</option>
-          </select>
+          <CustomDropdown
+            variant="form"
+            searchable={false}
+            value={priority}
+            onChange={setPriority}
+            options={[
+              { value: "low", label: "Low - General Inquiry" },
+              { value: "medium", label: "Medium - Default" },
+              { value: "high", label: "High - Impacting Work" },
+              { value: "critical", label: "Critical - System Down" },
+            ]}
+          />
         </div>
 
         {/* Assignee */}
@@ -78,16 +83,18 @@ export default function TicketDetailsForm() {
           >
             Assign To
           </label>
-          <select
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
-            id="assignee"
-            defaultValue="me"
-          >
-            <option value="unassigned">Unassigned (Queue)</option>
-            <option value="me">Me (Assign to self)</option>
-            <option value="level2">Level 2 Support</option>
-            <option value="security">Security Team</option>
-          </select>
+          <CustomDropdown
+            variant="form"
+            searchable={true}
+            value={assignee}
+            onChange={setAssignee}
+            options={[
+              { value: "unassigned", label: "Unassigned (Queue)" },
+              { value: "me", label: "Me (Assign to self)" },
+              { value: "level2", label: "Level 2 Support" },
+              { value: "security", label: "Security Team" },
+            ]}
+          />
         </div>
 
         {/* Assets/Hardware */}

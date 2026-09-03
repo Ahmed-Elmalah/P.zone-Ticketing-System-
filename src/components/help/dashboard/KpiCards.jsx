@@ -1,7 +1,10 @@
 import React from "react";
 import { MdInbox, MdAssignmentInd, MdWarning } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 }, isLoading }) {
+  const navigate = useNavigate();
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
@@ -26,6 +29,7 @@ export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 }
       icon: MdInbox,
       colorClass: "bg-surface-container-low text-on-surface",
       iconColor: "text-primary",
+      tab: "unassigned",
     },
     {
       id: "mine",
@@ -34,6 +38,7 @@ export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 }
       icon: MdAssignmentInd,
       colorClass: "bg-primary-container text-on-primary-container",
       iconColor: "text-primary",
+      tab: "mine",
     },
     {
       id: "urgent",
@@ -42,6 +47,7 @@ export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 }
       icon: MdWarning,
       colorClass: stats.urgent > 0 ? "bg-error-container text-on-error-container" : "bg-surface-container-low text-on-surface-variant",
       iconColor: stats.urgent > 0 ? "text-error" : "text-on-surface-variant",
+      tab: "urgent",
     },
   ];
 
@@ -50,7 +56,8 @@ export default function KpiCards({ stats = { unassigned: 0, mine: 0, urgent: 0 }
       {cards.map((card) => (
         <div
           key={card.id}
-          className={`p-lg rounded-2xl flex items-center justify-between shadow-sm border border-outline-variant/30 transition-transform hover:-translate-y-1 ${card.colorClass}`}
+          onClick={() => navigate(`/help/tickets?tab=${card.tab}`)}
+          className={`p-lg rounded-2xl flex items-center justify-between shadow-sm border border-outline-variant/30 transition-transform hover:-translate-y-1 hover:shadow-md cursor-pointer active:scale-[0.99] ${card.colorClass}`}
         >
           <div className="flex flex-col gap-1">
             <span className="font-label-lg text-label-lg uppercase tracking-wide opacity-80">

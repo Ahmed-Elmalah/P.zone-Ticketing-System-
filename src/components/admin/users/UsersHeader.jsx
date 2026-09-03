@@ -1,5 +1,5 @@
 import React from "react";
-import { MdFilterList } from "react-icons/md";
+import CustomDropdown from "../../shared/CustomDropdown";
 
 export default function UsersHeader({ roles = [], roleFilter, setRoleFilter }) {
   // Exclude 'Public' from filters
@@ -20,21 +20,19 @@ export default function UsersHeader({ roles = [], roleFilter, setRoleFilter }) {
       
       {/* ── Action Buttons ── */}
       <div className="flex gap-sm items-center">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
-            <MdFilterList size={18} />
-          </div>
-          <select 
-            value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value)}
-            className="pl-9 pr-8 py-2 border border-outline-variant rounded-lg font-button-text text-on-surface hover:bg-surface-container transition-colors bg-surface-container-lowest shadow-sm appearance-none outline-none focus:border-primary"
-          >
-            <option value="All">All Roles</option>
-            {filterRoles.map(role => (
-              <option key={role.id} value={role.name}>{role.name}</option>
-            ))}
-          </select>
-        </div>
+        <CustomDropdown
+          value={roleFilter}
+          onChange={setRoleFilter}
+          placeholder="All Roles"
+          searchable={false}
+          options={[
+            { value: "All", label: "All Roles" },
+            ...filterRoles.map((role) => ({
+              value: role.name,
+              label: role.name,
+            })),
+          ]}
+        />
       </div>
 
     </div>
