@@ -67,7 +67,7 @@ export default function RoleAssignment({
 
   return (
     <div>
-      <h3 className="font-headline-md text-headline-md text-on-surface mb-sm">
+      <h3 className="font-headline-md font-black tracking-tight text-headline-md text-on-surface mb-sm">
         Role Assignment
       </h3>
       <p className="font-body-md text-body-md text-on-surface-variant mb-lg">

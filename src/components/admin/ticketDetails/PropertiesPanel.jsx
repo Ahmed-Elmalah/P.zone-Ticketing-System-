@@ -23,7 +23,7 @@ import CustomDropdown from "../../shared/CustomDropdown";
 // Section header — reused in every card
 function SectionLabel({ children }) {
   return (
-    <h4 className="font-label-md text-on-surface-variant mb-sm uppercase tracking-widest">
+    <h4 className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant mb-sm">
       {children}
     </h4>
   );
@@ -48,7 +48,7 @@ export default function PropertiesPanel({
     // Natural height — no scroll, no max-h
     <div className="w-full flex flex-col gap-md">
       {/* ── Status card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-xs">
+      <div className="glass-card border border-outline-variant rounded-2xl p-md flex flex-col gap-xs">
         <SectionLabel>Status</SectionLabel>
         <CustomDropdown
           variant="card"
@@ -65,7 +65,7 @@ export default function PropertiesPanel({
       </div>
 
       {/* ── Assignee card ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-xs">
+      <div className="glass-card border border-outline-variant rounded-2xl p-md flex flex-col gap-xs">
         <SectionLabel>Assignee</SectionLabel>
         <CustomDropdown
           variant="card"
@@ -84,7 +84,7 @@ export default function PropertiesPanel({
       </div>
 
       {/* ── Details card: priority + category ── */}
-      <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-md">
+      <div className="glass-card border border-outline-variant rounded-2xl p-md flex flex-col gap-md">
         <div>
           <SectionLabel>Priority</SectionLabel>
           <div className="flex items-center gap-sm">
@@ -99,7 +99,7 @@ export default function PropertiesPanel({
           <SectionLabel>Category</SectionLabel>
           <span
             className="inline-block px-sm py-xs bg-surface-container border
-            border-outline-variant rounded text-on-surface font-body-md text-sm"
+            border-outline-variant rounded-xl text-on-surface font-body-md text-sm"
           >
             {category}
           </span>
@@ -108,12 +108,12 @@ export default function PropertiesPanel({
 
       {/* ── Requester data card ── */}
       {Object.keys(requester).length > 0 && (
-        <div className="bg-surface border border-outline-variant rounded-xl p-md shadow-sm">
+        <div className="glass-card border border-outline-variant rounded-2xl p-md">
           <SectionLabel>Requester Data</SectionLabel>
           <div className="flex flex-col gap-sm">
             {Object.entries(requester).map(([key, value]) => (
               <div key={key} className="flex justify-between items-center">
-                <span className="font-label-md text-on-surface-variant capitalize">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant capitalize">
                   {key}
                 </span>
                 <span className="font-body-md text-on-surface font-semibold">
@@ -127,3 +127,4 @@ export default function PropertiesPanel({
     </div>
   );
 }
+

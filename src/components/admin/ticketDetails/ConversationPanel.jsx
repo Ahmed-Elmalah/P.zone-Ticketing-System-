@@ -23,15 +23,15 @@ export default function ConversationPanel({ messages = [], onSend }) {
 
   return (
     <div
-      className="flex-1 w-full flex flex-col bg-surface border border-outline-variant
-      rounded-xl shadow-sm overflow-hidden"
+      className="flex-1 w-full flex flex-col glass-card border border-outline-variant
+      rounded-2xl overflow-hidden"
     >
       {/* ── Header with filter controls ── */}
       <div
         className="p-md border-b border-outline-variant bg-surface-container-low
         flex justify-between items-center"
       >
-        <h3 className="font-headline-md text-headline-md text-on-surface">
+        <h3 className="font-bold text-on-surface text-headline-md">
           Conversation
         </h3>
        

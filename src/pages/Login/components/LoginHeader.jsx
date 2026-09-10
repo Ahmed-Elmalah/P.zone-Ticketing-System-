@@ -13,7 +13,7 @@ export default function LoginHeader() {
       <img src={Logo} alt="P.ZONE TICKETING SYSTEM" className="h-12 object-contain mb-sm" />
 
       {/* Title */}
-      <h1 className="font-headline-lg text-headline-lg text-on-surface">
+      <h1 className="font-headline-lg text-headline-lg text-on-surface font-black tracking-tight">
         P.ZONE TICKETING SYSTEM
       </h1>
 

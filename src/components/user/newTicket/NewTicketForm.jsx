@@ -119,7 +119,7 @@ export default function NewTicketForm() {
 
           {/* Attachments Zone */}
           <div className="flex flex-col gap-sm">
-            <span className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
               Attachments
             </span>
             <div
@@ -127,14 +127,14 @@ export default function NewTicketForm() {
               onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
               onDragLeave={() => setIsDragging(false)}
               onDrop={(e) => { e.preventDefault(); setIsDragging(false); addFiles(e.dataTransfer.files); }}
-              className={`w-full border-2 border-dashed rounded-xl p-10 flex flex-col items-center
+              className={`w-full border-2 border-dashed rounded-2xl p-10 flex flex-col items-center
                 justify-center cursor-pointer group transition-all
                 ${isDragging
                   ? "border-primary bg-surface-container-low"
                   : "border-outline-variant bg-surface-container-low hover:bg-surface-container-lowest hover:border-primary"
                 }`}
             >
-              <div className="h-16 w-16 rounded-full bg-primary-container text-on-primary flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+              <div className="h-16 w-16 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 text-white flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
                 <MdCloudUpload size={32} />
               </div>
               <p className="font-body-md text-body-md font-semibold text-on-surface mb-xs">
@@ -159,7 +159,7 @@ export default function NewTicketForm() {
                 {files.map((file) => (
                   <li
                     key={file.name}
-                    className="flex items-center justify-between px-md py-sm bg-surface-container-low rounded-lg border border-outline-variant"
+                    className="flex items-center justify-between px-md py-sm bg-surface-container-low rounded-xl border border-outline-variant"
                   >
                     <div className="flex items-center gap-sm text-on-surface">
                       <MdInsertDriveFile size={18} className="text-primary" />
@@ -186,16 +186,14 @@ export default function NewTicketForm() {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="px-lg py-sm rounded-lg font-button-text text-button-text text-on-surface-variant hover:bg-surface-container-high transition-colors"
+              className="px-lg py-sm rounded-xl font-button-text text-button-text text-on-surface-variant hover:bg-surface-container-high transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-primary text-on-primary px-xl py-sm rounded-lg font-button-text
-                text-button-text hover:bg-on-primary-fixed-variant transition-colors shadow-sm
-                flex items-center gap-sm disabled:opacity-60 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white px-xl py-sm rounded-xl font-extrabold shadow-[0_2px_8px_rgba(79,70,229,0.25)] hover:brightness-110 transition-all flex items-center gap-sm disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <>

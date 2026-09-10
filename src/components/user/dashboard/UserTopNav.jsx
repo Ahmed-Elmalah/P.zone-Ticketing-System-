@@ -39,7 +39,7 @@ export default function UserTopNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-surface-container-lowest w-full top-0 sticky border-b border-outline-variant z-50">
+    <nav className="bg-surface-container-lowest/90 backdrop-blur-xl w-full top-0 sticky border-b border-outline-variant z-50">
       <div className="flex justify-between items-center px-margin-desktop py-md max-w-360 mx-auto">
         {/* ── Left Side: Logo + Desktop Links ── */}
         <div className="flex items-center gap-xl">
@@ -64,11 +64,11 @@ export default function UserTopNav() {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `font-body-md text-body-md font-semibold pb-1 transition-colors
+                  `font-body-md text-body-md pb-1 transition-colors
                   ${
                     isActive
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-on-surface-variant hover:text-primary"
+                      ? "text-primary border-b-2 border-primary font-bold"
+                      : "text-on-surface-variant hover:text-primary font-semibold"
                   }`
                 }
               >
@@ -83,9 +83,9 @@ export default function UserTopNav() {
           {/* Desktop Actions — hidden on mobile */}
           <button
             onClick={() => navigate("tickets/new")}
-            className="hidden lg:flex bg-primary text-on-primary px-lg py-sm rounded-lg
-              font-button-text text-button-text hover:bg-on-primary-fixed-variant
-              transition-colors items-center gap-sm shadow-sm"
+            className="hidden lg:flex bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white px-lg py-sm rounded-xl
+              font-extrabold text-button-text hover:brightness-110
+              transition-all items-center gap-sm shadow-[0_2px_8px_rgba(79,70,229,0.25)]"
           >
             <MdAdd size={18} />
             New Ticket
@@ -100,7 +100,7 @@ export default function UserTopNav() {
           {/* User avatar — hidden on mobile */}
           <div
             onClick={() => navigate("profile")}
-            className="hidden md:flex h-8 w-8 rounded-full bg-primary-container text-on-primary-container
+            className="hidden md:flex h-8 w-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 text-white
             items-center justify-center font-bold border border-outline-variant cursor-pointer"
           >
             <span className="font-label-md text-label-md">
@@ -136,7 +136,7 @@ export default function UserTopNav() {
       {/* ── Mobile Dropdown Menu with Smooth Animation ── */}
       {/* Removed {isOpen && ...} so the close transition can actually play */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-surface-container-lowest border-t border-outline-variant px-margin-desktop py-md shadow-lg flex flex-col gap-md z-50 
+        className={`md:hidden absolute top-full left-0 right-0 backdrop-blur-xl bg-surface-container-lowest/95 border-t border-outline-variant px-margin-desktop py-md shadow-2xl rounded-b-2xl flex flex-col gap-md z-50 
           transition-all duration-300 ease-in-out
           ${
             isOpen
@@ -152,11 +152,11 @@ export default function UserTopNav() {
                 to={link.to}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `block font-body-md text-body-md font-semibold py-sm transition-colors
+                  `block font-body-md text-body-md py-sm transition-colors
                   ${
                     isActive
-                      ? "text-primary pl-xs border-l-2 border-primary"
-                      : "text-on-surface-variant hover:text-primary"
+                      ? "text-primary pl-xs border-l-2 border-primary font-bold"
+                      : "text-on-surface-variant hover:text-primary font-semibold"
                   }`
                 }
               >
@@ -172,9 +172,9 @@ export default function UserTopNav() {
             navigate("/user/tickets/new");
             setIsOpen(false);
           }}
-          className="lg:hidden w-full justify-center bg-primary text-on-primary px-lg py-sm rounded-lg
-            font-button-text text-button-text hover:bg-on-primary-fixed-variant
-            transition-colors flex items-center gap-sm shadow-sm mt-xs"
+          className="lg:hidden w-full justify-center bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white px-lg py-sm rounded-xl
+            font-extrabold text-button-text hover:brightness-110
+            transition-all flex items-center gap-sm shadow-[0_2px_8px_rgba(79,70,229,0.25)] mt-xs"
         >
           <MdAdd size={18} />
           New Ticket
@@ -193,7 +193,7 @@ export default function UserTopNav() {
             className="flex items-center gap-sm"
           >
             <div
-              className="h-9 w-9 rounded-full bg-primary-container text-on-primary-container
+              className="h-9 w-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 text-white
               flex items-center justify-center font-bold border border-outline-variant shadow-sm cursor-pointer"
             >
               <span className="font-label-md text-label-md">

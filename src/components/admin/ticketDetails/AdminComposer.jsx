@@ -39,10 +39,10 @@ export default function AdminComposer({ onSend }) {
   };
 
   return (
-    <div className="p-md border-t border-outline-variant bg-surface-container-lowest">
+    <div className="p-md border-t border-outline-variant glass-card rounded-2xl mt-2 mb-2 mx-2">
       <div
-        className="border border-outline-variant rounded-lg overflow-hidden
-        focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent
+        className="border border-outline-variant rounded-xl overflow-hidden
+        focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary
         transition-shadow"
       >
         {/* ── Textarea ── */}
@@ -52,18 +52,18 @@ export default function AdminComposer({ onSend }) {
           onKeyDown={handleKeyDown}
           rows={3}
           placeholder="Type your reply... (Ctrl+Enter to send)"
-          className="w-full bg-surface p-sm font-body-md text-body-md text-on-surface
+          className="w-full bg-surface-container-low p-sm font-body-md text-body-md text-on-surface
             border-none focus:ring-0 resize-none outline-none
             placeholder:text-on-surface-variant"
         />
 
         {/* ── Footer: internal note toggle + send ── */}
-        <div className="bg-surface px-sm py-sm flex justify-between items-center border-t border-outline-variant">
+        <div className="bg-surface-container-low px-sm py-sm flex justify-between items-center border-t border-outline-variant">
           <div className="flex items-center gap-md">
             <button
               type="button"
               title="Attach file"
-              className="p-xs text-on-surface-variant hover:bg-surface-container-high rounded"
+              className="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-xl"
             >
               <MdAttachFile size={20} />
             </button>
@@ -76,7 +76,7 @@ export default function AdminComposer({ onSend }) {
                 className="rounded text-primary focus:ring-primary h-3 w-3
                   bg-surface-container border-outline-variant"
               />
-              <span className="font-label-md text-on-surface-variant text-[11px]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
                 Internal Note Only
               </span>
             </label>
@@ -87,8 +87,8 @@ export default function AdminComposer({ onSend }) {
             type="button"
             onClick={handleSend}
             disabled={!reply.trim()}
-            className="px-lg py-sm bg-primary text-on-primary rounded-md font-button-text
-              hover:opacity-90 transition-opacity flex items-center gap-sm
+            className="px-lg py-sm bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white rounded-xl font-extrabold
+              hover:opacity-90 transition-opacity flex items-center gap-sm shadow-sm
               disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send

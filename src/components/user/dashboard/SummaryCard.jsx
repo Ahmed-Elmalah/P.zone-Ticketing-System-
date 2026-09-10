@@ -41,7 +41,7 @@ export default function SummaryCard({
 
   return (
     <div
-      className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant
+      className="bg-surface-container-lowest rounded-2xl glass-card border border-outline-variant
       p-lg relative overflow-hidden group hover:shadow-md transition-shadow"
     >
       {/* Left accent bar */}
@@ -50,10 +50,10 @@ export default function SummaryCard({
       {/* Top row: label + icon */}
       <div className="flex justify-between items-start">
         <div>
-          <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-xs">
+          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant mb-xs">
             {label}
           </p>
-          <h2 className="text-4xl font-bold text-on-surface font-headline-md tracking-tight">
+          <h2 className="text-4xl font-extrabold text-on-surface tracking-tight">
             {count}
           </h2>
         </div>

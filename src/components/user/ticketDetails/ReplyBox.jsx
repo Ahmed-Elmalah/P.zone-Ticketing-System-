@@ -55,15 +55,15 @@ export default function ReplyBox({ onSend }) {
 
         {/* Textarea + toolbar wrapper */}
         <div
-          className="relative bg-surface-container-lowest rounded-lg border border-outline-variant
-          focus-within:border-primary focus-within:ring-1 focus-within:ring-primary
+          className="relative glass-card rounded-2xl border border-outline-variant
+          focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20
           transition-all overflow-hidden shadow-sm flex flex-col"
         >
           {/* Selected Files Area */}
           {files.length > 0 && (
             <div className="p-sm flex gap-sm flex-wrap border-b border-outline-variant/30 bg-surface-container-lowest">
               {files.map((file, index) => (
-                <div key={index} className="flex items-center gap-xs bg-surface-variant text-on-surface-variant px-xs py-1 rounded text-[11px] font-label-md border border-outline-variant/50">
+                <div key={index} className="flex items-center gap-xs bg-surface-variant text-on-surface-variant px-xs py-1 rounded-xl text-[11px] font-label-md border border-outline-variant/50">
                   <span className="truncate max-w-[150px]">{file.name}</span>
                   <button onClick={() => removeFile(index)} className="hover:text-error text-on-surface-variant">
                     <MdClose size={12} />
@@ -120,8 +120,8 @@ export default function ReplyBox({ onSend }) {
               type="button"
               onClick={handleSend}
               disabled={!reply.trim() && files.length === 0}
-              className="bg-primary text-on-primary font-button-text text-button-text
-                py-2 px-lg rounded-lg shadow-sm hover:bg-on-primary-fixed-variant
+              className="bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white font-extrabold
+                py-2 px-lg rounded-xl shadow-[0_2px_8px_rgba(79,70,229,0.25)] hover:brightness-110
                 transition-all flex items-center gap-sm
                 disabled:opacity-50 disabled:cursor-not-allowed"
             >

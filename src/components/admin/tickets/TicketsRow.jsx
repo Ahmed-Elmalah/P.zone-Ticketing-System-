@@ -84,7 +84,7 @@ export default function TicketsRow({ ticket }) {
       {/* Status Badge */}
       <td className="p-md">
         <span
-          className={`bg-surface-container-low text-on-surface-variant border border-outline-variant/50 font-label-md px-2.5 py-1 rounded-md inline-flex items-center gap-1`}
+          className={`bg-surface-container-low text-on-surface-variant border border-outline-variant/50 text-xs font-bold px-2.5 py-1 rounded-lg inline-flex items-center gap-1`}
         >
           <span
             className={`w-1.5 h-1.5 rounded-full ${status === 'Open' ? 'bg-primary' : status === 'Resolved' ? 'bg-secondary' : 'bg-outline'}`}
@@ -108,7 +108,7 @@ export default function TicketsRow({ ticket }) {
       {/* Priority */}
       <td className="p-md text-right relative">
         <span
-          className={`${priorityCfg.className} font-label-md px-2.5 py-1 rounded-md border inline-flex items-center gap-1`}
+          className={`${priorityCfg.className} text-xs font-bold px-2.5 py-1 rounded-lg border inline-flex items-center gap-1`}
         >
           <span className={`w-1.5 h-1.5 rounded-full ${priorityCfg.dot}`}></span>
           {ticket.priority || "Medium"}

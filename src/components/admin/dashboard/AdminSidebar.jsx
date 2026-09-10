@@ -54,14 +54,16 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
       {/* ── Sidebar ── */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 flex flex-col
-          bg-surface-container-low border-r border-outline-variant
+          fixed z-50 flex flex-col
           transition-transform duration-300 ease-in-out
 
-          w-70
-          ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+          /* Mobile styles (drawer) */
+          inset-y-0 left-0 bg-surface-container-low border-r border-outline-variant
+          w-70 ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
 
-          md:translate-x-0 md:w-16
+          /* Tablet/Desktop styles (floating glass island) */
+          md:translate-x-0 md:inset-auto md:top-4 md:left-4 md:bottom-4 md:rounded-[24px] md:border-0 md:glass-card md:!bg-transparent
+          md:w-16
           lg:w-70
         `}
       >
@@ -106,7 +108,7 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
               title={label} // tooltip on tablet hover
               onClick={onClose} // close drawer when nav item tapped on mobile
               className={({ isActive }) => `
-                flex items-center gap-sm py-3 px-lg rounded-lg
+                flex items-center gap-sm py-3 px-lg rounded-xl
                 font-button-text text-button-text transition-colors
 
                 md:px-0 md:justify-center md:gap-0
@@ -114,8 +116,8 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
 
                 ${
                   isActive
-                    ? "bg-primary-container text-white"
-                    : "text-on-surface-variant hover:bg-surface-container-high"
+                    ? "bg-primary/10 text-primary border border-primary/20"
+                    : "text-on-surface-variant hover:bg-surface-container-high border border-transparent"
                 }
               `}
             >
@@ -136,8 +138,8 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
             }}
             title="New Ticket"
             className="w-full flex items-center justify-center gap-sm py-3
-              bg-primary text-on-primary rounded-lg font-button-text text-button-text
-              hover:opacity-90 transition-all shadow-sm"
+              bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white rounded-xl font-button-text font-extrabold text-button-text
+              hover:brightness-110 transition-all shadow-[0_2px_8px_rgba(79,70,229,0.25)]"
           >
             <MdAdd size={20} />
             {/* Text hidden on tablet */}
@@ -152,10 +154,10 @@ export default function AdminSidebar({ isMobileOpen, onClose }) {
             {/* Avatar + username */}
             <div onClick={()=> navigate('profile')} className="flex cursor-pointer items-center gap-sm">
               <div
-                className="w-8 h-8 rounded-full bg-primary-container border border-outline-variant
+                className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 text-white border border-outline-variant
                 flex items-center justify-center overflow-hidden shrink-0"
               >
-                <span className="font-label-md text-label-md text-on-primary-container">
+                <span className="font-label-md text-label-md">
                   {user?.username?.[0]?.toUpperCase() || "A"}
                 </span>
               </div>

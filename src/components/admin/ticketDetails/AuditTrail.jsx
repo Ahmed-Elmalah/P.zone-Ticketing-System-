@@ -11,12 +11,12 @@
 export default function AuditTrail({ events = [] }) {
   return (
     <div
-      className="w-full flex flex-col bg-surface border border-outline-variant
-      rounded-xl shadow-sm overflow-hidden"
+      className="w-full flex flex-col glass-card border border-outline-variant
+      rounded-2xl overflow-hidden"
     >
       {/* ── Header ── */}
       <div className="p-md border-b border-outline-variant bg-surface-container-low">
-        <h3 className="font-headline-md text-headline-md text-on-surface">
+        <h3 className="font-bold text-on-surface text-headline-md">
           Audit Trail
         </h3>
       </div>
@@ -44,7 +44,7 @@ export default function AuditTrail({ events = [] }) {
 
               {/* Event content */}
               <div className="flex flex-col gap-xs">
-                <span className="font-label-md text-on-surface-variant text-[10px]">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant">
                   {event.time}
                 </span>
                 {/* description can be a string or JSX with styled spans */}

@@ -41,7 +41,7 @@ export default function UsersRow({ user }) {
       
       {/* ── Role Badge ── */}
       <td className="py-md px-md">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-md text-label-md shadow-sm bg-surface-container-high border border-outline-variant text-on-surface">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold shadow-sm bg-surface-container-high border border-outline-variant text-on-surface">
           {roleName}
         </span>
       </td>

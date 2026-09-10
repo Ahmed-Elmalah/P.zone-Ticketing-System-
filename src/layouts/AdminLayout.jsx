@@ -33,14 +33,14 @@ export default function AdminLayout() {
       {/*
         Padding left accounts for sidebar width:
           mobile  → pl-0  (sidebar is overlay, not in flow)
-          tablet  → pl-16 (icon-only sidebar = 4rem)
-          desktop → pl-70 (full sidebar = 17.5rem)
+          tablet  → pl-20 (icon-only sidebar + gap)
+          desktop → pl-[296px] (full sidebar + gap)
       */}
-      <div className="flex-1 pl-0 md:pl-16 lg:pl-70 flex flex-col min-h-screen w-full">
+      <div className="flex-1 pl-0 md:pl-20 lg:pl-[296px] flex flex-col min-h-screen w-full">
         {/* ── Mobile top bar — burger + brand ── */}
         {/* Only rendered on mobile; hidden on tablet+ */}
         <header
-          className="md:hidden sticky top-0 z-30 bg-surface-container-lowest
+          className="md:hidden sticky top-0 z-30 backdrop-blur-xl bg-surface-container-lowest/90
           border-b border-outline-variant px-md py-sm
           flex items-center justify-between"
         >

@@ -39,9 +39,9 @@ export default function ITCategoriesSettings() {
 
   return (
     <>
-      <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
+      <div className="bg-surface rounded-2xl glass-card border border-outline-variant max-w-4xl overflow-hidden">
         <div className="p-lg border-b border-outline-variant bg-surface-container-low">
-          <h3 className="font-headline-md text-on-surface">Manage IT Categories</h3>
+          <h3 className="font-headline-md font-black tracking-tight text-on-surface">Manage IT Categories</h3>
           <p className="font-body-md text-on-surface-variant mt-1">
             Organize and structure support request categories.
           </p>
@@ -50,7 +50,7 @@ export default function ITCategoriesSettings() {
         {isAdding && (
           <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
             <div className="flex-1 w-full">
-              <label className="font-label-md text-outline mb-xs block">Category Name</label>
+              <label className="mb-xs block text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Category Name</label>
               <input
                 type="text"
                 required
@@ -64,7 +64,7 @@ export default function ITCategoriesSettings() {
               <button type="button" onClick={() => setIsAdding(false)} className="px-md py-sm text-on-surface-variant hover:bg-surface-container rounded-lg font-button-text">
                 Cancel
               </button>
-              <button type="submit" className="px-md py-sm bg-primary text-on-primary rounded-lg font-button-text">
+              <button type="submit" className="px-md py-sm bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white rounded-xl font-extrabold font-button-text">
                 Save
               </button>
             </div>

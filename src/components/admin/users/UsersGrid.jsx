@@ -38,7 +38,7 @@ export default function UsersGrid({ searchTerm = "", roleFilter = "All" }) {
   const currentUsers = filteredUsers.slice(startIndex, endIndex);
 
   return (
-    <div className="bg-surface rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col flex-1">
+    <div className="bg-surface rounded-2xl glass-card border border-outline-variant shadow-sm overflow-hidden flex flex-col flex-1">
       
       {/* ── Table Container ── */}
       <div className="overflow-x-auto">
@@ -46,10 +46,10 @@ export default function UsersGrid({ searchTerm = "", roleFilter = "All" }) {
           
           {/* Table Header */}
           <thead>
-            <tr className="bg-surface-container-low border-b border-outline-variant">
-              <th className="py-3 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-left">User Details</th>
-              <th className="py-3 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-left">Role</th>
-              <th className="py-3 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-left">Status</th>
+            <tr className="bg-surface-container-low border-b border-outline-variant backdrop-blur-sm">
+              <th className="py-3 px-md text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50 text-left">User Details</th>
+              <th className="py-3 px-md text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50 text-left">Role</th>
+              <th className="py-3 px-md text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50 text-left">Status</th>
             </tr>
           </thead>
           
@@ -70,7 +70,7 @@ export default function UsersGrid({ searchTerm = "", roleFilter = "All" }) {
       </div>
 
       {/* ── Pagination Footer ── */}
-      <div className="border-t border-outline-variant bg-surface-container-low px-md py-3 flex items-center justify-between mt-auto">
+      <div className="border-t border-outline-variant bg-surface-container-low px-md py-3 flex items-center justify-between mt-auto rounded-b-2xl">
         <span className="font-body-md text-body-md text-on-surface-variant">
           Showing {filteredUsers.length > 0 ? startIndex + 1 : 0} to {Math.min(endIndex, filteredUsers.length)} of {filteredUsers.length} users
         </span>

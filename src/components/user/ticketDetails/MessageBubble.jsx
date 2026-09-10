@@ -85,10 +85,10 @@ export default function MessageBubble({
           className={`p-md shadow-sm
           ${
             isInternal
-              ? "bg-secondary-container text-on-secondary-container border border-secondary/30 rounded-lg rounded-tr-none"
+              ? "bg-secondary-container text-on-secondary-container border border-secondary/30 rounded-2xl rounded-tr-none"
               : isOwnMessage
-              ? "bg-primary text-on-primary rounded-lg rounded-tr-none"
-              : "bg-surface border border-outline-variant rounded-lg rounded-tl-none"
+              ? "bg-primary text-on-primary rounded-2xl rounded-tr-none"
+              : "glass-card border border-outline-variant rounded-2xl rounded-tl-none"
           }`}
         >
           {/* Paragraph lines */}

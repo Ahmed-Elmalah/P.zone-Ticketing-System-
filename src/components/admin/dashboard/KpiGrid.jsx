@@ -67,11 +67,11 @@ export default function KpiGrid({ stats, isLoading }) {
           <div
             key={index}
             onClick={() => item.link && navigate(item.link)}
-            className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between cursor-pointer hover:shadow-md hover:-translate-y-1 hover:border-primary/40 active:scale-[0.99] transition-all group"
+            className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col justify-between cursor-pointer hover:border-primary/30 hover:-translate-y-0.5 active:scale-[0.99] transition-all duration-300 group"
           >
             {/* Card Header: Icon & Badge */}
             <div className="flex justify-between items-start mb-md">
-              <div className={`p-sm rounded-lg ${item.iconBg}`}>
+              <div className={`p-sm rounded-xl ${item.iconBg}`}>
                 <img
                   alt={item.title}
                   className="w-8 h-8 object-contain"
@@ -90,10 +90,10 @@ export default function KpiGrid({ stats, isLoading }) {
 
             {/* Card Body */}
             <div>
-              <p className="font-label-md text-label-md text-outline uppercase tracking-wider mb-xs">
+              <p className="text-[10px] font-bold uppercase tracking-widest font-mono text-on-surface-variant mb-xs">
                 {item.title}
               </p>
-              <h3 className="font-headline-lg text-headline-lg text-on-surface">
+              <h3 className="font-headline-lg text-headline-lg font-extrabold text-on-surface">
                 {item.value}
               </h3>
             </div>

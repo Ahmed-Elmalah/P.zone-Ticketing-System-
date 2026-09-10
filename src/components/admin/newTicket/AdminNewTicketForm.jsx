@@ -136,11 +136,11 @@ export default function AdminNewTicketForm() {
   };
 
   return (
-    <form className="p-xl space-y-xl bg-surface rounded-xl border border-outline-variant shadow-sm" onSubmit={handleSubmit}>
+    <form className="p-xl space-y-xl glass-card rounded-2xl border border-outline-variant" onSubmit={handleSubmit}>
       {/* ── Requester Search Section ── */}
       <div className="bg-primary/5 border border-primary/10 rounded-xl p-lg space-y-xs transition-colors hover:bg-primary/8">
         <label
-          className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider flex items-center gap-2"
+          className="text-[11px] font-bold uppercase tracking-wider text-primary flex items-center gap-2"
           htmlFor="requesterId"
         >
           <MdPersonSearch size={20} />
@@ -170,13 +170,13 @@ export default function AdminNewTicketForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
         <div className="md:col-span-2 flex flex-col gap-xs">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="subject"
           >
             Subject
           </label>
           <input
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
+            className="w-full bg-surface-container-low rounded-xl border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
             id="subject"
             name="subject"
             placeholder="Summary of the technical issue"
@@ -189,7 +189,7 @@ export default function AdminNewTicketForm() {
 
         <div className="flex flex-col gap-xs">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="category"
           >
             Category
@@ -210,7 +210,7 @@ export default function AdminNewTicketForm() {
 
         <div className="flex flex-col gap-xs">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="priority"
           >
             Priority
@@ -232,7 +232,7 @@ export default function AdminNewTicketForm() {
 
         <div className="flex flex-col gap-xs">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="assignee"
           >
             Assign To
@@ -256,13 +256,13 @@ export default function AdminNewTicketForm() {
 
         <div className="flex flex-col gap-xs">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="asset"
           >
             Affected Asset
           </label>
           <input
-            className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
+            className="w-full bg-surface-container-low rounded-xl border border-outline-variant px-md py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md"
             id="asset"
             name="asset"
             value={formData.asset}
@@ -276,13 +276,13 @@ export default function AdminNewTicketForm() {
       {/* ── Description field ── */}
       <div className="flex flex-col gap-xs">
         <label
-          className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+          className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
           htmlFor="description"
         >
           Detailed Description
         </label>
         <textarea
-          className="w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-3 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md resize-none"
+          className="w-full bg-surface-container-low rounded-xl border border-outline-variant px-md py-3 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-on-surface font-body-md resize-none"
           id="description"
           name="description"
           value={formData.description}
@@ -296,7 +296,7 @@ export default function AdminNewTicketForm() {
 
       {/* ── File Upload Drop Zone ── */}
       <div className="flex flex-col gap-xs">
-        <label className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">
+        <label className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
           Attachments
         </label>
 
@@ -330,13 +330,13 @@ export default function AdminNewTicketForm() {
             {files.map((file, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center p-2 bg-surface-container rounded-lg border border-outline-variant text-sm text-on-surface"
+                className="flex justify-between items-center p-2 bg-surface-container rounded-xl border border-outline-variant text-sm text-on-surface"
               >
                 <span className="truncate max-w-[80%]">{file.name}</span>
                 <button
                   type="button"
                   onClick={() => removeFile(index)}
-                  className="text-error hover:bg-error/10 p-1 rounded transition-colors"
+                  className="text-error hover:bg-error/10 p-1 rounded-xl transition-colors"
                   disabled={isLoading}
                 >
                   <MdClose size={16} />
@@ -351,17 +351,17 @@ export default function AdminNewTicketForm() {
       <div className="flex flex-col gap-xs">
         <div className="flex justify-between items-center">
           <label
-            className="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider"
+            className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
             htmlFor="internalNote"
           >
             Internal Notes
           </label>
-          <span className="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded uppercase font-bold">
+          <span className="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-lg uppercase font-bold">
             Agents Only
           </span>
         </div>
         <textarea
-          className="w-full bg-surface-container-lowest rounded-lg border border-outline-variant px-md py-2 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all text-on-surface font-body-md italic placeholder:text-on-surface-variant/40"
+          className="w-full bg-surface-container-lowest rounded-xl border border-outline-variant px-md py-2 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all text-on-surface font-body-md italic placeholder:text-on-surface-variant/40"
           id="internalNote"
           name="internalNote"
           value={formData.internalNote}
@@ -376,7 +376,7 @@ export default function AdminNewTicketForm() {
       <div className="flex justify-end items-center gap-md pt-lg border-t border-outline-variant mt-lg">
         <button
           onClick={() => navigate(-1)}
-          className="px-xl py-2.5 rounded-lg font-button-text text-button-text text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 disabled:opacity-50"
+          className="px-xl py-2.5 rounded-xl font-button-text text-button-text text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 disabled:opacity-50"
           type="button"
           disabled={isLoading}
         >
@@ -384,7 +384,7 @@ export default function AdminNewTicketForm() {
         </button>
         <button
           disabled={isLoading}
-          className="bg-primary text-on-primary px-xl py-2.5 rounded-lg font-button-text text-button-text hover:bg-surface-tint transition-all flex items-center gap-sm shadow-md cursor-pointer active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white px-xl py-2.5 rounded-xl font-extrabold hover:opacity-90 transition-all flex items-center gap-sm shadow-sm cursor-pointer active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           type="submit"
         >
           {isLoading ? (

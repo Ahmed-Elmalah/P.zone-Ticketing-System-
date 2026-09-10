@@ -4,31 +4,31 @@ import TicketsPagination from "./TicketsPagination";
 
 export default function TicketsGrid({ tickets = [], isLoading = false, pagination, page, setPage, pageSize }) {
   return (
-    <div className="bg-surface rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+    <div className="bg-surface rounded-2xl glass-card border border-outline-variant shadow-sm overflow-hidden flex flex-col">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="rounded-2xl glass-card" className="w-full text-left border-collapse">
           {/* ── Table Header ── */}
-          <thead className="bg-surface-container-low border-b border-outline-variant">
+          <thead className="bg-surface-container-low border-b border-outline-variant backdrop-blur-sm text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
             <tr>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 ID
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Requester
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase w-1/3">
+              <th className="p-md text-[10px] bg-surface-container-low/50 w-1/3 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Subject
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Assignee
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Status
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Date
               </th>
-              <th className="p-md font-label-md text-label-md text-on-surface-variant uppercase text-right">
+              <th className="p-md text-[10px] bg-surface-container-low/50 text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-low/50">
                 Priority
               </th>
             </tr>

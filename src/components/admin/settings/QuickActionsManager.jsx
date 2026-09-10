@@ -24,14 +24,14 @@ export default function QuickActionsManager() {
   }
 
   return (
-    <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
-      <div className="p-lg border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+    <div className="bg-surface rounded-2xl glass-card border border-outline-variant max-w-4xl overflow-hidden">
+      <div className="p-lg border-b rounded-xl hover:bg-surface-container-low transition-colors border-outline-variant bg-surface-container-low flex justify-between items-center">
         <div className="flex items-center gap-md">
           <div className="p-sm bg-tertiary-container/20 text-tertiary rounded-lg">
             <MdLink size={24} />
           </div>
           <div>
-            <h3 className="font-headline-md text-on-surface">Quick Actions</h3>
+            <h3 className="font-headline-md font-black tracking-tight text-on-surface">Quick Actions</h3>
             <p className="font-body-md text-on-surface-variant mt-1">
               Manage helpful links shown on the user dashboard.
             </p>
@@ -48,9 +48,9 @@ export default function QuickActionsManager() {
       </div>
 
       {isAdding && (
-        <form onSubmit={handleAdd} className="p-lg border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
+        <form onSubmit={handleAdd} className="p-lg border-b rounded-xl hover:bg-surface-container-low transition-colors border-outline-variant bg-surface-container-low flex flex-col sm:flex-row gap-md items-end">
           <div className="flex-1 w-full">
-            <label className="font-label-md text-outline mb-xs block">Title</label>
+            <label className="mb-xs block text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Title</label>
             <input 
               type="text" 
               required
@@ -61,7 +61,7 @@ export default function QuickActionsManager() {
             />
           </div>
           <div className="flex-1 w-full">
-            <label className="font-label-md text-outline mb-xs block">URL</label>
+            <label className="mb-xs block text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">URL</label>
             <input 
               type="url" 
               required
@@ -102,7 +102,7 @@ export default function QuickActionsManager() {
                 </div>
                 <button 
                   onClick={() => removeQuickAction(action.documentId || action.id)}
-                  className="p-sm text-error hover:bg-error-container rounded-lg transition-colors"
+                  className="p-sm text-error hover:bg-error-container rounded-xl transition-colors"
                   title="Delete"
                 >
                   <MdDelete size={20} />

@@ -134,8 +134,8 @@ export default function AddUserForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="font-button-text text-button-text text-on-primary bg-primary
-                px-lg py-sm rounded-lg hover:opacity-90 transition-opacity
+              className="font-button-text text-button-text bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white font-extrabold
+                px-lg py-sm rounded-xl hover:opacity-90 transition-opacity
                 flex items-center gap-sm shadow-sm
                 disabled:opacity-60 disabled:cursor-not-allowed"
             >
