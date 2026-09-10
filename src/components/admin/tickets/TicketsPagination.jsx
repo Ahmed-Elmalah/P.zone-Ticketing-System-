@@ -5,7 +5,7 @@ export default function TicketsPagination({ page, setPage, totalPages, total, pa
   const end = Math.min(page * pageSize, total);
 
   return (
-    <div className="p-md border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between">
+    <div className="p-md border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between rounded-b-2xl">
       {/* Showing items count */}
       <span className="font-body-md text-on-surface-variant text-sm">
         Showing {start} to {end} of {total} tickets

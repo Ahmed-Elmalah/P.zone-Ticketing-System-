@@ -13,7 +13,7 @@ export default function DashboardHeader() {
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-md">
       <div>
-        <h1 className="font-display-sm text-display-sm md:font-display-md md:text-display-md text-on-surface font-bold">
+        <h1 className="font-display-sm font-black tracking-tight text-display-sm md:font-display-md font-black tracking-tight md:text-display-md text-on-surface font-bold">
           Welcome back, {user?.username}!
         </h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant mt-xs">

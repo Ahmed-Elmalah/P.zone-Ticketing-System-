@@ -78,7 +78,7 @@ export default function NotificationBell({ dropdownPosition = "right-0 mt-2" }) 
       {isOpen && (
         <div className={`absolute ${dropdownPosition} w-80 max-h-96 overflow-y-auto bg-surface shadow-2xl rounded-xl border border-outline-variant z-50 flex flex-col`}>
           <div className="p-4 border-b border-outline-variant sticky top-0 bg-surface/95 backdrop-blur z-10 flex items-center justify-between">
-            <h3 className="font-headline-sm text-on-surface font-bold">Notifications</h3>
+            <h3 className="font-headline-sm font-black tracking-tight text-on-surface font-bold">Notifications</h3>
             {unreadCount > 0 && (
               <span className="text-xs text-white font-medium bg-primary-container px-2 py-1 rounded-full">
                 {unreadCount} New
@@ -112,7 +112,7 @@ export default function NotificationBell({ dropdownPosition = "right-0 mt-2" }) 
                           alt={notif.sender?.username}
                         />
                       ) : (
-                        <div className="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold shadow-sm border border-primary/20">
+                        <div className="h-10 w-10 bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white rounded-xl font-extrabold -container shadow-sm border border-primary/20">
                           {initial}
                         </div>
                       )}

@@ -7,14 +7,14 @@ const TicketHeader = () => {
   return (
     <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
       <div>
-        <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+        <h1 className="font-black tracking-tight text-3xl md:text-4xl text-on-surface">
           All Tickets
         </h1>
         <p className="font-body-md text-body-md text-on-surface-variant mt-sm">
           Manage and track all customer support requests.
         </p>
       </div>
-      <Link to={'new'} className="bg-primary-container text-on-primary font-button-text text-button-text px-lg py-sm rounded-lg shadow-lg hover:bg-surface-tint transition-all flex items-center gap-sm">
+      <Link to={'new'} className="bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white font-extrabold px-lg py-sm rounded-xl shadow-[0_2px_8px_rgba(79,70,229,0.25)] hover:brightness-110 transition-all flex items-center gap-sm">
         <IoMdAdd className="text-[20px]" />
         New Ticket
       </Link>

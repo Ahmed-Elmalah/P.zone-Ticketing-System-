@@ -12,7 +12,7 @@ export default function DescriptionField() {
       {/* Label */}
       <label
         htmlFor="description"
-        className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+        className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
       >
         Description
       </label>
@@ -25,8 +25,8 @@ export default function DescriptionField() {
         rows={5}
         placeholder="Please describe your issue in detail..."
         className="w-full bg-surface-container-low focus:bg-surface-container-lowest
-          border border-transparent focus:border-primary
-          rounded-lg px-md py-3 font-body-md text-body-md text-on-surface
+          border border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20
+          rounded-xl px-md py-3 font-body-md text-body-md text-on-surface
           transition-all outline-none resize-y placeholder:text-outline"
       />
 

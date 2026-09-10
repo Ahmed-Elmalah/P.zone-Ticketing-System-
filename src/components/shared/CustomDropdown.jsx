@@ -63,12 +63,12 @@ export default function CustomDropdown({
   const getTriggerStyles = () => {
     switch (variant) {
       case "form":
-        return "w-full bg-surface-container-low rounded-lg border border-outline-variant px-md py-3 text-on-surface font-body-md text-body-md min-h-[48px] focus:border-primary focus:ring-2 focus:ring-primary/20";
+        return "w-full bg-surface-container-low rounded-xl border border-outline-variant px-md py-3 text-on-surface font-body-md text-body-md min-h-[48px] focus:border-primary focus:ring-2 focus:ring-primary/20";
       case "card":
-        return "w-full flex items-center justify-between p-sm bg-surface-container-low border border-outline-variant rounded-lg hover:bg-surface-container transition-colors";
+        return "w-full flex items-center justify-between p-sm bg-surface-container-low border border-outline-variant rounded-xl hover:bg-surface-container transition-colors";
       case "filter":
       default:
-        return "bg-surface border border-outline-variant rounded-md px-md py-sm text-sm font-body-md text-on-surface hover:bg-surface-container transition-colors focus:ring-2 focus:ring-primary min-w-40";
+        return "bg-surface border border-outline-variant rounded-xl px-md py-sm text-sm font-body-md text-on-surface hover:bg-surface-container transition-colors focus:ring-2 focus:ring-primary min-w-40";
     }
   };
 

@@ -141,14 +141,15 @@ export default function ImportUsersModal({ isOpen, onClose, roles, userRepo, onI
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div style={{ backgroundColor: '#ffffff', width: '500px', minHeight: '300px', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', color: '#000000', zIndex: 100001 }}>
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-md">
+      <div className="bg-surface-container-lowest text-on-surface rounded-2xl glass-card border border-outline-variant p-xl flex flex-col z-[100001]" style={{ width: '500px', minHeight: '300px' }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '16px', borderBottom: '1px solid #e5e7eb', marginBottom: '16px' }}>
           <h2 style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>Import Users (Excel)</h2>
           <button
             onClick={handleClose}
             disabled={isImporting}
+            className="rounded-xl"
             style={{ background: 'none', border: 'none', cursor: isImporting ? 'not-allowed' : 'pointer', opacity: isImporting ? 0.5 : 1 }}
           >
             <MdClose size={24} />

@@ -22,7 +22,7 @@ export default function CategoryField() {
       {/* Label */}
       <label
         htmlFor="category"
-        className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+        className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant"
       >
         Category
       </label>

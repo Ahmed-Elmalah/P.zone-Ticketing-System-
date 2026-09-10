@@ -16,7 +16,7 @@ export default function RecentTickets({ tickets = [] }) {
 
   return (
     <div
-      className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant
+      className="bg-surface-container-lowest rounded-2xl glass-card border border-outline-variant
       flex flex-col overflow-hidden"
     >
       {/* ── Header ── */}
@@ -24,7 +24,7 @@ export default function RecentTickets({ tickets = [] }) {
         className="px-lg py-md border-b border-outline-variant flex justify-between
         items-center bg-surface-bright"
       >
-        <h3 className="font-headline-md text-headline-md text-on-surface">
+        <h3 className="font-black tracking-tight text-xl text-on-surface">
           Recent Tickets
         </h3>
         <button

@@ -61,7 +61,7 @@ export default function UserDetailsHeader({
         {/* Name + role + email */}
         <div>
           <div className="flex items-center gap-sm flex-wrap">
-            <h1 className="font-headline-md text-headline-md text-on-surface">
+            <h1 className="font-headline-md font-black tracking-tight text-headline-md text-on-surface">
               {user?.username || "User"}
             </h1>
             <span

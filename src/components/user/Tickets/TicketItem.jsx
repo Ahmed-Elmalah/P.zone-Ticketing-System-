@@ -49,7 +49,7 @@ const TicketItem = ({ id, subject, category, date, status }) => {
       {/* Status Badge */}
       <div className="col-span-1 md:col-span-2 flex">
         <span
-          className={`inline-flex items-center px-sm py-xs rounded-full text-label-md font-label-md ${currentStyle.badge}`}
+          className={`inline-flex items-center px-sm py-xs rounded-lg text-xs font-bold ${currentStyle.badge}`}
         >
           <span
             className={`w-2 h-2 rounded-full mr-xs ${currentStyle.dot}`}

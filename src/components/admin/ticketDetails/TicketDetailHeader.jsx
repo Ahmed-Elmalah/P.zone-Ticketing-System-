@@ -52,12 +52,12 @@ export default function AdminTicketHeader({
           </button>
           
           <span
-            className={`px-sm py-xs rounded-md font-label-md text-[10px] uppercase tracking-wider
+            className={`px-sm py-xs rounded-lg text-xs font-bold
             ${priorityCfg.className}`}
           >
             {priorityCfg.label || priority}
           </span>
-          <span className="font-body-md text-on-surface-variant">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant">
             {ticketRef}
           </span>
         </div>
@@ -65,7 +65,7 @@ export default function AdminTicketHeader({
         {/* Title */}
         <div className="flex items-center gap-sm group cursor-pointer mt-1">
           <h2
-            className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg
+            className="font-black tracking-tight text-headline-lg-mobile md:text-headline-lg
             text-on-surface group-hover:text-primary transition-colors"
           >
             {title}

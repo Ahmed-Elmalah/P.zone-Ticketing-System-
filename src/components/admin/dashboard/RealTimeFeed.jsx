@@ -7,10 +7,10 @@ export default function RealTimeFeed({ tickets = [], isLoading }) {
   if (isLoading) {
     return (
       <div className="mt-2xl">
-        <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">
+        <h2 className="font-headline-md text-headline-md font-bold text-on-surface mb-lg">
           Real-time Feed
         </h2>
-        <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-xl animate-pulse">
+        <div className="bg-surface-container-lowest rounded-2xl glass-card border border-outline-variant p-xl animate-pulse">
           <div className="h-4 bg-surface-container-high rounded w-full mb-4"></div>
           <div className="h-4 bg-surface-container-high rounded w-3/4 mb-4"></div>
           <div className="h-4 bg-surface-container-high rounded w-1/2 mb-4"></div>
@@ -41,10 +41,10 @@ export default function RealTimeFeed({ tickets = [], isLoading }) {
 
   return (
     <div className="mt-2xl">
-      <h2 className="font-headline-md text-headline-md text-on-surface mb-lg">
+      <h2 className="font-headline-md text-headline-md font-bold text-on-surface mb-lg">
         Recent Activity
       </h2>
-      <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-x-auto">
+      <div className="bg-surface-container-lowest rounded-2xl glass-card border border-outline-variant overflow-x-auto">
         <table className="w-full text-left min-w-200">
           <thead className="bg-surface-container-low">
             <tr>
@@ -52,7 +52,7 @@ export default function RealTimeFeed({ tickets = [], isLoading }) {
                 (head, i) => (
                   <th
                     key={i}
-                    className="px-xl py-md font-label-md text-label-md text-outline uppercase"
+                    className="px-xl py-md text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant"
                   >
                     {head}
                   </th>

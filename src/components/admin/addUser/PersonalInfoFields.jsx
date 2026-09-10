@@ -12,7 +12,7 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 function FormField({ label, name, children }) {
   return (
     <div className="flex flex-col gap-sm">
-      <label className="font-label-md text-label-md text-on-surface">
+      <label className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
         {label}
       </label>
       {children}

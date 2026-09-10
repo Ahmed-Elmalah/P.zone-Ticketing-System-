@@ -37,13 +37,13 @@ export default function AnnouncementManager() {
   }
 
   return (
-    <div className="bg-surface rounded-xl shadow-sm border border-outline-variant max-w-4xl overflow-hidden">
+    <div className="bg-surface rounded-2xl glass-card border border-outline-variant max-w-4xl overflow-hidden">
       <div className="p-lg border-b border-outline-variant bg-surface-container-low flex items-center gap-md">
         <div className="p-sm bg-primary-container/20 text-primary rounded-lg">
           <MdCampaign size={24} />
         </div>
         <div>
-          <h3 className="font-headline-md text-on-surface">Global Announcement</h3>
+          <h3 className="font-headline-md font-black tracking-tight text-on-surface">Global Announcement</h3>
           <p className="font-body-md text-on-surface-variant mt-1">
             Display a site-wide banner for all users (e.g. maintenance, alerts).
           </p>
@@ -52,7 +52,7 @@ export default function AnnouncementManager() {
 
       <form onSubmit={handleSave} className="p-xl flex flex-col gap-lg">
         {/* Is Active Toggle */}
-        <label className="flex items-center gap-md cursor-pointer">
+        <label className="flex items-center gap-md cursor-pointer text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
           <div className="relative">
             <input 
               type="checkbox" 
@@ -68,7 +68,7 @@ export default function AnnouncementManager() {
 
         {/* Message */}
         <div className="flex flex-col gap-xs">
-          <label className="font-label-md text-outline">Message</label>
+          <label className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Message</label>
           <textarea
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -80,7 +80,7 @@ export default function AnnouncementManager() {
 
         {/* Type */}
         <div className="flex flex-col gap-xs">
-          <label className="font-label-md text-outline">Banner Type (Color)</label>
+          <label className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Banner Type (Color)</label>
           <div className="flex gap-md">
             {['info', 'warning', 'error'].map(type => (
               <label key={type} className={`flex-1 flex items-center justify-center gap-sm p-sm rounded-lg border cursor-pointer transition-all ${
@@ -112,7 +112,7 @@ export default function AnnouncementManager() {
           <button 
             type="submit" 
             disabled={isSaving}
-            className="flex items-center gap-sm bg-primary text-on-primary px-xl py-sm rounded-full font-button-text hover:bg-primary/90 transition-colors disabled:opacity-50"
+            className="flex items-center gap-sm bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white rounded-xl font-extrabold px-xl py-sm font-button-text hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
             {isSaving ? "Saving..." : <><MdSave size={18} /> Save Changes</>}
           </button>

@@ -7,7 +7,7 @@ export default function QuickActions({ quickActions = [] }) {
 
   return (
     <div className="flex flex-col gap-md">
-      <h3 className="font-headline-md text-headline-md text-on-surface ml-1">
+      <h3 className="font-black tracking-tight text-on-surface ml-1 text-xl">
        Quick Actions
       </h3>
       
@@ -15,9 +15,9 @@ export default function QuickActions({ quickActions = [] }) {
         {/* Main "New Ticket" button */}
         <button
           onClick={() => navigate("/user/tickets/new")}
-          className="w-full bg-primary text-on-primary py-3 px-md rounded-xl
-            font-button-text text-button-text hover:bg-on-primary-fixed-variant
-            transition-all hover:-translate-y-1 hover:shadow-md flex items-center justify-center gap-sm shadow-sm mb-sm"
+          className="w-full bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] text-white py-3 px-md rounded-xl
+            font-extrabold hover:brightness-110
+            transition-all hover:-translate-y-1 shadow-[0_2px_8px_rgba(79,70,229,0.25)] flex items-center justify-center gap-sm mb-sm"
         >
           <MdEditNote size={22} />
           Create New Ticket
@@ -30,7 +30,7 @@ export default function QuickActions({ quickActions = [] }) {
             href={action.url}
             target="_blank"
             rel="noreferrer"
-            className="w-full bg-surface-container-lowest text-on-surface border border-outline-variant p-md rounded-xl flex items-center gap-md transition-all hover:-translate-y-1 hover:shadow-md hover:border-primary/50 group"
+            className="w-full glass-card text-on-surface border border-outline-variant p-md rounded-2xl flex items-center gap-md transition-all hover:-translate-y-1 hover:shadow-md hover:border-primary/30 group"
           >
             <div className="bg-primary/10 p-2 rounded-lg text-primary group-hover:scale-110 transition-transform">
               <MdLink size={24} />

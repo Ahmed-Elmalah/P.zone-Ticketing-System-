@@ -30,7 +30,7 @@ export default function AccountStatusToggle({
       </div>
 
       {/* Toggle switch */}
-      <label className="flex items-center gap-sm cursor-pointer shrink-0 ml-lg">
+      <label className="flex items-center gap-sm cursor-pointer shrink-0 ml-lg text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
         <div
           onClick={() => !disabled && onChange("isActive", !isActive)}
           className={`relative w-11 h-6 rounded-full transition-colors duration-200

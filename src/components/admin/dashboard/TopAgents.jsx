@@ -6,7 +6,7 @@ export default function TopAgents({ agents = [], isLoading }) {
   const navigate = useNavigate();
   if (isLoading) {
     return (
-      <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col h-full animate-pulse">
+      <div className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col h-full animate-pulse">
         <div className="h-6 w-32 bg-surface-container-high rounded mb-md"></div>
         <div className="flex flex-col gap-sm">
           {[1, 2, 3].map(i => (
@@ -33,12 +33,12 @@ export default function TopAgents({ agents = [], isLoading }) {
   }) :[];
 
   return (
-    <div className="bg-surface-container-lowest p-xl rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between">
+    <div className="bg-surface-container-lowest p-xl rounded-2xl glass-card border border-outline-variant flex flex-col justify-between">
       <div className="mb-xl">
-        <h2 className="font-headline-md text-headline-md text-on-surface">
+        <h2 className="font-headline-md text-headline-md font-bold text-on-surface">
           Top Performing Agents
         </h2>
-        <p className="font-body-md text-body-md text-outline">
+        <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant">
           Highest resolution rates this period
         </p>
       </div>

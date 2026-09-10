@@ -39,14 +39,14 @@ export default function CategoryChart() {
   });
 
   return (
-    <div className="xl:col-span-2 bg-surface-container-lowest p-xl rounded-xl shadow-sm border border-outline-variant flex flex-col min-h-[450px]">
+    <div className="xl:col-span-2 bg-surface-container-lowest p-xl rounded-2xl glass-card border border-outline-variant flex flex-col min-h-[450px]">
       {/* Chart Header */}
       <div className="flex justify-between items-center mb-xl">
         <div>
-          <h2 className="font-headline-md text-headline-md text-on-surface">
+          <h2 className="font-headline-md text-headline-md font-bold text-on-surface">
             Tickets by IT Category
           </h2>
-          <p className="font-body-md text-body-md text-outline">
+          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant">
             Volume distribution across technical departments
           </p>
         </div>

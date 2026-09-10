@@ -67,14 +67,14 @@ export default function AdminMessageBubble({
             <span className="font-button-text text-on-surface">
               {senderName}
             </span>
-            <span className="font-label-md text-on-surface-variant text-[10px]">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant">
               {time}
             </span>
           </div>
           {/* Bubble */}
           <div
             className="bg-surface-container-low border border-outline-variant p-md
-            rounded-lg rounded-tl-none font-body-md text-on-surface"
+            rounded-2xl rounded-tl-none font-body-md text-on-surface shadow-sm"
           >
             {lines.map((line, i) => (
               <p key={i}>{line}</p>
@@ -111,32 +111,32 @@ export default function AdminMessageBubble({
           
           {/* Badge */}
           {isInternal ? (
-            <span className="px-sm py-0.5 rounded text-[10px] uppercase font-bold tracking-wide bg-[#006A4E] text-white">
+            <span className="px-sm py-0.5 rounded-lg text-xs uppercase font-bold tracking-wide bg-[#006A4E] text-white">
               Internal Note
             </span>
           ) : (
             <span
-              className={`px-xs py-0.5 rounded text-[9px] uppercase font-bold tracking-wide
+              className={`px-xs py-0.5 rounded-lg text-xs uppercase font-bold tracking-wide
               ${type === 'customer' ? 'bg-secondary-container text-on-secondary-container' : 'bg-primary-container text-on-primary-container'}`}
             >
               {type === 'customer' ? 'Customer' : 'Staff'}
             </span>
           )}
 
-          <span className="font-label-md text-on-surface-variant text-[10px] mt-0.5">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-on-surface-variant mt-0.5">
             {time}
           </span>
         </div>
 
         {/* Bubble */}
         <div
-          className={`p-md rounded-lg font-body-md shadow-sm max-w-[90%]
+          className={`p-md rounded-2xl font-body-md shadow-sm max-w-[90%]
           ${
             isInternal
-              ? "bg-[#6EFEB8] text-[#004D36] rounded-tl-none shadow-sm"
+              ? "bg-[#6EFEB8] text-[#004D36] rounded-tl-none"
               : isStaff
-              ? "bg-primary text-on-primary rounded-tr-none shadow-sm"
-              : "bg-surface border border-outline-variant rounded-tl-none text-on-surface"
+              ? "bg-primary text-on-primary rounded-tr-none"
+              : "glass-card rounded-tl-none text-on-surface"
           }`}
         >
           {lines.map((line, i) => (

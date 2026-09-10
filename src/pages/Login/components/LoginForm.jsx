@@ -72,7 +72,7 @@ export default function LoginForm() {
           <div className="flex flex-col gap-xs">
             <label
               htmlFor="email"
-              className="font-label-md text-label-md text-on-surface"
+              className="font-label-md text-label-md text-on-surface uppercase tracking-wider"
             >
               Email Address
             </label>
@@ -88,11 +88,11 @@ export default function LoginForm() {
                 name="email"
                 type="email"
                 placeholder="name@company.com"
-                className={`w-full bg-surface-container-low border rounded-lg py-3 pl-12 pr-md
+                className={`w-full bg-surface-container-low border rounded-xl py-3 pl-12 pr-md
                   text-on-surface placeholder:text-outline-variant
-                  focus:ring-2 focus:ring-primary transition-shadow
+                  focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all
                   font-body-md text-body-md
-                  ${errors.email && touched.email ? "border-error" : "border-transparent"}`}
+                  ${errors.email && touched.email ? "border-error" : "border-outline-variant"}`}
               />
             </div>
 
@@ -108,7 +108,7 @@ export default function LoginForm() {
           <div className="flex flex-col gap-xs">
             <label
               htmlFor="password"
-              className="font-label-md text-label-md text-on-surface"
+              className="font-label-md text-label-md text-on-surface uppercase tracking-wider"
             >
               Password
             </label>
@@ -124,11 +124,11 @@ export default function LoginForm() {
                 name="password"
                 type={!showPass ? "password" : "text"}
                 placeholder="••••••••"
-                className={`w-full bg-surface-container-low border rounded-lg py-3 pl-12 pr-md
+                className={`w-full bg-surface-container-low border rounded-xl py-3 pl-12 pr-md
                   text-on-surface placeholder:text-outline-variant
-                  focus:ring-2 focus:ring-primary transition-shadow
+                  focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all
                   font-body-md text-body-md
-                  ${errors.password && touched.password ? "border-error" : "border-transparent"}`}
+                  ${errors.password && touched.password ? "border-error" : "border-outline-variant"}`}
               />
 
               {showPass ? (
@@ -174,9 +174,9 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-primary hover:bg-on-primary-fixed-variant disabled:opacity-60 disabled:cursor-not-allowed
-              text-on-primary font-button-text text-button-text
-              py-3 rounded-lg shadow-sm hover:shadow transition-all mt-sm
+            className="w-full bg-gradient-to-r from-[#3525cd] via-[#4f46e5] to-[#712ae2] disabled:opacity-60 disabled:cursor-not-allowed
+              text-white font-extrabold text-button-text
+              py-3 rounded-xl shadow-[0_2px_8px_rgba(79,70,229,0.25)] hover:brightness-110 hover:-translate-y-0.5 active:scale-[0.99] transition-all mt-sm
               flex items-center justify-center gap-sm"
           >
             {/* Show loading spinner while waiting for API response */}

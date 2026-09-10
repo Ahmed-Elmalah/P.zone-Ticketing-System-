@@ -5,9 +5,9 @@ export default function KpiSection() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg mb-2xl">
       {/* Total Tickets */}
-      <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between">
+      <div className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col justify-between">
         <div className="flex justify-between items-start mb-md">
-          <div className="p-3 bg-primary-container/10 rounded-lg">
+          <div className="p-3 bg-primary-container/10 rounded-2xl glass-card">
             <img
               alt="icon"
               className="w-8 h-8 object-contain"
@@ -23,19 +23,19 @@ export default function KpiSection() {
           </span>
         </div>
         <div>
-          <p className="font-label-md text-label-md text-outline uppercase tracking-wider mb-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest font-mono text-on-surface-variant mb-1">
             Total Tickets
           </p>
-          <h3 className="font-headline-lg text-headline-lg text-on-surface">
+          <h3 className="font-headline-lg text-headline-lg font-extrabold text-on-surface">
             1,284
           </h3>
         </div>
       </div>
 
       {/* Avg Resolution */}
-      <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between">
+      <div className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col justify-between">
         <div className="flex justify-between items-start mb-md">
-          <div className="p-3 bg-secondary-container/10 rounded-lg">
+          <div className="p-3 bg-secondary-container/10 rounded-2xl glass-card">
             <img
               alt="icon"
               className="w-8 h-8 object-contain"
@@ -51,19 +51,19 @@ export default function KpiSection() {
           </span>
         </div>
         <div>
-          <p className="font-label-md text-label-md text-outline uppercase tracking-wider mb-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest font-mono text-on-surface-variant mb-1">
             Avg Resolution Time
           </p>
-          <h3 className="font-headline-lg text-headline-lg text-on-surface">
+          <h3 className="font-headline-lg text-headline-lg font-extrabold text-on-surface">
             2.4 Hours
           </h3>
         </div>
       </div>
 
       {/* Open IT Issues */}
-      <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between">
+      <div className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col justify-between">
         <div className="flex justify-between items-start mb-md">
-          <div className="p-3 bg-tertiary-container/10 rounded-lg">
+          <div className="p-3 bg-tertiary-container/10 rounded-2xl glass-card">
             <img
               alt="icon"
               className="w-8 h-8 object-contain"
@@ -79,19 +79,19 @@ export default function KpiSection() {
           </span>
         </div>
         <div>
-          <p className="font-label-md text-label-md text-outline uppercase tracking-wider mb-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest font-mono text-on-surface-variant mb-1">
             Open IT Issues
           </p>
-          <h3 className="font-headline-lg text-headline-lg text-on-surface">
+          <h3 className="font-headline-lg text-headline-lg font-extrabold text-on-surface">
             42
           </h3>
         </div>
       </div>
 
       {/* Active Agents */}
-      <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between">
+      <div className="bg-surface-container-lowest p-lg rounded-2xl glass-card border border-outline-variant flex flex-col justify-between">
         <div className="flex justify-between items-start mb-md">
-          <div className="p-3 bg-surface-container-high rounded-lg">
+          <div className="p-3 bg-surface-container-high rounded-2xl glass-card">
             <img
               alt="icon"
               className="w-8 h-8 object-contain"
@@ -107,10 +107,10 @@ export default function KpiSection() {
           </span>
         </div>
         <div>
-          <p className="font-label-md text-label-md text-outline uppercase tracking-wider mb-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest font-mono text-on-surface-variant mb-1">
             Active Agents
           </p>
-          <h3 className="font-headline-lg text-headline-lg text-on-surface">
+          <h3 className="font-headline-lg text-headline-lg font-extrabold text-on-surface">
             15
           </h3>
         </div>
