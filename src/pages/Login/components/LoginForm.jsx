@@ -80,7 +80,7 @@ export default function LoginForm() {
               {/* Left icon */}
               <MdEmail
                 size={20}
-                className="absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none z-10"
               />
 
               <Field
@@ -88,7 +88,7 @@ export default function LoginForm() {
                 name="email"
                 type="email"
                 placeholder="name@company.com"
-                className={`w-full bg-surface-container-low border rounded-xl py-3 pl-12 pr-md
+                className={`w-full bg-surface-container-low border rounded-xl py-3 !pl-12 !pr-4
                   text-on-surface placeholder:text-outline-variant
                   focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all
                   font-body-md text-body-md
@@ -116,7 +116,7 @@ export default function LoginForm() {
               {/* Left icon */}
               <MdLock
                 size={20}
-                className="absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none z-10"
               />
 
               <Field
@@ -124,7 +124,7 @@ export default function LoginForm() {
                 name="password"
                 type={!showPass ? "password" : "text"}
                 placeholder="••••••••"
-                className={`w-full bg-surface-container-low border rounded-xl py-3 pl-12 pr-md
+                className={`w-full bg-surface-container-low border rounded-xl py-3 !pl-12 !pr-12
                   text-on-surface placeholder:text-outline-variant
                   focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all
                   font-body-md text-body-md
@@ -134,12 +134,12 @@ export default function LoginForm() {
               {showPass ? (
                 <FaEyeSlash
                   onClick={() => setShowPass(false)}
-                  className="absolute cursor-pointer right-md top-1/2 -translate-y-1/2 text-on-surface-variant"
+                  className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-on-surface-variant z-10 hover:text-primary transition-colors"
                 />
               ) : (
                 <FaEye
                   onClick={() => setShowPass(true)}
-                  className="absolute cursor-pointer right-md top-1/2 -translate-y-1/2 text-on-surface-variant"
+                  className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-on-surface-variant z-10 hover:text-primary transition-colors"
                 />
               )}
             </div>
